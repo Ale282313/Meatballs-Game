@@ -52,6 +52,16 @@ coverage.xml
 # Django stuff:
 *.log
 
+# Flask stuff:
+db_repository/
+app.db
+
+# Virtual Env
+venv/
+
+# IDE
+.idea/
+
 # Sphinx documentation
 docs/_build/
 

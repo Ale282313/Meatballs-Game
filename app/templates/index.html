@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Index</h1>
+    {% if current_user.is_authenticated %}
+         Hi {{ current_user.username }}!
+    {% elif message %}
+        Logged out.
+    {% else %}
+        Welcome to Meatballs. Please register or login.
+    {% endif %}
+{% endblock %}

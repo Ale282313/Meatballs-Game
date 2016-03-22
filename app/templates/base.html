@@ -1,0 +1,36 @@
+<html>
+<head>
+    {% if title %}
+    <title>{{ title }} - Meatballs Game</title>
+    {% else %}
+    <title>Welcome to Meatballs!</title>
+    {% endif %}
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+
+            <li><a href="/">Home</a></li>
+
+            {% if current_user.is_authenticated == False %}
+                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+            {% endif %}
+
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('auth.logout') }}">Logout({{ current_user.username }})</a></li>
+            {% endif %}
+
+            </ul>
+        </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+    <footer>
+        <p>Copyright &copy; 2016 - Meatballs</p>
+    </footer>
+</body>
+</html>
