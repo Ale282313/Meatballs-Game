@@ -53,7 +53,7 @@ coverage.xml
 *.log
 
 # Flask stuff:
-db_repository/
+db_versions/
 app.db
 
 # Virtual Env

@@ -1,7 +1,8 @@
 from app import login_manager
-from flask import render_template
+from flask import Blueprint, render_template
 from models import User
-from . import main
+
+main = Blueprint('main', __name__)
 
 
 @login_manager.user_loader

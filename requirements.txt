@@ -1,8 +1,8 @@
 flask
-flask-script
-flask-login
-flask-sqlalchemy
-sqlalchemy-migrate
-flask-wtf
 flask-bcrypt
 flask-debugtoolbar
+flask-login
+flask-script
+flask-sqlalchemy
+flask-wtf
+sqlalchemy-migrate

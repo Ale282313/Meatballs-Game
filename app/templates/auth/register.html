@@ -8,12 +8,22 @@
 
         {{ form.username.label }}
         {{ form.username(size=30) }}
+        {% for error in form.username.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
 
         {{ form.password.label }}
         {{ form.password(size=30) }}
+        {% for error in form.password.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
 
         {{ form.confirm.label }}
         {{ form.confirm(size=30) }}
+        {% for error in form.confirm.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+
         <button type="submit">Register</button>
     </form>
 

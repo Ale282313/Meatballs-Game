@@ -26,6 +26,7 @@ class DbCreate(Command):
 class DbDowngrade(Command):
     def run(self):
         database_version = api.db_version(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
+        api.downgrade(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, database_version - 1)
         print('Current database version: ', database_version)
 
 

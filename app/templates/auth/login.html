@@ -4,16 +4,25 @@
 <section>
     <h2>Sign In</h2>
 
-    <form  method="post" action="">
+    <form  method="post" action="{{ url_for('auth.login') }}">
         {{ form.hidden_tag() }}
 
         {{ form.username.label }}
         {{ form.username(size=30) }}
 
+        {% for error in form.username.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+
         {{ form.password.label }}
         {{ form.password(size=30) }}
+        {% for error in form.password.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
         <button type="submit">Login</button>
     </form>
-
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
 </section>
 {% endblock %}}

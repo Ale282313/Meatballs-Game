@@ -1,9 +1,10 @@
-from flask import render_template, redirect, url_for
-from flask_login import login_user, logout_user
+from flask import Blueprint, render_template, redirect, url_for
+from flask_login import login_user, logout_user, login_required
 from models import User
-from . import auth
 from .forms import LoginForm, RegisterForm
 from .. import db, bcrypt
+
+auth = Blueprint('auth', __name__)
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -27,20 +28,24 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    error = None
     form = LoginForm()
-    db_user = User.query.filter_by(username=form.username.data).first()
-    if db_user:
-        if form.validate_on_submit():
-            if bcrypt.check_password_hash(db_user.password, form.password.data):
-                login_user(db_user)
-                return redirect(url_for('main.index'))
+    if form.validate_on_submit():
+        db_user = User.query.filter_by(username=form.username.data).first()
+        if db_user and bcrypt.check_password_hash(db_user.password, form.password.data):
+            login_user(db_user)
+            return redirect(url_for('main.index'))
+        else:
+            error = "Wrong username or password."
 
     return render_template('auth/login.html',
                            title='Login',
-                           form=form)
+                           form=form,
+                           error=error)
 
 
 @auth.route('/logout')
+@login_required
 def logout():
     logout_user()
     return render_template('index.html',
