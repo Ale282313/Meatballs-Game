@@ -48,5 +48,5 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return render_template('index.html',
+    return render_template('main/index.html',
                            message=True)
