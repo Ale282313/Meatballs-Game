@@ -22,3 +22,11 @@ app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
 from .main.views import main as main_blueprint
 app.register_blueprint(main_blueprint, url_prefix='/')
+
+from .user.views import user as user_blueprint
+app.register_blueprint(user_blueprint, url_prefix='/user')
+
+from .game.views import game as game_blueprint
+app.register_blueprint(game_blueprint, url_prefix='/game')
+
+

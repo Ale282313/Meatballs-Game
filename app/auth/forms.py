@@ -16,7 +16,6 @@ class RegisterForm(Form):
 
     confirm = PasswordField('Repeat Password:')
 
-
 class LoginForm(Form):
     username = StringField('Username:', validators=[
         DataRequired(),
