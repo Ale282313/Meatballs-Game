@@ -28,5 +28,3 @@ app.register_blueprint(user_blueprint, url_prefix='/user')
 
 from .game.views import game as game_blueprint
 app.register_blueprint(game_blueprint, url_prefix='/game')
-
-
