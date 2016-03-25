@@ -9,18 +9,18 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60))
     email = db.Column(db.String(120), unique=True)
     first_name = db.Column(db.String(40))
-    second_name = db.Column(db.String(40))
+    last_name = db.Column(db.String(40))
     games = db.relationship('Game',
                             secondary='player',
-                            backref=db.backref('players', lazy='dynamic'),
-                            lazy='dynamic')
+                            backref=db.backref('players', lazy='select'),
+                            lazy='select')
 
-    def __init__(self, username, password, email, first_name, second_name):
+    def __init__(self, username, password, email, first_name, last_name):
         self.username = username
         self.password = password
         self.email = email
         self.first_name = first_name
-        self.second_name = second_name
+        self.last_name = last_name
 
     def __repr__(self):
         return "user_id: {} , username: {}".format(self.id, self.username)
