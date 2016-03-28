@@ -28,7 +28,7 @@
 
     background: #4B7B4B;
     font-size: 20px;
-        color: #CBFBCB;
+    color: #CBFBCB;
 }
 .btn-main:focus{
     outline: none;
@@ -45,6 +45,22 @@
     top: 3px;
     border-color: #3E6F3E;
     height: 47px;
+}
+
+.btn-cancel{
+    background: rgb(236,100,75);
+}
+.btn-cancel:hover{
+    background: #BC6147;
+}
+
+.field-error{
+    list-style: none;
+    color: red;
+
+    margin: 0;
+    font-size: 14px;
+    text-align: center;
 }
 
 header {
