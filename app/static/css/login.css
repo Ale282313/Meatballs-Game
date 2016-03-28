@@ -23,6 +23,9 @@
     font-size: 14px;
 }
 
+.btn-login {
+    width: 100% !important;
+}
 
 
 .login-form .message {
@@ -31,6 +34,7 @@
     font-size: 14px;
     text-align: center;
 }
+
 .login-form .message a {
     color: #243C24;
     text-decoration: none;
