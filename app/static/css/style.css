@@ -11,7 +11,7 @@
 
 }
 
-.btn {
+.btn-main {
     display: block;
     height: 50px;
     width: 200px;
@@ -28,21 +28,23 @@
     background: #4B7B4B;
 }
 
-a.btn{
+a.btn-main{
     font-size: 20px;
 
     text-decoration: none;
     color: #CBFBCB;
 }
 
-a.btn:hover{
+a.btn-main:hover{
 
     background: #3E6F3E;
 }
 
-a.btn:active{
-    border-width: 4px 0px 0px 0px;
-    border-color: white;
+a.btn-main:active{
+    position: absolute;
+    top: 3px;
+    border-color: #3E6F3E;
+    height: 47px;
 }
 
 header {
