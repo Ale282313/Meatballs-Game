@@ -26,21 +26,20 @@
     border-color: #243C24;
 
     background: #4B7B4B;
-}
-
-a.btn-main{
     font-size: 20px;
-
-    text-decoration: none;
-    color: #CBFBCB;
+        color: #CBFBCB;
+}
+.btn-main:focus{
+    outline: none;
 }
 
-a.btn-main:hover{
+
+.btn-main:hover{
 
     background: #3E6F3E;
 }
 
-a.btn-main:active{
+.btn-main:active{
     position: absolute;
     top: 3px;
     border-color: #3E6F3E;
