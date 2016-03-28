@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Main page</title>
-</head>
-<body>
-    <h1> Play Button</h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% block imports %}
+<!--aici facem linkurile catre css-->
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/play.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+     <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <h2 class="title">Hello, username!</h2>
+            </div>
+     </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-3">
+            <h3 class="play">Game rules:</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 col-md-offset-3">
+            <ul class="dashed">
+                <li> Ceva </li>
+                <li> Altceva </li>
+                <li> Enriched text, a formatted text format for e-mail</li>
+                <li> Discourse (disambiguation) </li>
+            </ul>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-md-3 col-md-offset-4">
+            <a href="{{ url_for('game.meatballs_game') }}" class="btn-main">Play</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -12,9 +12,13 @@ def load_user(user_id):
 
 @main.route('/')
 def index():
-    return render_template('index.html',
+    return render_template('main/index.html',
                            title='Home')
 
+@main.route('play')
+def play():
+    return render_template('main/play.html',
+                           title='Play')
 
 @main.app_errorhandler(403)
 def forbidden(e):

@@ -1,12 +1,35 @@
 {% extends "base.html" %}
+{% block imports %}
+<!--aici facem linkurile catre css-->
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/index.css') }}">
 
+{% endblock %}
 {% block content %}
-    <h1>Index</h1>
-    {% if current_user.is_authenticated %}
-         Hi {{ current_user.username }}!
-    {% elif message %}
-        Logged out.
-    {% else %}
-        Welcome to Meatballs. Please register or login.
-    {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <h2 class="title">Welcome!</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <p class="index">Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type
+                    specimen book. It has survived not only five centuries, but also
+                    the leap into electronic typesetting, remaining essentially unchanged. It
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 col-md-offset-3">
+                <a href="{{ url_for('auth.login') }}" class="btn-main">Login</a>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                 <a href="{{ url_for('auth.register') }}" class="btn-main">Register</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
