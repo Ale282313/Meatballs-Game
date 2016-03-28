@@ -1,3 +1,67 @@
+*{
+    font-family: 'Open Sans', sans-serif;
+
+}
+.title{
+    font-weight: 400;
+    text-align: center;
+    font-size: 35px;
+    color: rgb(36, 60, 36);
+
+    margin: 40px 0 40px 0;
+
+}
+
+.btn-main {
+    display: block;
+    height: 50px;
+    width: 200px;
+    text-align: center;
+
+    vertical-align: middle;
+    padding: 10px;
+    text-transform: uppercase;
+
+    border-style: solid;
+    border-width: 0 0 4px 0;
+    border-color: #243C24;
+
+    background: #4B7B4B;
+    font-size: 20px;
+    color: #CBFBCB;
+}
+.btn-main:focus{
+    outline: none;
+}
+
+
+.btn-main:hover{
+
+    background: #3E6F3E;
+}
+
+.btn-main:active{
+    position: absolute;
+    top: 3px;
+    border-color: #3E6F3E;
+    height: 47px;
+}
+
+.btn-cancel{
+    background: rgb(236,100,75);
+}
+.btn-cancel:hover{
+    background: #BC6147;
+}
+
+.field-error{
+    list-style: none;
+    color: red;
+
+    margin: 0;
+    font-size: 14px;
+    text-align: center;
+}
 
 header {
     position: relative;
@@ -38,7 +102,7 @@ header {
      margin-left: 20px;
 }
 .menu li a{
-    width: 0px;
+    width: 0;
 
     color: rgb(75, 123, 75);
     text-transform: uppercase;
@@ -50,7 +114,7 @@ header {
 
     content: '';
     display: block;
-    height: 3px;
+    height: 1px;
     width: 0;
     background: transparent;
     transition: width .5s ease, background-color .5s ease;
