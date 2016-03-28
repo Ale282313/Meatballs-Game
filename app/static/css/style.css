@@ -7,7 +7,7 @@
     text-align: center;
     font-size: 35px;
 
-    margin: 70px 0px 70px 0px;
+    margin: 70px 0 70px 0;
 
 }
 
@@ -16,13 +16,13 @@
     height: 50px;
     width: 200px;
     text-align: center;
-    margin: 150px 20px 10px 20px;
+
     vertical-align: middle;
     padding: 10px;
     text-transform: uppercase;
 
     border-style: solid;
-    border-width: 0px 0px 4px 0px;
+    border-width: 0 0 4px 0;
     border-color: #243C24;
 
     background: #4B7B4B;
@@ -86,7 +86,7 @@ header {
      margin-left: 20px;
 }
 .menu li a{
-    width: 0px;
+    width: 0;
 
     color: rgb(75, 123, 75);
     text-transform: uppercase;
@@ -98,7 +98,7 @@ header {
 
     content: '';
     display: block;
-    height: 3px;
+    height: 1px;
     width: 0;
     background: transparent;
     transition: width .5s ease, background-color .5s ease;
