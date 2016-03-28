@@ -1,12 +1,12 @@
 .login-form {
-      position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .error{
     list-style: none;
@@ -46,15 +46,15 @@
 }
 
 .login-form button:hover,.form button:active,.form button:focus {
-  background: blue;
+    background: blue;
 }
 .login-form .message {
-  margin: 15px 0px 0px 5px;
-  color: black;
-  font-size: 14px;
-  text-align: center;
+    margin: 15px 0px 0px 5px;
+    color: black;
+    font-size: 14px;
+    text-align: center;
 }
 .login-form .message a {
-  color: navy;
-  text-decoration: none;
+    color: navy;
+    text-decoration: none;
 }
