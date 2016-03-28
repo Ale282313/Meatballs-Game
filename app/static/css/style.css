@@ -7,8 +7,7 @@
     text-align: center;
     font-size: 35px;
 
-    margin: 70px 0px 70px 0px;
-
+    margin: 40px 0px 40px 0px;
 }
 
 .btn {
@@ -16,7 +15,6 @@
     height: 50px;
     width: 200px;
     text-align: center;
-    margin: 150px 20px 10px 20px;
     vertical-align: middle;
     padding: 10px;
     text-transform: uppercase;
@@ -26,24 +24,29 @@
     border-color: #243C24;
 
     background: #4B7B4B;
-}
-
-a.btn{
     font-size: 20px;
-
-    text-decoration: none;
     color: #CBFBCB;
 }
+.btn-cancel {
+    background: rgb(236,100,75);
+}
+a.btn{
+    text-decoration: none;
+}
 
-a.btn:hover{
+.btn:focus {
+    outline: none;
+}
 
+.btn:hover{
     background: #3E6F3E;
 }
 
-a.btn:active{
+.btn:active{
     border-width: 4px 0px 0px 0px;
     border-color: white;
 }
+
 
 header {
     position: relative;
