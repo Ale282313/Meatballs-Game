@@ -1,31 +1,60 @@
 {% extends "base.html" %}
+{% block imports %}
+    <link rel="stylesheet" type="text/css" href="../static/css/register.css">
+    <link rel="stylesheet" href="../static/vendors/css/animate.min.css">
+{% endblock %}
 {% block content %}
-<section>
-    <h2>Register</h2>
+<section class="col-md-12">
+    <div class="row">
+        <h1 class="title">Please register, stranger!</h1>
+    </div>
 
-    <form method="post" action="{{ url_for('auth.register') }}">
-        {{ form.hidden_tag() }}
+    <div class="row">
+        <form class="register-form col-md-6 cold-md col-md-offset-3 container-fluid" method="post" action="{{ url_for('auth.register') }}">
+            {{ form.hidden_tag() }}
 
-        {{ form.username.label }}
-        {{ form.username(size=30) }}
-        {% for error in form.username.errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
+            <div class="col-md-6">
+            {{ form.username(size=40, placeholder="username") }}
+             {% for error in form.username.errors %}
+                <span class="field-error register-error">{{ error }}</span>
+            {% endfor %}
+            {% if used_username==True %}
+                <span class="field-error register-error">Username already used.</span>
+            {% endif %}
 
-        {{ form.password.label }}
-        {{ form.password(size=30) }}
-        {% for error in form.password.errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
+            {{ form.password(size=40, placeholder="password") }}
+             {% for error in form.password.errors %}
+                <span class="field-error register-error">{{ error }}</span>
+            {% endfor %}
 
-        {{ form.confirm.label }}
-        {{ form.confirm(size=30) }}
-        {% for error in form.confirm.errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
+            {{ form.confirm(size=40, placeholder="confirm password") }}
+             {% for error in form.confirm.errors %}
+                <span class="field-error register-error">{{ error }}</span>
+            {% endfor %}
+            </div>
 
-        <button type="submit">Register</button>
-    </form>
+            <div class="col-md-6 last">
+            {{ form.email(size=40, placeholder="email") }}
+             {% for error in form.email.errors %}
+                <span class="field-error register-error">{{ error }}</span>
+            {% endfor %}
 
+            {{ form.first_name(size=40, placeholder="first name") }}
+             {% for error in form.first_name.errors %}
+                <span class="field-error register-error">{{ error }}</span>
+            {% endfor %}
+
+
+            {{ form.last_name(size=40, placeholder="last name") }}
+             {% for error in form.last_name.errors %}
+                <span class="field-error register-error">{{ error }}</span>
+            {% endfor %}
+            </div>
+
+            <div class="btn-register">
+                <button class="btn-main btn-register" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
 </section>
 {% endblock %}

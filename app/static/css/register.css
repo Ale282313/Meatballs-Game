@@ -1,0 +1,35 @@
+.register-form {
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    margin-bottom: 20px;
+}
+
+.register-form input {
+    margin: 20px 3% 10px 3%;
+    outline: none;
+    border: none;
+    width: 90%;
+    border-bottom: 2px solid #4B7B4B;
+    color: #243C24;
+    text-align: center;
+}
+
+.btn-register {
+    width: 95% !important;
+    bottom: 15px;
+    margin: 0 1% 0 1%;
+    position: absolute;
+}
+
+.btn-register:active {
+    margin: 4px 2% 8px 1%;
+    border-color: #3E6F3E;
+}
+
+.last {
+    margin-bottom: 100px;
+}
+
+.register-error {
+    margin-right: 50%;
+    display: block;
+}
