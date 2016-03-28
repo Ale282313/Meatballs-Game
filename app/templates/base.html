@@ -7,21 +7,21 @@
     {% endif %}
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
-{% block imports %}
-{% endblock %}
+    {% block imports %}
+    {% endblock %}
 </head>
 <body>
     <header>
         <nav>
-            <ul>
+            <ul style="list-style:none;">
 
-            <li><a href="/">Home</a></li>
+            <li style="display:inline;margin:10px;"><a href="/">Home</a></li>
 
             {% if not current_user.is_authenticated %}
-                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                <li style="display:inline;margin:10px;"><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <li style="display:inline;margin:10px;"><a href="{{ url_for('auth.register') }}">Register</a></li>
             {% else %}
-                <li><a href="{{ url_for('auth.logout') }}">Logout({{ current_user.username }})</a></li>
+                <li style="display:inline;margin:10px;"><a href="{{ url_for('auth.logout') }}">Logout({{ current_user.username }})</a></li>
             {% endif %}
 
             </ul>
@@ -29,7 +29,7 @@
     </header>
     {% block content %}
     {% endblock %}
-    <footer>
+    <footer style="bottom: 0;position: fixed">
         <p>Copyright &copy; 2016 - Meatballs</p>
     </footer>
 </body>
