@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Meatballs - The Game</title>
-</head>
-<body>
-    <!-- TODO: Here will be the game -->
-</body>
-</html>
+{% extends "base.html" %}
+{% block imports %}
+    <link rel="stylesheet" type="text/css" href="../static/css/game.css">
+{% endblock %}
+{% block content %}
+    <section class="col-md-12">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1  ">
+            <div class="box-game">
+                <p class="title ">Waiting for connection...</p>
+            </div>
+
+        </div>
+    </div>
+    </section>
+
+{% endblock %}
