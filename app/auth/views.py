@@ -37,6 +37,7 @@ def login():
             return redirect(url_for('main.index'))
         else:
             error = "Wrong username or password."
+
     return render_template('auth/login.html',
                            title='Login',
                            form=form,
