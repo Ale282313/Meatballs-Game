@@ -32,7 +32,7 @@ class User(db.Model, UserMixin):
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     played_date = db.Column(db.DateTime, default=datetime.now())
-    winner_id = db.Column(db.Integer)
+    winner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, winner_id, played_date=None):
         self.winner_id = winner_id
@@ -48,3 +48,9 @@ class Game(db.Model):
 class Player(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey('game.id'), primary_key=True)
+
+    def __repr__(self):
+        return "user_id: {} , game_id: {}".format(self.user_id, self.game_id)
+
+    def __str__(self):
+        return "user_id: {} , game_id: {}".format(self.user_id, self.game_id)
