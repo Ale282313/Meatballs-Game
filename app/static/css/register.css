@@ -1,6 +1,6 @@
 .register-form {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .register-form input {
@@ -18,11 +18,9 @@
     border-bottom: 3px solid #4B7B4B;
 }
 
-.btn-register {
-    width: 95% !important;
-    bottom: 15px;
-    margin: 0 1% 0 1%;
-    position: absolute;
+#btn-register {
+    width: 100%;
+    margin: 0 0 15px 0;
 }
 
 .btn-register:active {
@@ -31,7 +29,7 @@
 }
 
 .last {
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 
 .register-error {

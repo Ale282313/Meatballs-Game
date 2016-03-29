@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
-from models import User
 from sqlalchemy import exc
 from .forms import LoginForm, RegisterForm
 from .. import db, bcrypt
+
+from models import User
 
 auth = Blueprint('auth', __name__)
 
@@ -13,10 +14,10 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        pw_hash = bcrypt.generate_password_hash(form.password.data)
+        password_hash = bcrypt.generate_password_hash(form.password.data)
         new_user = User(
             form.username.data,
-            pw_hash,
+            password_hash,
             form.email.data,
             form.first_name.data,
             form.last_name.data
@@ -26,9 +27,9 @@ def register():
             db.session.commit()
         except exc.IntegrityError as e:
             return render_template('auth/register.html',
-                           title="Register",
-                           form=form,
-                           used_username=True)
+                                   title="Register",
+                                   form=form,
+                                   used_username=True)
 
         login_user(new_user)
         return redirect(url_for('main.index'))
