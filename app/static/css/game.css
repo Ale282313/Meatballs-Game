@@ -10,8 +10,11 @@
 }
 
 .title {
-    margin: 0 !important;
     position: relative;
     top: 20px;
 
+}
+
+#margins {
+      margin: 0;
 }
