@@ -10,7 +10,6 @@
     height: 260px; /*button bug fixed - form was getting smaller as the button was pressed*/
 }
 
-
 .login-form input{
     width: 100%;
     border: none;
@@ -20,8 +19,9 @@
     text-align: center;
     border-bottom: 1px solid #89E189;
 }
+
 .login-form input:focus {
-    margin: 0 0 18px 0; /*hackish solutin - when input is focused, bottom margin is 10px to make room for border*/
+    margin: 0 0 18px 0;
     border-bottom: 3px solid #4B7B4B;
 }
 

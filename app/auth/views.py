@@ -22,22 +22,16 @@ def register():
             form.last_name.data
         )
         try:
-            #when the user tries to register with a used username, SQLAlchemy throws a nasty error
             db.session.add(new_user)
             db.session.commit()
         except exc.IntegrityError as e:
-            #catch that error and reload the register page, letting the user know that the username is already used
             return render_template('auth/register.html',
                            title="Register",
                            form=form,
                            used_username=True)
-        #after the new user has registered, I will log him in automatically
+
         login_user(new_user)
         return redirect(url_for('main.index'))
-        #old implementation required user to login after registration - which I think is annoying
-        #as the user has to type the username and password twice.
-        #return redirect(url_for('.login'))
-
 
     return render_template('auth/register.html',
                            title="Register",
