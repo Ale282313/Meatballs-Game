@@ -1,0 +1,78 @@
+.profile-section {
+    margin-top: 75px;
+    position: relative;
+}
+
+.user-row {
+    position: relative;
+}
+
+.profile-user {
+    left: 40px;
+    padding: 0;
+    position: relative;
+}
+
+.profile-user img {
+    border-radius: 200px;
+    box-shadow: 1px 2px 5px 0 rgba(0,0,0,0.15);
+}
+
+.user-name {
+    text-transform: uppercase;
+
+    margin: 0 0 20px 0;
+    text-align: center;
+    width: 200px;
+
+}
+
+.user-description {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.user-description p {
+    margin: 0 0 15px 0;
+    position: relative;
+    right: 40px;
+}
+
+.game-row {
+    position: relative;
+
+}
+
+.game-row p {
+    margin: 0 0 5px 0;
+}
+
+.user-statistics, .user-description, .user-name {
+    color: rgb(36, 60, 36);
+    font-size: 22px;
+}
+
+.user-statistics {
+    margin: 30px 0 0 0;
+    padding: 0;
+}
+
+.user-statistics p {
+    left: 40px;
+    position: relative;
+    text-align: center;
+    width: 200px;
+}
+
+.btn-wrapper {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.btn-profile {
+    margin: 0 auto;
+}
