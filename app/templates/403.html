@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block imports %}
+    <link rel="stylesheet" type="text/css" href="../static/css/error_pages.css">
+{% endblock %}
+
 {% block content %}
-    <p>403 - Forbidden</p>
+    <p class="error-message">403 - Forbidden</p>
+    <p class="error-description">Oups, something went wrong.</p>
 {% endblock %}
