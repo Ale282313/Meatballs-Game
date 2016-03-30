@@ -1,0 +1,21 @@
+.statistics {
+    font-size: 18px;
+    color: rgb(36, 60, 36);
+}
+
+.player {
+    font-size: 22px;
+    color: rgb(36, 60, 36);
+}
+
+.empty {
+    min-height: 20px;
+}
+
+.stats-wrapper {
+    margin-bottom: 40px;
+}
+
+.title-wrapper {
+    margin-bottom: 40px;
+}
