@@ -30,12 +30,19 @@
         </div>
 
         <div class="row">
+            {% if not current_user.is_authenticated %}
             <div class="col-md-3 col-md-offset-3">
                 <a href="{{ url_for('auth.login') }}" class="btn-main">Login</a>
             </div>
             <div class="col-md-3 col-md-offset-1">
                  <a href="{{ url_for('auth.register') }}" class="btn-main">Register</a>
             </div>
+            {% else %}
+            <div class="col-md-3 col-md-offset-5">
+                <a href="{{ url_for('game.meatballs_game') }}" class="btn-main">Play</a>
+            </div>
+            {% endif %}
         </div>
+
     </div>
 {% endblock %}
