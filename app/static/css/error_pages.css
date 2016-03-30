@@ -1,0 +1,12 @@
+.error-message {
+    font-size: 60px;
+    font-weight: 300;
+
+    text-align: center;
+}
+
+.error-description {
+    font-size: 20px;
+
+    text-align: center;
+}
