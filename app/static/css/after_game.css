@@ -1,7 +1,6 @@
 .statistics {
     font-size: 18px;
     color: rgb(36, 60, 36);
-
 }
 
 .player {
@@ -14,7 +13,6 @@
 }
 
 .stats-wrapper {
-    /*margin-top: 40px;*/
     margin-bottom: 40px;
 }
 
