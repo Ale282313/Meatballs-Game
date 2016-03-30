@@ -1,0 +1,11 @@
+a.btn-main {
+        text-decoration: none;
+        color: rgb(203,251,203);
+}
+
+p.index {
+    text-indent: 25px;
+    text-align: center;
+    font-size: 135%;
+    margin-bottom: 75px;
+}
