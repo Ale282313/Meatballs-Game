@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block imports %}
-<!--aici facem linkurile catre css-->
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/index.css') }}">
 
+{% block imports %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
+
 {% block content %}
     <div class="container-fluid">
         <div class="row">

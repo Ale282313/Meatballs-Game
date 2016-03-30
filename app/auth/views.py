@@ -12,8 +12,7 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        # pw_hash = bcrypt.generate_password_hash(form.password.data)
-        pw_hash = 'something'
+        pw_hash = bcrypt.generate_password_hash(form.password.data)
         new_user = User(
             form.username.data,
             pw_hash
@@ -33,8 +32,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         db_user = User.query.filter_by(username=form.username.data).first()
-        # if db_user and bcrypt.check_password_hash(db_user.password, form.password.data):
-        if db_user:
+        if db_user and bcrypt.check_password_hash(db_user.password, form.password.data):
             login_user(db_user)
             return redirect(url_for('main.index'))
         else:
