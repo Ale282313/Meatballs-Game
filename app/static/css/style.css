@@ -7,6 +7,11 @@ html {
     font-family: 'Open Sans', sans-serif;
 }
 
+a, a:hover, a:active, a:focus {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
 .title {
     color: rgb(36, 60, 36);
     font-size: 35px;
