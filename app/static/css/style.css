@@ -34,14 +34,12 @@
     outline: none;
 }
 
-
 .btn-main:hover{
-
     background: #3E6F3E;
 }
 
 .btn-main:active{
-    position: absolute;
+    position: relative;
     top: 3px;
     border-color: #3E6F3E;
     height: 47px;
