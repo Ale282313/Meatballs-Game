@@ -1,13 +1,13 @@
 a.btn-main {
         width: 300px;
         text-decoration: none;
+        color: rgb(203,251,203);
 
         margin-top: 50px;
         margin-left: 50px;
 }
 
-.play{
-    font-weight: 400;
+.play {
     text-align: center;
     font-size: 25px;
     font-weight: 900;
