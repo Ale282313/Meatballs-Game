@@ -23,11 +23,11 @@ a, a:hover, a:active, a:focus {
 }
 
 .btn-main {
-    background: rgb(75, 122, 75);
+    background: rgb(37, 40,57);
     border-style: solid;
     border-width: 0 0 4px 0;
-    border-color: #243C24;
-    color: #fff;
+    border-color: rgb(181, 181, 183);
+    color: rgb(255, 255, 255);
     font-size: 20px;
     height: 50px;
     text-transform: uppercase;
@@ -44,11 +44,11 @@ a, a:hover, a:active, a:focus {
 }
 
 .btn-main:hover {
-    background: rgb(62, 111, 62);
+    background: rgba(37, 40, 57, 0.9);
 }
 
 .btn-main:active {
-    border-color: rgb(62, 111, 62);
+    border: none;
     height: 47px;
 
     position: relative;
@@ -73,7 +73,7 @@ a, a:hover, a:active, a:focus {
 }
 
 header {
-    background: linear-gradient(rgb(152, 251, 152),rgb(137, 225, 137));
+    background-color: rgb(37, 40, 57);
     box-shadow: 0 2px 5px gray;
     height: 60px;
     width: 100%;
@@ -82,8 +82,8 @@ header {
 }
 
 .heading {
-    color: rgb(75, 123, 75);
-    font-weight: 400;
+    color: rgb(255,225,255);
+    font-weight: 300;
 
     margin: 10px 0 0 55px;
     float: left;
@@ -107,7 +107,7 @@ header {
 }
 
 .menu li a {
-    color: rgb(75, 123, 75);
+    color: rgb(255, 255, 255);
     font-size: 15px;
     text-decoration: none;
     text-transform: uppercase;
@@ -124,12 +124,12 @@ header {
 }
 
 .menu li a:hover:after {
-    background: rgb(75, 123, 75);
+    background: rgb(242, 182, 50);
     width: 100%;
 }
 
 footer {
-    background-color: rgb(36, 60, 36);
+    background: rgb(42, 42, 42);
     height: 40px;
     width: 100%;
 
@@ -140,7 +140,7 @@ footer {
 }
 
 .footer-text {
-    color: rgb(137, 225, 137);
+    color: rgb(255, 255, 255);
     font-size: 15px;
     text-transform: uppercase;
 
