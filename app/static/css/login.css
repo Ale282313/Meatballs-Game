@@ -11,10 +11,16 @@
     z-index: 1;
 }
 
+.login-section {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .login-form input{
     border: none;
-    border-bottom: 1px solid #89E189;
-    color: #243C24;
+    border-bottom: 0.5px solid rgb(242, 182, 50);
+    color: rgb(42, 42, 42);
     outline: none;
     text-align: center;
     width: 100%;
@@ -23,7 +29,7 @@
 }
 
 .login-form input:focus {
-    border-bottom: 3px solid #4B7B4B;
+    border-bottom: 3.5px solid rgb(242, 182, 50);
 
     margin: 0 0 18px 0;
 }
@@ -35,12 +41,12 @@
 .login-form .message {
     margin: 15px 0px 0px 5px;
 
-    color: black;
+    color: rgb(42, 42, 42);
     font-size: 14px;
     text-align: center;
 }
 
 .login-form .message a {
-    color: #243C24;
+    color: rgb(37, 40, 57);
     text-decoration: none;
 }

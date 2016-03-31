@@ -1,6 +1,11 @@
 .register-form {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    margin-bottom: 50px;
+}
+
+.register-section {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .register-form input {
@@ -8,14 +13,14 @@
     outline: none;
     border: none;
     width: 90%;
-    color: #243C24;
+    color: rgb(42, 42, 42);
     text-align: center;
-    border-bottom: 1px solid #89E189;
+    border-bottom: 0.5px solid rgb(242, 182, 50);
 }
 
 .register-form input:focus {
     margin: 20px 3% 10px 3%; /*when input is focused, bottom margin is 10px to make room for border*/
-    border-bottom: 3px solid #4B7B4B;
+    border-bottom: 3.5px solid rgb(242, 182, 50);
 }
 
 #btn-register {
@@ -25,7 +30,7 @@
 
 .btn-register:active {
     margin: 4px 2% 8px 1%;
-    border-color: #3E6F3E;
+    border-color: rgba(37, 40, 57, 0.9);
 }
 
 .register-error {
