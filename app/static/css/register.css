@@ -20,16 +20,12 @@
 
 #btn-register {
     width: 100%;
-    margin: 0 0 15px 0;
+    margin: 10px 0 15px 0;
 }
 
 .btn-register:active {
     margin: 4px 2% 8px 1%;
     border-color: #3E6F3E;
-}
-
-.last {
-    margin-bottom: 20px;
 }
 
 .register-error {

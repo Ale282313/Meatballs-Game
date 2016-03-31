@@ -2,7 +2,7 @@
     background: #FFFFFF;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     text-align: center;
-    height: 260px;
+    height: 270px;
     max-width: 360px;
 
     margin: 0 auto 100px;
@@ -12,8 +12,8 @@
 }
 
 .login-form input{
-    border-bottom: 1px solid #89E189;
     border: none;
+    border-bottom: 1px solid #89E189;
     color: #243C24;
     outline: none;
     text-align: center;
@@ -30,11 +30,6 @@
 
 #btn-login {
     width: 100%;
-}
-
-.form-bottom {
-    bottom: 15px;
-    position: absolute;
 }
 
 .login-form .message {

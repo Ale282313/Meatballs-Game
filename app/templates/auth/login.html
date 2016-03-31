@@ -9,25 +9,24 @@
         {{ form.hidden_tag() }}
 
         {{ form.username(size=30,placeholder="username") }}
-
-        {{ form.password(size=30,placeholder="password") }}
-
-
         {% for error in form.username.errors %}
             <li class="field-error">{{ error }}</li>
         {% endfor %}
+
+        {{ form.password(size=30,placeholder="password") }}
         {% for error in form.password.errors %}
             <li class="field-error">{{ error }}</li>
         {% endfor %}
 
-
-        <div class="form-bottom">
-            <p class="message">Not registered? <a href="{{ url_for('auth.register') }}">Create an account here</a></p>
-            <button class="btn-main" id="btn-login" type="submit">Login</button>
-        </div>
         {% if error %}
-    <p class="field-error">{{ error }}</p>
-    {% endif %}
+            <p class="field-error">{{ error }}</p>
+        {% endif %}
+        <div>
+            <p class="message">Not registered? <a href="{{ url_for('auth.register') }}">Create an account here</a></p>
+            <div class="form-bottom">
+                <button class="btn-main" id="btn-login" type="submit">Login</button>
+            </div>
+        </div>
     </form>
 
 </section>
