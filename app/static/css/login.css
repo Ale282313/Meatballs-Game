@@ -2,7 +2,7 @@
     background: #FFFFFF;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     text-align: center;
-    height: 260px;
+    height: 270px;
     max-width: 360px;
 
     margin: 0 auto 100px;
@@ -11,10 +11,16 @@
     z-index: 1;
 }
 
+.login-section {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .login-form input{
-    border-bottom: 1px solid #89E189;
     border: none;
-    color: #243C24;
+    border-bottom: 0.5px solid rgb(242, 182, 50);
+    color: rgb(42, 42, 42);
     outline: none;
     text-align: center;
     width: 100%;
@@ -23,7 +29,7 @@
 }
 
 .login-form input:focus {
-    border-bottom: 3px solid #4B7B4B;
+    border-bottom: 3.5px solid rgb(242, 182, 50);
 
     margin: 0 0 18px 0;
 }
@@ -32,20 +38,15 @@
     width: 100%;
 }
 
-.form-bottom {
-    bottom: 15px;
-    position: absolute;
-}
-
 .login-form .message {
     margin: 15px 0px 0px 5px;
 
-    color: black;
+    color: rgb(42, 42, 42);
     font-size: 14px;
     text-align: center;
 }
 
 .login-form .message a {
-    color: #243C24;
+    color: rgb(37, 40, 57);
     text-decoration: none;
 }

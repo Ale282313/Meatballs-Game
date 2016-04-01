@@ -32,7 +32,7 @@ def register():
                                    used_username=True)
 
         login_user(new_user)
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.play'))
 
     return render_template('auth/register.html',
                            title="Register",
