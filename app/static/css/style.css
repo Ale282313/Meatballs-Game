@@ -3,6 +3,10 @@ html {
     position: relative;
 }
 
+h1 {
+    margin: 0;
+}
+
 * {
     font-family: 'Open Sans', sans-serif;
 }
@@ -10,6 +14,10 @@ html {
 a, a:hover, a:active, a:focus {
     text-decoration: none;
     color: rgb(255, 255, 255);
+}
+
+.container-fluid {
+    height: 85vh;
 }
 
 .title {
@@ -75,7 +83,7 @@ a, a:hover, a:active, a:focus {
 header {
     background-color: rgb(37, 40, 57);
     box-shadow: 0 2px 5px gray;
-    height: 60px;
+    height: 10vh;
     width: 100%;
 
     position: relative;
@@ -85,15 +93,19 @@ header {
     color: rgb(255,225,255);
     font-weight: 300;
 
-    margin: 10px 0 0 55px;
-    float: left;
+
+    left: 0;
+    margin-left: 55px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .menu {
     margin-right: 55px;
     position: absolute;
     right: 0;
-    top:50%;
+    top: 50%;
     transform: translateY(-50%);
 }
 .menu ul{
@@ -129,10 +141,10 @@ header {
 }
 
 footer {
-    background: rgb(42, 42, 42);
-    height: 40px;
+    background-color: rgb(36, 60, 36);
+    
+    height: 5vh;
     width: 100%;
-
     bottom: 0;
     display: table;
     position: absolute;
