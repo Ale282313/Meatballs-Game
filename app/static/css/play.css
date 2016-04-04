@@ -1,14 +1,11 @@
-a.btn-main {
+#btn-play {
         width: 300px;
-        text-decoration: none;
-        color: rgb(203,251,203);
 
         margin-top: 50px;
         margin-left: 50px;
 }
 
 .play {
-    text-align: center;
     font-size: 25px;
     font-weight: 900;
 
@@ -30,4 +27,10 @@ ul.dashed > li {
 ul.dashed > li:before {
   content: "-";
   text-indent: -5px;
+}
+
+.play-section {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
