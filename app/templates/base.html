@@ -16,7 +16,7 @@
 </head>
 <body>
     <header>
-        <h1 class="heading">MeatBalls-Game</h1>
+        <h1 class="heading">meatballs</h1>
         <nav class="menu" >
             <ul >
 
@@ -25,10 +25,11 @@
             {% if not current_user.is_authenticated %}
                 <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                 <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-                <li><a href="{{ url_for('game.meatballs_game') }}">Play</a></li>
             {% else %}
                 <li><a href="{{ url_for('auth.logout') }}">Logout({{ current_user.username }})</a></li>
+                <li><a href="{{ url_for('user.user_profile', username=current_user.username) }}">Profile</a></li>
             {% endif %}
+                <li><a href="{{ url_for('game.meatballs_game') }}">Play</a></li>
 
             </ul>
         </nav>

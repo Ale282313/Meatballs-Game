@@ -1,6 +1,5 @@
-a.btn-main {
+.btn-index {
         text-decoration: none;
-        color: rgb(203,251,203);
 }
 
 p.index {
@@ -8,4 +7,10 @@ p.index {
     text-align: center;
     font-size: 135%;
     margin-bottom: 75px;
+}
+
+.index-section {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }

@@ -1,28 +1,32 @@
 {% extends "base.html" %}
 {% block imports %}
     <link rel="stylesheet" type="text/css" href="../static/css/login.css">
-    <link rel="stylesheet" href="../static/vendors/css/animate.min.css">
 {% endblock %}
 {% block content %}
-<section>
+<section class="login-section">
     <h1 class="title">Please login, stranger!</h1>
     <form class="login-form"  method="post" action="{{ url_for('auth.login') }}">
         {{ form.hidden_tag() }}
 
         {{ form.username(size=30,placeholder="username") }}
         {% for error in form.username.errors %}
-            <li class="animated shake field-error">{{ error }}</li>
+            <li class="field-error">{{ error }}</li>
         {% endfor %}
 
         {{ form.password(size=30,placeholder="password") }}
         {% for error in form.password.errors %}
-            <li class="animated shake field-error">{{ error }}</li>
+            <li class="field-error">{{ error }}</li>
         {% endfor %}
-        <p class="message">Not registered? <a href="{{ url_for('auth.register') }}">Create an account here</a></p>
-        <button class="btn-main btn-login" type="submit">Login</button>
+
         {% if error %}
-    <p class="animated shake field-error">{{ error }}</p>
-    {% endif %}
+            <p class="field-error">{{ error }}</p>
+        {% endif %}
+        <div>
+            <p class="message">Not registered? <a href="{{ url_for('auth.register') }}">Create an account here</a></p>
+            <div class="form-bottom">
+                <button class="btn-main" id="btn-login" type="submit">Login</button>
+            </div>
+        </div>
     </form>
 
 </section>

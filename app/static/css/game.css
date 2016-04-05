@@ -1,0 +1,23 @@
+.game-section {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.box-game {
+    background: rgba(226,226,226,0.7);
+    width: 1100px;
+    height: 500px;
+
+    margin: 0 auto;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+.title {
+    position: relative;
+    top: 20px;
+
+}
+
+#margins {
+      margin: 0;
+}

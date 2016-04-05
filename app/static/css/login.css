@@ -1,41 +1,52 @@
 .login-form {
-    position: relative;
-    z-index: 1;
     background: #FFFFFF;
-    max-width: 360px;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    text-align: center;
+    height: 270px;
+    max-width: 360px;
+
+    margin: 0 auto 100px;
+    position: relative;
+    padding: 45px;
+    z-index: 1;
 }
 
+.login-section {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 .login-form input{
-    display: block;
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: lightgrey;
+    border: none;
+    border-bottom: 0.5px solid rgb(242, 182, 50);
+    color: rgb(42, 42, 42);
+    outline: none;
+    text-align: center;
     width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
+
+    margin: 0 0 20px 0;
 }
 
-.btn-login {
-    width: 100% !important;
+.login-form input:focus {
+    border-bottom: 3.5px solid rgb(242, 182, 50);
+
+    margin: 0 0 18px 0;
 }
 
+#btn-login {
+    width: 100%;
+}
 
 .login-form .message {
     margin: 15px 0px 0px 5px;
-    color: black;
+
+    color: rgb(42, 42, 42);
     font-size: 14px;
     text-align: center;
 }
 
 .login-form .message a {
-    color: #243C24;
+    color: rgb(37, 40, 57);
     text-decoration: none;
 }
