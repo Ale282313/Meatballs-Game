@@ -1,6 +1,6 @@
 import imp
 import os.path
-from app import db, app
+from app import db, app, socketio
 from config import SQLALCHEMY_DATABASE_URI
 from config import SQLALCHEMY_MIGRATE_REPO
 from flask.ext.script import Command
@@ -9,7 +9,7 @@ from migrate.versioning import api
 
 class ServerStart(Command):
     def run(self):
-        app.run(debug=True)
+        socketio.run(app, debug=True)
 
 
 class DbCreate(Command):

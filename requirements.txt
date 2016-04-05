@@ -4,5 +4,7 @@ flask-debugtoolbar
 flask-login
 flask-script
 flask-sqlalchemy
+flask-socketio
 flask-wtf
+gevent
 sqlalchemy-migrate
