@@ -9,7 +9,7 @@ from migrate.versioning import api
 
 class ServerStart(Command):
     def run(self):
-        socketio.run(app, debug=True)
+        socketio.run(app, host='0.0.0.0', port=5000, debug=True)
 
 
 class DbCreate(Command):
