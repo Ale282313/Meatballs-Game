@@ -4,12 +4,12 @@
     transform: translateY(-50%);
 }
 .box-game {
-    background: rgba(226,226,226,0.5);
+    background: rgba(226, 226, 226, 0.5);
     width: 1200px;
     height: 500px;
 
     margin: 0 auto;
-    box-shadow:0 0 20px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(0 ,0, 0, 0.5);
 }
 
 .box-game p {
