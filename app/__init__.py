@@ -1,9 +1,9 @@
 from flask import Flask
 from flask.ext.bcrypt import Bcrypt
-from flask.ext.login import LoginManager
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask_socketio import SocketIO
 from flask_debugtoolbar import DebugToolbarExtension
+from flask.ext.login import LoginManager
+from flask_socketio import SocketIO
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config.from_object('config')
