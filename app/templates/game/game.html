@@ -1,14 +1,43 @@
 {% extends "base.html" %}
 {% block imports %}
     <link rel="stylesheet" type="text/css" href="../static/css/game.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="../static/js/game.js"></script>
 {% endblock %}
 {% block content %}
     <section class="game-section col-md-12">
     <div class="row">
         <div class="game-wrapper">
-            <div class="box-game">
+            <div id="game-box">
                 <p id="player-status" class="title">Waiting for connection...</p>
-            </div>
+                <!-- Enviroment Setup -->
+                <div id="timer">01:30</div>
+                <div id="obstacle"></div>
+
+                <!--Current player's Stats-->
+                <div id="my-username">my-username</div>
+                <div id="my-health">
+                    <div id="my-current-health">HP</div>
+                </div>
+                <div id="my-cooldown">
+                    <div id="my-current-cooldown">CD</div>
+                </div>
+                <!--Current player's Tank-->
+                <div id="my-cannon"></div>
+                <div id="my-body"></div>
+
+                <!--Enemy player's stats-->
+                <div id="enemy-username">enemy-username</div>
+                <div id="enemy-health">
+                    <div id="enemy-current-health">HP</div>
+                </div>
+                <div id="enemy-cooldown">
+                    <div id="enemy-current-cooldown">CD</div>
+                </div>
+                <!--Enemy player's tank -->
+                <div id="enemy-cannon"></div>
+                <div id="enemy-body"></div>
+</div>
         </div>
     </div>
     </section>

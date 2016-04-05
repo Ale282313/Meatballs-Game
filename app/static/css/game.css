@@ -1,15 +1,7 @@
 .game-section {
     position: relative;
-    top: 50%;
+    top: 48%;
     transform: translateY(-50%);
-}
-.box-game {
-    background: rgba(226, 226, 226, 0.5);
-    width: 1200px;
-    height: 500px;
-
-    margin: 0 auto;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .box-game p {
@@ -20,3 +12,154 @@
     position: relative;
     top: 20px;
 }
+
+/* general layout and design settings */
+#game-box {
+    background: rgba(226, 226, 226, 0.5);
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+
+    width: 1200px;
+    height: 500px;
+    position: relative;
+    margin: 0 auto;
+}
+
+#timer {
+  position: absolute;
+  right: 50%;
+  top: 5%;
+  font-weight: bold;
+}
+
+#obstacle {
+    width: 20px;
+    height: 300px;
+    position: absolute;
+    right: 50%;
+    bottom: 0;
+    background: black;
+}
+/* end of general layout and design settings */
+
+/* current player's stats */
+#my-username {
+    margin: 10px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#my-health {
+    width: 200px;
+    border: 1px solid grey;
+    margin: 10px;
+    position: absolute;
+    top: 30px;
+    left: 10px;
+}
+
+#my-current-health {
+    width: 30%;
+    background: red;
+}
+
+#my-cooldown {
+    width: 200px;
+    border: 1px solid grey;
+    margin: 10px;
+    position: absolute;
+    top: 60px;
+    left: 10px;
+}
+
+#my-current-cooldown {
+    width: 40%;
+    background: blue;
+}
+/* end current player's stats */
+
+/* enemy player's stats */
+#enemy-username {
+    margin: 10px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#enemy-health {
+    width: 200px;
+    border: 1px solid grey;
+    margin: 10px;
+    position: absolute;
+    top: 30px;
+    right: 10px;
+}
+
+#enemy-current-health {
+    width: 10%;
+    background: red;
+}
+
+#enemy-cooldown {
+    width: 200px;
+    border: 1px solid grey;
+    margin: 10px;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+}
+#enemy-current-cooldown {
+    width: 70%;
+    background: blue;
+}
+/* end of enemy player's stats */
+
+
+/* current player's tank (body+cannon) */
+#my-cannon{
+    background: transparent;
+    border-top: 50px solid red;
+    border-radius: 5px;
+    width: 10px;
+    height: 100px;
+
+    position: absolute;
+    left: 90px;
+    top: 395px;
+}
+#my-body {
+    height: 60px;
+    width: 100px;
+    background: green;
+    position: absolute;
+    bottom:0;
+    border-radius:5px;
+}
+/*end of current player's tank (body+cannon) */
+
+/* enemy player's tank (body+cannon) */
+#enemy-cannon{
+    background: transparent;
+    border-top: 50px solid red;
+    border-radius: 5px;
+    width: 10px;
+    height: 50px;
+
+    position: absolute;
+    right: 90px;
+    top: 395px;
+    transform: rotate(deg);
+}
+#enemy-body {
+    height: 60px;
+    width: 100px;
+    background: green;
+    position: absolute;
+    bottom:0;
+    right:0;
+    border-radius:5px;
+}
+/*end of current player's tank (body+cannon) */
