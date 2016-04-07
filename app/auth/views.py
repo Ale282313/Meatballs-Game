@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
-from flask_login import login_user, logout_user, login_required
+from flask import Blueprint, render_template, redirect, url_for, flash, session
+from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy import exc
 from .forms import LoginForm, RegisterForm
 from .. import db, bcrypt
@@ -47,6 +47,7 @@ def login():
         db_user = User.query.filter_by(username=form.username.data).first()
         if db_user and bcrypt.check_password_hash(db_user.password, form.password.data):
             login_user(db_user)
+            session['username'] = current_user.username
             return redirect(url_for('main.play'))
         else:
             error = "Wrong username or password."
