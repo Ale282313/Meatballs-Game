@@ -1,3 +1,4 @@
+import uuid
 from flask import Blueprint, render_template, redirect, url_for, flash, session
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy import exc
@@ -48,6 +49,7 @@ def login():
         if db_user and bcrypt.check_password_hash(db_user.password, form.password.data):
             login_user(db_user)
             session['username'] = current_user.username
+            # session['id'] = str(uuid.uuid4())
             return redirect(url_for('main.play'))
         else:
             error = "Wrong username or password."
@@ -62,5 +64,6 @@ def login():
 @login_required
 def logout():
     logout_user()
+    session.clear()
     return render_template('main/index.html',
                            message=True)

@@ -6,6 +6,4 @@ flask-script
 flask-sqlalchemy
 flask-socketio
 flask-wtf
-greenlet
-gevent
 sqlalchemy-migrate

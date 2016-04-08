@@ -1,62 +1,75 @@
-import queue, uuid
+import queue
 from app import socketio
-from flask import session, request
+from flask import session
 from flask_socketio import emit, join_room
 
-player_queue = queue.Queue()
-current_games = {}
-connected_clients = {}
 
+class SetQueue(queue.Queue):
+    def _init(self, maxsize):
+        self.queue = set()
 
-class Game:
-    def __init__(self, player1, player2, game_id):
-        self.player1 = player1
-        self.player2 = player2
-        self.game_id = game_id
+    def _put(self, item):
+        self.queue.add(item)
+
+    def _get(self):
+        return self.queue.pop()
 
 
 class Client:
     def __init__(self, client_username, client_id):
         self.username = client_username
-        self.opponentid = ''
-        self.gameid = ''
         self.id = client_id
+        self.opponent_id = ''
+
+    def add_opponent(self, opponent_id):
+        self.opponent_id = opponent_id
+
+
+class Clients:
+    connected_clients = {}
+
+    def add_client(self, client_id, client):
+        self.connected_clients[client_id] = client
+
+    def get_client_by_id(self, client_id):
+        if client_id in self.connected_clients.keys():
+            return self.connected_clients.get(client_id)
+
+    def get_clients(self):
+        return self.connected_clients
+
+player_queue = SetQueue()
+connected_clients = Clients()
 
 
 @socketio.on('connect', namespace='/game')
 def connect_event():
     global player_queue
-    global connected_clients
 
-    new_client = Client(session['username'], request.sid)
+    new_client = Client(session['username'], session['_id'])
+    connected_clients.add_client(session['_id'], new_client)
 
-    connected_clients[request.sid] = new_client
+    player_queue.put(new_client.id)
 
-    join_room(request.sid)
-
-    player_queue.put({'username': session['username'], 'id': request.sid})
+    join_room(session['_id'])
 
     if player_queue.qsize() % 2 == 0 and player_queue.qsize() > 0:
-        player1 = player_queue.get()
-        player2 = player_queue.get()
 
-        for room in [player1['id'], player2['id']]:
-            if room == request.sid:
-                emit('connected to game', {'data': player1['username'] + ' vs ' + player2['username']}, room=player1['id'])
-            else:
-                emit('connected to game', {'data': player1['username'] + ' vs ' + player2['username']}, room=player2['id'])
+        player1_id = player_queue.get()
+        player2_id = player_queue.get()
 
+        player1 = connected_clients.get_client_by_id(player1_id)
+        player2 = connected_clients.get_client_by_id(player2_id)
 
-@socketio.on('join', namespace='/game')
-def join(message):
-    emit('test')
+        player1.add_opponent(player2_id)
+        player2.add_opponent(player1_id)
+
+        emit('connected to game', {'data': player1.username + ' vs ' + player2.username}, room=player1_id)
+        emit('connected to game', {'data': player1.username + ' vs ' + player2.username}, room=player2_id)
 
 
 @socketio.on('disconnect', namespace='/game')
-def disconnect_event():
-    print('disconnected')
-
-
-@socketio.on('goodbye', namespace='/game')
-def goodbye(message):
-    print(message)
+def disconnect():
+    current_client = connected_clients.get_client_by_id(session['_id'])
+    emit('server response', {'data': current_client.username + ' disconnected'}, room=current_client.opponent_id)
+    print(current_client.username + " disconnected")
