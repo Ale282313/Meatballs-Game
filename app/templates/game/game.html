@@ -8,36 +8,49 @@
     <section class="game-section col-md-12">
     <div class="row">
         <div class="game-wrapper">
-            <div id="game-box">
-                <p id="player-status" class="title">Waiting for connection...</p>
-                <!-- Enviroment Setup -->
-                <div id="timer">01:30</div>
-                <div id="obstacle"></div>
+            <div id ="game-box">
+                <!--General Stuff -->
+                <div id="timer">.</div>
+                <div id="message">Mesaj de Avertizare</div>
+                <div id="gravity-bars">
+                    <div class="unu bar"></div>
+                    <div class="doi bar"></div>
+                    <div class="trei bar"></div>
+                    <div class="patru bar"></div>
+                    <div class="cinci bar"></div>
+                    <div class="sase bar"></div>
+                    <div class="sapte bar"></div>
+                    <div class="opt bar"></div>
+                    <div class="noua bar"></div>
+                    <div class="zece bar"></div>
+                    <div class="unspe bar"></div>
+                </div>
+                <!-- Power Transition -->
+                <div id="power"><div id="current-power"></div></div>
 
                 <!--Current player's Stats-->
                 <div id="my-username">my-username</div>
-                <div id="my-health">
-                    <div id="my-current-health">HP</div>
-                </div>
-                <div id="my-cooldown">
-                    <div id="my-current-cooldown">CD</div>
-                </div>
+                <div id="my-health"><div id="my-current-health">HP</div></div>
+                <div id="my-cooldown"><div id="my-current-cooldown">CD</div></div>
+                <div id="my-shield"><div id="my-current-shield">SHIELD</div></div>
                 <!--Current player's Tank-->
+                <div id="my-missile"></div>
                 <div id="my-cannon"></div>
                 <div id="my-body"></div>
+                <div id="my-defense"></div>
 
                 <!--Enemy player's stats-->
                 <div id="enemy-username">enemy-username</div>
-                <div id="enemy-health">
-                    <div id="enemy-current-health">HP</div>
-                </div>
-                <div id="enemy-cooldown">
-                    <div id="enemy-current-cooldown">CD</div>
-                </div>
-                <!--Enemy player's tank -->
+                <div id="enemy-health"><div id="enemy-current-health">HP</div></div>
+                <div id="enemy-cooldown"><div id="enemy-current-cooldown">CD</div></div>
+                <div id="enemy-shield"><div id="enemy-current-shield">SHIELD</div></div>
+                <!-- Enemy player's tank -->
+                <div id="enemy-missile"></div>
                 <div id="enemy-cannon"></div>
                 <div id="enemy-body"></div>
-</div>
+                <div id="enemy-defense"></div>
+
+            </div>
         </div>
     </div>
     </section>
