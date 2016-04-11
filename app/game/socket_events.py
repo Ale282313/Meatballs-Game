@@ -1,7 +1,8 @@
-import queue, uuid
+import queue
+import uuid
 from app import socketio
 from flask import session
-from flask_socketio import emit, join_room, rooms
+from flask_socketio import emit, join_room
 
 
 class SetQueue(queue.Queue):
@@ -80,10 +81,8 @@ def connect_event():
     else:
         room.add_client(room.get_next_free_room(), new_client)
 
-    print(room.get_rooms())
     client_room = room.get_client_room(new_client)
     join_room(str(client_room))
-    print(rooms())
 
     if player_queue.qsize() % 2 == 0 and player_queue.qsize() > 0:
 
@@ -92,9 +91,6 @@ def connect_event():
 
         player1 = connected_clients.get_client_by_id(player1_id)
         player2 = connected_clients.get_client_by_id(player2_id)
-
-        player1.add_opponent(player2_id)
-        player2.add_opponent(player1_id)
 
         emit('connected to game', {'data': player1.username + ' vs ' + player2.username}, room=str(client_room))
 
