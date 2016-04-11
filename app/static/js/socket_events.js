@@ -4,7 +4,7 @@ $(document).ready(function () {
     socket.on('server response', function(msg) {
         $("#player-disconnect").text(msg.data);
         $("#player-status").text(msg.message);
-        socket.disconnect()
+        socket.disconnect();
     });
 
     socket.on('connected to game', function(msg) {

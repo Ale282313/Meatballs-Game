@@ -15,6 +15,12 @@ class SetQueue(queue.Queue):
     def _get(self):
         return self.queue.pop()
 
+    def remove_item(self, client_id):
+        return self.queue.remove(client_id)
+
+    def get_queue(self):
+        return self.queue
+
 
 class Client:
     def __init__(self, client_username, client_id):
@@ -99,6 +105,9 @@ def connect_event():
 def disconnect():
     current_client = connected_clients.get_client_by_id(session['_id'])
     client_room = room.get_client_room(current_client)
+
+    if player_queue.qsize() % 2 == 1:
+        player_queue.remove_item(session['_id'])
 
     if len(client_room) > 0:
         del room.rooms[client_room[0]]
