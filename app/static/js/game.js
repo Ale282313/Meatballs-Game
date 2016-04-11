@@ -1,34 +1,50 @@
+function Game() {
+    this.myCannon = $("#my-cannon");
+    this.enemyCannon = $("#enemy-cannon");
+    this.myCurrentCooldown=$("#my-current-cooldown");
+    this.myCooldown=$("#my-cooldown");
+    this.gameBox=$("#game-box");
+    this.warningMessage = $("#message");
+    this.myBody = $("#my-body");
+    this.myMissile = $("#my-missile");
+    this.gravity = ((Math.random()*10)+1).toFixed(2);
+
+    this.displayGravity = function() {
+        //$("#gravity-bars:nth-child(g)").addClass("on");
+    }
+    this.startTimer = function() {
+        var secs = 0;
+        var timer = $('#timer');
+        setInterval(function() {
+        secs+=1;
+        if(secs<59) {
+            if(secs<10) { timer.text("0" + secs); }
+            else { timer.text(secs); }
+        }
+        else {
+            if(secs%60<10) { timer.text(Math.round(secs/60) + ":0" + secs%60); }
+            else { timer.text(Math.round(secs/60) + ":" + secs%60); }
+        }
+    }, 1000);}
+    this.initializeGame = function() {
+        this.displayGravity();
+        this.startTimer();
+    }
+
+}
+
 $(document).ready(function () {
-    startTimer();
-    displayGravity();
-    
-    //initialize most used DOM elements
-    var myCannon=$("#my-cannon");
-    var myCurrentCooldown=$("#my-current-cooldown");
-    var gameBox=$("#game-box");
-    var warningMessage = $("#message");
-    var myBody = $("#my-body");
-    var myMissile = $("#my-missile");
-    
-    //initialize g - this will be done on the server side, but for now, we do it here
-    var g = ((Math.random()*10)+1).toFixed(2);
+    game = new Game();
+    game.initializeGame();
+});
 
-    $(document).mousemove(function(e){
-        var distX = e.pageX - gameBox.offset().left - myBody.width();
-        var distY = Math.abs(e.pageY - gameBox.offset().top - gameBox.height())-myBody.height();
-
-        var angle = Math.atan2(distX,distY)*(180/Math.PI);
-        if(angle<0) {
-          angle=0;
-        }
-        if(angle>90) {
-          angle=90;
-        }
-        myCannon.css({ "-webkit-transform": 'rotate(' + angle + 'deg)'});
-        myCannon.css({ '-moz-transform': 'rotate(' + angle + 'deg)'});
-        myCannon.css({ 'transform': 'rotate(' + angle + 'deg)'});
-    });
-    gameBox.mousedown(function(e){
+$(document).mousemove(function(e){
+    angle = getAngle(e);
+    rotateCannon(game.myCannon, angle);
+    //this will call when we get a 201 message from the server
+    //rotateCannon($("#enemy-cannon"), -angle);
+});
+game.gameBox.mousedown(function(e){
         if(e.which==1) {
             $('#power').show();
             $('#power').css({
@@ -38,7 +54,7 @@ $(document).ready(function () {
                 'bottom': 'auto'});
         }
     });
-    $(document).mouseup(function(e){
+$(document).mouseup(function(e){
         switch (e.which) {
             case 1:
                 //left mouse button pressed
@@ -129,8 +145,26 @@ $(document).ready(function () {
         }
 
     });
-    
-    function myShot(startPosition, angle, power) {
+
+
+
+function getAngle(e) {
+        var distX = e.pageX - game.gameBox.offset().left - game.myBody.width();
+        var distY = Math.abs(e.pageY - game.gameBox.offset().top - game.gameBox.height()) - game.myBody.height();
+        var angle = Math.atan2(distX, distY) * (180 / Math.PI);
+        if (angle < 0) {
+            angle = 0;
+        }
+        if (angle > 90) {
+            angle = 90;
+        }
+        return angle;
+    }
+function rotateCannon(cannon, angle) {
+    cannon.css({ 'transform': 'rotate(' + angle + 'deg)'});
+}
+
+function myShot(startPosition, angle, power) {
         var hit = jQuery.Deferred();
         var pro = {x:startPosition[0],
                 y:startPosition[1],
@@ -186,7 +220,7 @@ $(document).ready(function () {
                 // the missile remains on the ground if it landed on the ground
                 myMissile.css( { display: "none" });
             }
-            var enemyBody = $("#enemy-body");        
+            var enemyBody = $("#enemy-body");
             if(pro.x>(gameBox.width()-enemyBody.width()) && pro.y>(gameBox.height()-enemyBody.height())) {
                 //variable stop remembers where the ball stopped - on the ground or on the shield or enemy hit
                 // stop = "enemy hit";
@@ -205,7 +239,7 @@ $(document).ready(function () {
         return hit.promise();
     }
 
-    function shotCooldownReset() {
+function shotCooldownReset() {
         var shotCooldownTimer = setInterval(function(){
         if(myCurrentCooldown.width()<=Math.floor($("#my-cooldown").width())) {
             myCurrentCooldown.css( { width: myCurrentCooldown.width()+1 + "px"} );
@@ -213,35 +247,16 @@ $(document).ready(function () {
         else { clearInterval(shotCooldownTimer);  }
         }, 1000/40); //takes 5 seconds to refresh the shot
     }
-    function shieldCooldownReset() {
+function shieldCooldownReset() {
         var myCurrentShield = $("#my-current-shield");
         var shieldCooldownTimer = setInterval(function(){
-        if(myCurrentShield.width()<=Math.floor($("#my-shield").width())) {
+        if(myCurrentShield.width()<=Math.ceil($("#my-shield").width())) {
             myCurrentShield.css( { width: myCurrentShield.width()+1 + "px"} );
         }
         else { clearInterval(shieldCooldownTimer); }
         }, 1000/10); //takes 20 seconds to refresh the shot
     }
-    
-    function displayGravity() {
-        //$("#gravity-bars:nth-child(g)").addClass("on");
-    }
-    function startTimer() {
-        var secs = 0;
-        var timer = $('#timer');
-        setInterval(function() {
-        secs+=1;
-        if(secs<59) {
-            if(secs<10) { timer.text("0" + secs); }
-            else { timer.text(secs); }
-        }
-        else {
-            if(secs%60<10) { timer.text(Math.round(secs/60) + ":0" + secs%60); }
-            else { timer.text(Math.round(secs/60) + ":" + secs%60); }
-        }
-    }, 1000);}
 
-    $(document).bind("contextmenu", function(event) {
+$(document).bind("contextmenu", function(event) {
         event.preventDefault();
     });
-});

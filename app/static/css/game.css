@@ -221,11 +221,10 @@
 
 /* enemy player's tank (body+cannon) */
 #enemy-cannon{
-    background: transparent;
-    border-top: 50px solid red;
+    background: red;
     border-radius: 5px;
     width: 10px;
-    height: 50px;
+    height: 100px;
 
     position: absolute;
     right: 90px;
@@ -250,7 +249,7 @@
 
     border-top: 5px solid green;
     border-top-left-radius: 100px;
-    /*display: none;*/
+    display: none;
     /*defense shadow*/
     -webkit-box-shadow: 1px -51px 89px -3px rgba(0,255,51,1);
     -moz-box-shadow: 1px -51px 89px -3px rgba(0,255,51,1);
