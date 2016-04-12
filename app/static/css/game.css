@@ -128,7 +128,7 @@
     height: 10px;
     width: 10px;
     position: absolute;
-    background: red;
+    background: blue;
     border-radius: 7px;
 }
 
@@ -214,12 +214,19 @@
 }
 
 #enemy-current-shield {
-    width: 70%;
+    width: 100%;
     background: green;
 }
 /* end of enemy player's stats */
 
 /* enemy player's tank (body+cannon) */
+#enemy-missile {
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    background: red;
+    border-radius: 7px;
+}
 #enemy-cannon{
     background: red;
     border-radius: 5px;
