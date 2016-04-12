@@ -26,21 +26,17 @@ class Client:
     def __init__(self, client_username, client_id):
         self.username = client_username
         self.id = client_id
-        self.opponent_id = ''
-
-    def add_opponent(self, opponent_id):
-        self.opponent_id = opponent_id
 
 
 class Clients:
     connected_clients = {}
 
-    def add_client(self, client_id, client):
-        self.connected_clients[client_id] = client
+    def add_client(self, client):
+        self.connected_clients[client.id] = client
 
     def get_client_by_id(self, client_id):
         if client_id in self.connected_clients.keys():
-            return self.connected_clients.get(client_id)
+            return self.connected_clients.get(client_id, None)
 
     def get_clients(self):
         return self.connected_clients
@@ -49,17 +45,19 @@ class Clients:
 class Rooms:
     rooms = {}
 
-    def get_client_room(self, client_obj):
-        return [room_id for room_id, clients in self.rooms.items() if client_obj in clients]
+    def get_client_room_id(self, client_obj):
+        for room_id, clients in self.rooms.items():
+            if client_obj in clients:
+                return room_id
 
-    def get_next_free_room(self):
-        try:
-            return [room_id for room_id in self.rooms if len(self.rooms[room_id]) < 2][0]
-        except IndexError:
-            return False
+    def get_next_free_room_id(self):
+        for room_id, clients in self.rooms.items():
+            if len(clients) < 2:
+                return room_id
 
-    def add_client(self, room_id, client):
-        self.rooms[room_id].append(client)
+    def add_client(self, client):
+        free_room_id = self.get_next_free_room_id()
+        self.rooms[free_room_id].append(client)
 
     def create_room(self, client):
         room_id = str(uuid.uuid4())
@@ -70,7 +68,7 @@ class Rooms:
 
 player_queue = SetQueue()
 connected_clients = Clients()
-room = Rooms()
+rooms = Rooms()
 
 
 @socketio.on('connect', namespace='/game')
@@ -78,19 +76,19 @@ def connect_event():
     global player_queue
 
     new_client = Client(session['username'], session['_id'])
-    connected_clients.add_client(session['_id'], new_client)
+    connected_clients.add_client(new_client)
 
     player_queue.put(new_client.id)
 
-    if not room.get_next_free_room():
-        room.create_room(new_client)
+    if not rooms.get_next_free_room_id():
+        rooms.create_room(new_client)
     else:
-        room.add_client(room.get_next_free_room(), new_client)
+        rooms.add_client(new_client)
 
-    client_room = room.get_client_room(new_client)
-    join_room(str(client_room))
+    client_room = rooms.get_client_room_id(new_client)
+    join_room(client_room)
 
-    if player_queue.qsize() % 2 == 0 and player_queue.qsize() > 0:
+    if player_queue.qsize() % 2 == 0 and not player_queue.empty():
 
         player1_id = player_queue.get()
         player2_id = player_queue.get()
@@ -98,21 +96,21 @@ def connect_event():
         player1 = connected_clients.get_client_by_id(player1_id)
         player2 = connected_clients.get_client_by_id(player2_id)
 
-        emit('connected to game', {'data': player1.username + ' vs ' + player2.username}, room=str(client_room))
+        emit('connected to game', {'data': player1.username + ' vs ' + player2.username}, room=client_room)
 
 
 @socketio.on('disconnect', namespace='/game')
 def disconnect():
     current_client = connected_clients.get_client_by_id(session['_id'])
-    client_room = room.get_client_room(current_client)
+    client_room_id = rooms.get_client_room_id(current_client)
 
     if player_queue.qsize() % 2 == 1:
         player_queue.remove_item(session['_id'])
 
-    if len(client_room) > 0:
-        del room.rooms[client_room[0]]
+    if client_room_id:
+        del rooms.rooms[client_room_id]
 
     emit('server response', {'data': current_client.username + ' disconnected',
-                             'message': 'You should start another session.'}, room=str(client_room))
+                             'message': 'You should start another session.'}, room=client_room_id)
 
     print(current_client.username + " disconnected")
