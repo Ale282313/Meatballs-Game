@@ -55,13 +55,16 @@ class Rooms:
             if len(clients) < 2:
                 return room_id
 
+        return self.create_room()
+
     def add_client(self, client):
         free_room_id = self.get_next_free_room_id()
         self.rooms[free_room_id].append(client)
 
-    def create_room(self, client):
+    def create_room(self):
         room_id = str(uuid.uuid4())
-        self.rooms[room_id] = [client]
+        self.rooms[room_id] = []
+        return room_id
 
     def get_rooms(self):
         return self.rooms
@@ -80,10 +83,7 @@ def connect_event():
 
     player_queue.put(new_client.id)
 
-    if not rooms.get_next_free_room_id():
-        rooms.create_room(new_client)
-    else:
-        rooms.add_client(new_client)
+    rooms.add_client(new_client)
 
     client_room = rooms.get_client_room_id(new_client)
     join_room(client_room)
