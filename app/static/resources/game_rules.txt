@@ -1,0 +1,5 @@
+You can be hit up to 3 times, after that the game is over
+To shot, press and hold the mouse left button
+To change the angle of the shot, move the mouse cursor
+To change the power of the shot, click and hold the mouse left button accordingly
+After each shot there is a cooldown time

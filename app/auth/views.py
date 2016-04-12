@@ -47,7 +47,7 @@ def login():
         db_user = User.query.filter_by(username=form.username.data).first()
         if db_user and bcrypt.check_password_hash(db_user.password, form.password.data):
             login_user(db_user)
-            return redirect(url_for('main.play'))
+            return redirect(url_for('main.play', username=form.username.data))
         else:
             error = "Wrong username or password."
 

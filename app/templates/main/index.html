@@ -41,7 +41,7 @@
          {% else %}
          <div class="row">
             <div class="col-md-3 col-md-offset-5">
-                <a href="{{ url_for('main.play') }}"><button type="submit" class="btn-main">Play</button></a>
+                <a href="{{ url_for('main.play', username=current_user.username) }}"><button type="submit" class="btn-main">Play</button></a>
             </div>
          </div>
          {% endif %}
