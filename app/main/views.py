@@ -17,6 +17,17 @@ def index():
                            title='Home')
 
 
+@main.route('rules')
+def rules():
+
+    file = open('app/static/resources/game_rules.txt', 'r')
+    rules = file.readlines()
+
+    return render_template('main/rules.html',
+                           title='Rules',
+                           rules=rules)
+
+
 @main.route('<username>')
 @login_required
 def play(username):
@@ -32,8 +43,8 @@ def play(username):
     if db_user is None:
         return render_template('404.html'), 404
 
+    print(db_user)
     file = open('app/static/resources/game_rules.txt', 'r')
-
     rules = file.readlines()
 
     return render_template('main/play.html',

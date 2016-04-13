@@ -31,6 +31,7 @@
             {% else %}
                 <li><a href="{{ url_for('auth.logout') }}">Logout({{ current_user.username }})</a></li>
                 <li><a href="{{ url_for('user.user_profile', username=current_user.username) }}">Profile</a></li>
+                <li><a href="{{ url_for('main.rules') }}">Rules</a></li>
             {% endif %}
                 <li><a href="{{ url_for('game.meatballs_game') }}">Play</a></li>
 
