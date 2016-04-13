@@ -19,7 +19,6 @@ def index():
 
 @main.route('rules')
 def rules():
-
     file = open('app/static/resources/game_rules.txt', 'r')
     rules = file.readlines()
 
@@ -28,7 +27,7 @@ def rules():
                            rules=rules)
 
 
-@main.route('<username>')
+@main.route('Play')
 @login_required
 def play(username):
     from app.game.game_repository import GameRepository

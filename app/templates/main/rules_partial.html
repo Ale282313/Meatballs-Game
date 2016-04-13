@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h3 class="play">Game rules:</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <ul class="dashed">
+            {% for rule in rules %}
+                <li> {{ rule }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
