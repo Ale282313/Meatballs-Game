@@ -1,73 +1,10 @@
-import queue
-import uuid
-from app import socketio
 from flask import session
 from flask_socketio import emit, join_room
-
-
-class SetQueue(queue.Queue):
-    def _init(self, maxsize):
-        self.queue = set()
-
-    def _put(self, item):
-        self.queue.add(item)
-
-    def _get(self):
-        return self.queue.pop()
-
-    def remove_item(self, client_id):
-        return self.queue.remove(client_id)
-
-    def get_queue(self):
-        return self.queue
-
-
-class Client:
-    def __init__(self, client_username, client_id):
-        self.username = client_username
-        self.id = client_id
-
-
-class Clients:
-    connected_clients = {}
-
-    def add_client(self, client):
-        self.connected_clients[client.id] = client
-
-    def get_client_by_id(self, client_id):
-        if client_id in self.connected_clients.keys():
-            return self.connected_clients.get(client_id, None)
-
-    def get_clients(self):
-        return self.connected_clients
-
-
-class Rooms:
-    rooms = {}
-
-    def get_client_room_id(self, client_obj):
-        for room_id, clients in self.rooms.items():
-            if client_obj in clients:
-                return room_id
-
-    def get_next_free_room_id(self):
-        for room_id, clients in self.rooms.items():
-            if len(clients) < 2:
-                return room_id
-
-        return self.create_room()
-
-    def add_client(self, client):
-        free_room_id = self.get_next_free_room_id()
-        self.rooms[free_room_id].append(client)
-
-    def create_room(self):
-        room_id = str(uuid.uuid4())
-        self.rooms[room_id] = []
-        return room_id
-
-    def get_rooms(self):
-        return self.rooms
+from app import socketio
+from app.game.model.client import Client
+from app.game.model.clients import Clients
+from app.game.model.rooms import Rooms
+from app.game.model.setqueue import SetQueue
 
 player_queue = SetQueue()
 connected_clients = Clients()
