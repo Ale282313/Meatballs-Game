@@ -8,8 +8,18 @@
     transform: translateY(-50%);
 }
 
+.my-title {
+    color: rgb(37, 40, 57);
+    font-size: 35px;
+    font-weight: 400;
+    text-align: center;
+
+    margin: 0;
+
+}
+
 .register-form input {
-    margin: 20px 3% 12px 3%; /*when input is out of focus, bottom margin is 12px*/
+    margin: 15px 3% 12px 3%; /*when input is out of focus, bottom margin is 12px*/
     outline: none;
     border: none;
     width: 90%;
@@ -19,7 +29,7 @@
 }
 
 .register-form input:focus {
-    margin: 20px 3% 10px 3%; /*when input is focused, bottom margin is 10px to make room for border*/
+    margin: 15px 3% 10px 3%; /*when input is focused, bottom margin is 10px to make room for border*/
     border-bottom: 3.5px solid rgb(242, 182, 50);
 }
 
