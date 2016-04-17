@@ -3,52 +3,47 @@
     <link rel="stylesheet" type="text/css" href="../static/css/game.css">
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="../static/js/game.js"></script>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1" />
 {% endblock %}
 {% block content %}
     <section class="game-section col-md-12">
     <div class="row">
         <div class="game-wrapper">
             <div id ="game-box">
-                <!--General Stuff -->
-                <div id="timer">.</div>
-                <div id="message">Mesaj de Avertizare</div>
-                <div id="gravity-bars">
-                    <div class="unu bar on"></div>
-                    <div class="doi bar on"></div>
-                    <div class="trei bar"></div>
-                    <div class="patru bar"></div>
-                    <div class="cinci bar"></div>
-                    <div class="sase bar"></div>
-                    <div class="sapte bar"></div>
-                    <div class="opt bar"></div>
-                    <div class="noua bar"></div>
-                    <div class="zece bar"></div>
-                    <div class="unspe bar"></div>
+                <div id="general-stats">
+                    <!--General Stuff -->
+                    <div id="timer">.</div>
+                    <div id="message">Mesaj de Avertizare</div>
+                    <div id="gravity-bars"></div>
                 </div>
-                <!-- Power Animantion -->
-                <div id="power"><div id="current-power"></div></div>
 
-                <!--Current player's Stats-->
-                <div id="my-username">my-username</div>
-                <div id="my-health"><div id="my-current-health">HP</div></div>
-                <div id="my-cooldown"><div id="my-current-cooldown">CD</div></div>
-                <div id="my-shield"><div id="my-current-shield">SHIELD</div></div>
-                <!--Current player's Tank-->
-                <div id="my-missile"></div>
-                <div id="my-cannon"></div>
-                <div id="my-body"></div>
-                <div id="my-defense"></div>
+                <div id="team-one">
+                    <!-- Power Animantion -->
+                    <div id="power"><div id="current-power"></div></div>
+                    <!--Current player's Stats-->
+                    <div id="my-username">my-username</div>
+                    <div id="my-health"><div id="my-current-health">HP</div></div>
+                    <div id="my-cooldown"><div id="my-current-cooldown">CD</div></div>
+                    <div id="my-shield"><div id="my-current-shield">SHIELD</div></div>
+                    <!--Current player's Tank-->
+                    <div id="my-missile"></div>
+                    <div id="my-cannon"></div>
+                    <div id="my-body"></div>
+                    <div id="my-defense"></div>
+                </div>
 
-                <!--Enemy player's stats-->
-                <div id="enemy-username">enemy-username</div>
-                <div id="enemy-health"><div id="enemy-current-health">HP</div></div>
-                <div id="enemy-cooldown"><div id="enemy-current-cooldown">CD</div></div>
-                <div id="enemy-shield"><div id="enemy-current-shield">SHIELD</div></div>
-                <!-- Enemy player's tank -->
-                <div id="enemy-missile"></div>
-                <div id="enemy-cannon"></div>
-                <div id="enemy-body"></div>
-                <div id="enemy-defense"></div>
+                <div id="team-two">
+                    <!--Enemy player's stats-->
+                    <div id="enemy-username">enemy-username</div>
+                    <div id="enemy-health"><div id="enemy-current-health">HP</div></div>
+                    <div id="enemy-cooldown"><div id="enemy-current-cooldown">CD</div></div>
+                    <div id="enemy-shield"><div id="enemy-current-shield">SHIELD</div></div>
+                    <!-- Enemy player's tank -->
+                    <div id="enemy-missile"></div>
+                    <div id="enemy-cannon"></div>
+                    <div id="enemy-body"></div>
+                    <div id="enemy-defense"></div>
+                </div>
 
             </div>
         </div>

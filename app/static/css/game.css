@@ -28,6 +28,8 @@
     right: 50%;
     top: 5%;
     font-weight: bold;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 
 #message {
@@ -37,6 +39,9 @@
     font-size: 20px;
     color: red;
     font-weight: bold;
+    display: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 
 #gravity-bars {
@@ -55,18 +60,6 @@
     border: 0.5px solid grey;
 }
 
-.unu  { height: 9%; }
-.doi { height: 18%; }
-.trei  { height: 27%; }
-.patru { height: 36%; }
-.cinci  { height: 45%; }
-.sase  { height: 54%; }
-.sapte { height: 63%; }
-.opt  { height: 72%; }
-.noua { height: 81%; }
-.zece  { height: 90%; }
-.unspe { height: 99%;}
-
 .on { background: red; }
 .off { background: transparent; }
 /* end of general layout and design settings */
@@ -78,6 +71,8 @@
     position: absolute;
     top: 10px;
     left: 10px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 
 #my-health {
@@ -130,6 +125,7 @@
     position: absolute;
     background: blue;
     border-radius: 7px;
+    display: none;
 }
 
 #my-cannon{
@@ -174,6 +170,8 @@
     position: absolute;
     top: 10px;
     right: 10px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 
 #enemy-health {
@@ -226,6 +224,7 @@
     position: absolute;
     background: red;
     border-radius: 7px;
+    display: none;
 }
 #enemy-cannon{
     background: red;
