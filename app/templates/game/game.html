@@ -4,10 +4,21 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="../static/js/game.js"></script>
 {% endblock %}
+{% block js_imports %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/socket_events.js') }}"></script>
+{% endblock %}
 {% block content %}
     <section class="game-section col-md-12">
     <div onclass="row">
         <div class="game-wrapper">
+
+            <div id="connection-messages">
+                <p id="player-waiting" class="title loading">Waiting for connection</p>
+                <p id="player-disconnect" class="title"></p>
+                <p id="player-status" class="title"></p>
+            </div>
+
             <div id ="game-box">
                 <!--General Stuff -->
                 <div id="timer">.</div>
@@ -37,7 +48,6 @@
                 <div id="enemy-cannon"></div>
                 <div id="enemy-body"></div>
                 <div id="enemy-defense"></div>
-
             </div>
         </div>
     </div>

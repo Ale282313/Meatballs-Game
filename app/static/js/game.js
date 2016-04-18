@@ -240,6 +240,40 @@ function EnemyPlayer() {
 }
 
 $(document).ready(function () {
+
+    startGame();
+    game.gameBox.mousemove(function (e) {
+        var angle = getAngle(e);
+        currentPlayer.rotateCannon(angle);
+    });
+    game.gameBox.mousedown(function (e) {
+        if (e.which == 1) {
+            currentPlayer.power.show();
+            currentPlayer.power.css({
+                'left': e.pageX - game.gameBox.offset().left,
+                'right': 'auto',
+                'top': e.pageY - game.gameBox.offset().top - 5,
+                'bottom': 'auto'
+            });
+        }
+    });
+    $(document).mouseup(function (e) {
+        if (e.which === 1) {
+            leftClick(e);
+        }
+        if (e.which === 2) {
+            //just for fun - you can shoot and activate enemy's shield with scroll button - test purposes
+            enemyPlayer.activateShield();
+        }
+        if (e.which === 3) {
+            currentPlayer.activateShield();
+        }
+    });
+});
+
+function startGame() {
+    $("#connection-messages").hide();
+    $("#game-box").show();
     var cPlayer = {
         username : $("#my-username"),
         health : $("#my-health"),
@@ -274,35 +308,7 @@ $(document).ready(function () {
 
     game = new Game();
     game.initializeGame();
-
-    game.gameBox.mousemove(function (e) {
-        var angle = getAngle(e);
-        currentPlayer.rotateCannon(angle);
-    });
-    game.gameBox.mousedown(function (e) {
-        if (e.which == 1) {
-            currentPlayer.power.show();
-            currentPlayer.power.css({
-                'left': e.pageX - game.gameBox.offset().left,
-                'right': 'auto',
-                'top': e.pageY - game.gameBox.offset().top - 5,
-                'bottom': 'auto'
-            });
-        }
-    });
-    $(document).mouseup(function (e) {
-        if (e.which === 1) {
-            leftClick(e);
-        }
-        if (e.which === 2) {
-            //just for fun - you can shoot and activate enemy's shield with scroll button - test purposes
-            enemyPlayer.activateShield();
-        }
-        if (e.which === 3) {
-            currentPlayer.activateShield();
-        }
-    });
-});
+}
 
 function getVector(velocity, angle) {
     var v0x = velocity * Math.cos(angle * Math.PI / 180);
