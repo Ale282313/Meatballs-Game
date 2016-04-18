@@ -4,7 +4,7 @@
     transform: translateY(-50%);
 }
 
-.box-game p {
+#game-box p {
     margin: 0;
 }
 
