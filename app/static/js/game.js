@@ -208,7 +208,6 @@ function CurrentPlayer(power, currentPower) {
         var yPos = Math.floor(currentPlayer.cannon.offset().top - 1 - game.gameBox.offset().top);
         return [xPos, yPos];
     }
-
 }
 
 function EnemyPlayer() {
@@ -240,7 +239,6 @@ function EnemyPlayer() {
 }
 
 $(document).ready(function () {
-
     startGame();
     game.gameBox.mousemove(function (e) {
         var angle = getAngle(e);
@@ -362,12 +360,6 @@ function getAngle(e) {
         angle = 90;
     }
     return angle;
-}
-
-function getStartPosition(angle) {
-    var xPos = currentPlayer.cannon.offset().left - 1 - game.gameBox.offset().left + 1.3 * angle;
-    var yPos = Math.floor(currentPlayer.cannon.offset().top - 1 - game.gameBox.offset().top);
-    return [xPos, yPos];
 }
 
 function polishAngle(angle) {
