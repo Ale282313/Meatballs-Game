@@ -1,8 +1,11 @@
 from app import login_manager
 from flask import Blueprint, render_template
-from flask_login import login_required
+from flask_login import login_required, current_user
 from models import User
-
+from app.game.game_repository import GameRepository
+from app.user.user_repository import UserRepository
+from werkzeug.exceptions import abort
+from .views_methods import read_file
 main = Blueprint('main', __name__)
 
 
@@ -19,36 +22,29 @@ def index():
 
 @main.route('rules')
 def rules():
-    file = open('app/static/resources/game_rules.txt', 'r')
-    rules = file.readlines()
-
+    game_rules = read_file()
     return render_template('main/rules.html',
                            title='Rules',
-                           rules=rules)
+                           rules=game_rules)
 
 
-@main.route('Play')
+@main.route('play')
 @login_required
-def play(username):
-    from app.game.game_repository import GameRepository
-    from app.user.user_repository import UserRepository
-
+def play():
     user_repository = UserRepository()
     game_repository = GameRepository()
 
-    db_user = user_repository.get_user_by_username(username)
+    db_user = user_repository.get_user_by_username(current_user.username)
     user_games = game_repository.get_games_count(db_user)
 
     if db_user is None:
-        return render_template('404.html'), 404
+        abort(404)
 
-    print(db_user)
-    file = open('app/static/resources/game_rules.txt', 'r')
-    rules = file.readlines()
+    game_rules = read_file()
 
     return render_template('main/play.html',
                            title='Play',
-                           rules=rules,
+                           rules=game_rules,
                            user_games=user_games)
 
 
