@@ -1,0 +1,9 @@
+/*general stuff + game setup */
+@import url("game_general.css");
+
+/*players' stats */
+@import url("game_stats.css");
+
+/*players' tanks */
+@import url("game_players.css");
+
