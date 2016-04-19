@@ -13,14 +13,14 @@
 
 }
 
-.cannon{
+.cannon {
     background: transparent;
     border-radius: 5px;
     border-top: 50px solid blue;
     width: 10px;
-    height: 50px;
+    height: 100px;
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
 }
 
 .tank-body {

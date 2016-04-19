@@ -79,7 +79,7 @@
     display: inline-block;
     border: 0.1px solid grey;
     height: 10px;
-    width: 2px;
+    width: 4px;
 }
 .on { background: red; }
 .off { background: transparent; }

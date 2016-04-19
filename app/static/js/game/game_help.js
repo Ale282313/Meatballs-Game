@@ -1,7 +1,3 @@
-/**
- * Created by user on 4/19/2016.
- */
-
 function startMouseEvents() {
     game.gameBox.mousemove(function (e) {
         var angle = getAngle(e);

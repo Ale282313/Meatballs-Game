@@ -1,7 +1,3 @@
-/**
- * Created by user on 4/19/2016.
- */
-
 function Game() {
     this.gameBox = $("#game-box");
     this.warningMessage = $("#message");
@@ -18,7 +14,7 @@ function Game() {
             }
             $(bar).appendTo($("#gravity-bars"));
         }
-    }
+    };
 
     this.startTimer = function (timer) {
         secs = 0;
@@ -26,12 +22,12 @@ function Game() {
             secs += 1;
             timer.text(displayTimer(secs));
         }, 1000);
-    }
+    };
 
     this.getDatafromServer = function () {
         //here we get the gravity and other general stuff from server
         //gets called once in the begining of the game
-    }
+    };
 
     this.initializeGame = function () {
         $(document).bind("contextmenu", function (event) {
@@ -78,7 +74,7 @@ function Player(obj) {
             opponent(that).missile.hide();
             that.hasDefense = false;
         }, this.shieldDuration * 1000);
-    }
+    };
 
     this.activateShield = function () {
         if (this.isShieldCooldownReady()) {
@@ -88,7 +84,7 @@ function Player(obj) {
         else {
             showWarningMessage("Shield cooldown!");
         }
-    }
+    };
 
     this.shotCooldownReset = function () {
         this.currentCooldown.css({width: 0 + "px"});
@@ -101,7 +97,7 @@ function Player(obj) {
                 clearInterval(shotCooldownTimer);
             }
         }, 1000 / (200 / that.shotCooldown)); //takes 5 seconds to refresh the shot\
-    }
+    };
 
     this.shieldCooldownReset = function () {
         this.currentShield.css({width: 0 + "px"});
@@ -114,25 +110,25 @@ function Player(obj) {
                 clearInterval(shieldCooldownTimer);
             }
         }, 1000 / (200 / that.shieldCooldwown)); //takes 20 seconds to refresh the shield
-    }
+    };
 
     this.missileHit = function (opponent, damage) {
         opponent.currentHealth.css({width: opponent.currentHealth.width() - damage + "px"})
-    }
+    };
 
     this.isShieldCooldownReady = function () {
         //this has to come from the server
         return (this.currentShield.width() >= Math.floor(this.shield.width()))
-    }
+    };
 
     this.isShotCooldownReady = function () {
         //this has to come from the server
         return (this.currentCooldown.width() >= Math.floor(this.cooldown.width()))
-    }
+    };
 
     this.computeNewYCoordinate = function (startY, vectorY, frameCount, gravity) {
         return startY - ( vectorY * frameCount - (1 / 2 * gravity * Math.pow(frameCount, 2)) )
-    }
+    };
 
     this.shot = function (startPosition, angle, power) {
         var hit = jQuery.Deferred();
@@ -152,7 +148,6 @@ function Player(obj) {
         var timer2 = setInterval(function () {
             if (that.missileNotOutOfBounds(projectile.x, projectile.y, projectile.radius)) {
                 that.missile.show();
-                console.log(projectile.x, projectile.y);
                 if (!opponent(that).hasDefense) {
                     projectile.y = that.computeNewYCoordinate(startY, vector[1], frameCount, game.gravity);
                     projectile.x = that.computeNewXCoordinate(startX, vector[0], frameCount);
@@ -192,37 +187,37 @@ function CurrentPlayer(power, currentPower) {
     this.currentPower = currentPower;
     this.rotateCannon = function (angle) {
         this.cannon.css({'transform': 'rotate(' + angle + 'deg)'});
-    }
+    };
 
     this.getPower = function () {
         var p = this.currentPower.width() / 3;
         this.power.hide();
         return p;
-    }
+    };
 
     this.missileNotOutOfBounds = function (x, y, radius) {
         return y < game.gameBox.height() - radius && x < game.gameBox.width();
-    }
+    };
 
     this.missileNotHitShield = function (x, y, radius) {
         var xLimit = x < (game.gameBox.width() - enemyPlayer.defense.width());
         var yLimit = y < (game.gameBox.height() - enemyPlayer.defense.height() - radius);
 
         return (xLimit || yLimit);
-    }
+    };
 
     this.missileOutOfLateralBounds = function (y, radius) {
         return y < game.gameBox.height() - radius;
-    }
+    };
 
     this.missileHitOpponent = function (x, y) {
         console.log((game.gameBox.width() - enemyPlayer.body.width()));
         return x > (game.gameBox.width() - enemyPlayer.body.width()) && y > (game.gameBox.height() - enemyPlayer.body.height());
-    }
+    };
 
     this.computeNewXCoordinate = function (startX, vector, frameCount) {
         return startX + vector * frameCount;
-    }
+    };
 
     this.getStartPosition = function (angle) {
         var xPos = currentPlayer.cannon.offset().left - 1 - game.gameBox.offset().left + 1.3 * angle;
@@ -235,30 +230,30 @@ function CurrentPlayer(power, currentPower) {
 function EnemyPlayer() {
     this.missileNotOutOfBounds = function (x, y, radius) {
         return y < game.gameBox.height() - radius && x > 0;
-    }
+    };
 
     this.missileNotHitShield = function (x, y, radius) {
         console.log("dfsfdsfdsfs" + x, y);
         var xLimit = x > currentPlayer.defense.width();
         var yLimit = y < (game.gameBox.height() - currentPlayer.defense.height() - radius);
         return (xLimit || yLimit);
-    }
+    };
 
     this.missileOutOfLateralBounds = function (y, radius) {
         return y < game.gameBox.height() - radius;
-    }
+    };
 
     this.missileHitOpponent = function (x, y) {
         return x < currentPlayer.body.width() && y > (game.gameBox.height() - currentPlayer.body.height());
-    }
+    };
 
     this.computeNewXCoordinate = function (startX, vector, frameCount) {
         return startX - vector * frameCount;
-    }
+    };
 
     this.rotateCannon = function (angle) {
         this.cannon.css({'transform': 'rotate(' + -angle + 'deg)'});
-    }
+    };
 
     this.getStartPosition = function (angle) {
         var xPos = this.cannon.offset().left - 1 - game.gameBox.offset().left;
