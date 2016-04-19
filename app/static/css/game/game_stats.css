@@ -1,0 +1,43 @@
+.username {
+    margin: 10px;
+    font-weight: bold;
+}
+.health {
+    width: 200px;
+    border: 1px solid grey;
+    margin: 10px;
+}
+.current-health {
+    width: 90%;
+    background: red;
+}
+.cooldown {
+    width: 200px;
+    border: 1px solid grey;
+    margin: 10px;
+}
+.current-cooldown {
+    width: 100%;
+    background: blue;
+}
+.shield {
+    width: 200px;
+    border: 1px solid grey;
+    margin: 10px;
+}
+.current-shield {
+    width: 100%;
+    background: green;
+}
+
+#my-stats {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#enemy-stats {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
