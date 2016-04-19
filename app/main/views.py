@@ -1,7 +1,11 @@
 from app import login_manager
 from flask import Blueprint, render_template
+from flask_login import login_required, current_user
 from models import User
-
+from app.game.game_repository import GameRepository
+from app.user.user_repository import UserRepository
+from werkzeug.exceptions import abort
+from .views_methods import read_file
 main = Blueprint('main', __name__)
 
 
@@ -15,10 +19,34 @@ def index():
     return render_template('main/index.html',
                            title='Home')
 
+
+@main.route('rules')
+def rules():
+    game_rules = read_file()
+    return render_template('main/rules.html',
+                           title='Rules',
+                           rules=game_rules)
+
+
 @main.route('play')
+@login_required
 def play():
+    user_repository = UserRepository()
+    game_repository = GameRepository()
+
+    db_user = user_repository.get_user_by_username(current_user.username)
+    user_games = game_repository.get_games_count(db_user)
+
+    if db_user is None:
+        abort(404)
+
+    game_rules = read_file()
+
     return render_template('main/play.html',
-                           title='Play')
+                           title='Play',
+                           rules=game_rules,
+                           user_games=user_games)
+
 
 @main.app_errorhandler(403)
 def forbidden(e):

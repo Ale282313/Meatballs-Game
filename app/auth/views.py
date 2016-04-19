@@ -33,7 +33,7 @@ def register():
 
         login_user(new_user)
         session['username'] = current_user.username
-        return redirect(url_for('main.play'))
+        return redirect(url_for('main.play',  username=current_user.username))
 
     return render_template('auth/register.html',
                            title="Register",
@@ -49,7 +49,7 @@ def login():
         if db_user and bcrypt.check_password_hash(db_user.password, form.password.data):
             login_user(db_user)
             session['username'] = current_user.username
-            return redirect(url_for('main.play'))
+            return redirect(url_for('main.play', username=current_user.username))
         else:
             error = "Wrong username or password."
 
