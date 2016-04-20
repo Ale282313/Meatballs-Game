@@ -11,7 +11,7 @@
 {% endblock %}
 {% block content %}
     <section class="game-section col-md-12">
-    <div onclass="row">
+    <div class="row">
         <div class="game-wrapper">
 
             <div id="connection-messages">
@@ -23,9 +23,11 @@
             <div id ="game-box">
                 <div id="general-stuff">
                     <!--General Stuff -->
-                    <div id="timer">.</div>
+                    <div id="timer"></div>
                     <div id="message">Mesaj de Avertizare</div>
-                    <div id="gravity-bars"></div>
+                    <div id="gravity-bars">
+                        <span class="gravity-text">gravity</span>
+                    </div>
                     <!-- Power Animantion -->
                     <div id="power"><div id="current-power"></div></div>
                 </div>
@@ -35,16 +37,18 @@
                         <!--Current player's Stats-->
                         {% block stats %}
                             <div class="username">username</div>
-                            <div class="health"><div class="current-health">HP</div></div>
-                            <div class="cooldown"><div class="current-cooldown">CD</div></div>
-                            <div class="shield"><div class="current-shield">SHIELD</div></div>
+                            <div class="health"><div class="current-health"></div></div>
+                            <div class="cooldown"><div class="current-cooldown"></div></div>
+                            <div class="shield"><div class="current-shield"></div></div>
                         {% endblock %}
                     </div>
                     <div class="tank-container" id="my-tank">
                         <!--Current player's Tank-->
                         {% block tank %}
                             <div class="missile"></div>
-                            <div class="cannon"></div>
+                            <div class="cannon-wrapper">
+                                <div class="cannon"></div>
+                            </div>
                             <div class="tank-body"></div>
                             <div class="defense"></div>
                         {% endblock %}
