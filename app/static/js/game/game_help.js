@@ -1,7 +1,3 @@
-/**
- * Created by user on 4/19/2016.
- */
-
 function startMouseEvents() {
     game.gameBox.mousemove(function (e) {
         var angle = getAngle(e);
@@ -44,12 +40,12 @@ function startGame() {
         shield : $("#my-stats > .shield"),
         currentShield : $("#my-stats > .shield > .current-shield"),
         missile : $("#my-tank > .missile"),
-        cannon : $("#my-tank > .cannon"),
+        cannon : $("#my-tank > .cannon-wrapper"),
         body : $("#my-tank > .tank-body"),
         defense : $("#my-tank > .defense")
-    }
+    };
     CurrentPlayer.prototype = new Player(cPlayer);
-    currentPlayer = new CurrentPlayer($("#power"),$("#current-power"));
+    currentPlayer = new CurrentPlayer($("#power"), $("#current-power"));
 
     var ePlayer = {
         username : $("#enemy-stats > .username"),
@@ -60,10 +56,10 @@ function startGame() {
         shield : $("#enemy-stats > .shield"),
         currentShield : $("#enemy-stats > .shield > .current-shield"),
         missile : $("#enemy-tank > .missile"),
-        cannon : $("#enemy-tank > .cannon"),
+        cannon : $("#enemy-tank > .cannon-wrapper"),
         body : $("#enemy-tank > .tank-body"),
         defense : $("#enemy-tank > .defense")
-    }
+    };
     EnemyPlayer.prototype = new Player(ePlayer);
     enemyPlayer = new EnemyPlayer();
 

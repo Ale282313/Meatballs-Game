@@ -1,43 +1,91 @@
 .username {
-    margin: 10px;
-    font-weight: bold;
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+    text-transform: uppercase;
+
+    left: 50%;
+    position: absolute;
+    top: -15%;
+    transform: translateX(-50%);
 }
-.health {
-    width: 200px;
-    border: 1px solid grey;
+
+.health, .cooldown, .shield {
+    border-radius: 7px;
+    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.3);
+    height: 18px;
+    width: 150px;
+
     margin: 10px;
 }
+
+.current-health, .current-cooldown, .current-shield {
+    border-radius: 7px;
+    height: 18px;
+}
+
 .current-health {
-    width: 90%;
-    background: red;
+    background: rgb(217, 36, 31);
+    width: 40%;
 }
-.cooldown {
-    width: 200px;
-    border: 1px solid grey;
-    margin: 10px;
-}
+
 .current-cooldown {
+    background: rgb(36, 151, 180);
     width: 100%;
-    background: blue;
 }
-.shield {
-    width: 200px;
-    border: 1px solid grey;
-    margin: 10px;
-}
+
 .current-shield {
+    background: rgb(42, 198, 119);
     width: 100%;
-    background: green;
 }
 
 #my-stats {
+    left: 20px;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 20px;
 }
 
 #enemy-stats {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    right: 20px;
+    top: 20px;
+}
+
+#my-stats .health:before,
+#enemy-stats .health:before,
+#my-stats .cooldown:before,
+#enemy-stats .cooldown:before,
+#my-stats .shield:before,
+#enemy-stats .shield:before {
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+
+    display: block;
+    position: absolute;
+}
+
+#my-stats .health:before,
+#enemy-stats .health:before{
+    content: 'HP';
+}
+
+#my-stats .cooldown:before,
+#enemy-stats .cooldown:before{
+    content: 'CD';
+}
+
+#my-stats .shield:before,
+#enemy-stats .shield:before{
+    content: 'SH';
+}
+
+#my-stats .health:before,
+#my-stats .cooldown:before,
+#my-stats .shield:before {
+    left: -15px;
+}
+
+#enemy-stats .health:before,
+#enemy-stats .cooldown:before,
+#enemy-stats .shield:before {
+    right: -15px;
 }
