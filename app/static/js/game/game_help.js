@@ -45,7 +45,7 @@ function startGame() {
         defense : $("#my-tank > .defense")
     };
     CurrentPlayer.prototype = new Player(cPlayer);
-    currentPlayer = new CurrentPlayer($("#power"),$("#current-power"));
+    currentPlayer = new CurrentPlayer($("#power"), $("#current-power"));
 
     var ePlayer = {
         username : $("#enemy-stats > .username"),
