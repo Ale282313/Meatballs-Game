@@ -8,12 +8,16 @@ from app.game.model.rooms import Rooms
 from app.game.model.setqueue import SetQueue
 from .game_models.game import Game
 from app.game.config_loader import load_player_config
+from ..user.user_repository import UserRepository
+from .. import db
+
 
 player_queue = SetQueue()
 connected_clients = Clients()
 client_rooms = Rooms()
 player_config = load_player_config()
 
+user_repository = UserRepository()
 
 @socketio.on('connect', namespace='/game')
 def connect_event():
@@ -133,4 +137,11 @@ def message(data):
 def game_over(data):
     current_client = connected_clients.get_client_by_id(session['_id'])
     client_room_id = client_rooms.get_client_room_id(current_client)
+
+    winner_username = data['winner']
+    user = user_repository.get_user_by_username(winner_username)
+    new_game = Game(user.id)
+    db.session.add(new_game)
+
+    db.session.commit()
     emit('290', data, room=client_room_id)
