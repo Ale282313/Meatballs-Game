@@ -1,4 +1,4 @@
-from flask import session, request
+from flask import session, request, render_template
 from flask_socketio import emit, join_room
 from app import socketio
 
@@ -138,10 +138,20 @@ def game_over(data):
     current_client = connected_clients.get_client_by_id(session['_id'])
     client_room_id = client_rooms.get_client_room_id(current_client)
 
-    winner_username = data['winner']
-    user = user_repository.get_user_by_username(winner_username)
-    new_game = Game(user.id)
-    db.session.add(new_game)
+    opponent_client = current_client.opponent
+    opponent_user = user_repository.get_user_by_username(opponent_client.username)
 
+    winner_username = data['winner']
+    current_user = user_repository.get_user_by_username(winner_username)
+    current_user_id = user_repository.get_user_id(winner_username)
+
+    game = Game(current_user_id)
+
+    current_user.games.append(game)
+    opponent_user.games.append(game)
     db.session.commit()
+
     emit('290', data, room=client_room_id)
+
+    return render_template('game/after_game.html',
+                           title='After Game')
