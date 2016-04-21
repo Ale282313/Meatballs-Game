@@ -70,7 +70,7 @@ function Player(obj) {
     this.hasDefense = false;
     this.shieldDuration = 3; //in seconds
     this.shieldCooldwown = 20; //in seconds
-    this.shotCooldown = 5; //in seconds
+    this.shotCooldown = 1; //in seconds
     this.totalShots = 0;
     this.hitShots = 0;
     this.damage = 30;

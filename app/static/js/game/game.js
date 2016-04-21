@@ -1,5 +1,5 @@
 $(document).ready(function () {
-   socket = io.connect('http://'.concat(document.domain, ':', location.port, '/game'));
+    socket = io.connect('http://'.concat(document.domain, ':', location.port, '/game'));
 
     socket.on('200', function (data) {
         $("#connection-messages").hide();

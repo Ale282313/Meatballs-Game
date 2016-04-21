@@ -1,53 +1,54 @@
 from flask import session, request
 from flask_socketio import emit, join_room
 from app import socketio
-from app.game.model.client import Client
+
 from app.game.model.clients import Clients
 from app.game.model.rooms import Rooms
 from app.game.model.setqueue import SetQueue
-# from .game_models.player import Player
+from .game_models.player import Player
 from .game_models.game import Game
+from app.game.config_loader import load_player_config
 
 player_queue = SetQueue()
 connected_clients = Clients()
 client_rooms = Rooms()
+player_config = load_player_config()
+
 
 @socketio.on('connect', namespace='/game')
 def connect_event():
     global player_queue
 
-    new_client = Client(session['username'], session['_id'], request.sid)
-    connected_clients.add_client(new_client)
+    new_player = Player(session['username'], session['_id'], request.sid, **player_config)
+    connected_clients.add_client(new_player)
 
-    player_queue.put(new_client.id)
-    client_rooms.add_client(new_client)
+    player_queue.put(new_player.id)
+    client_rooms.add_client(new_player)
 
-    client_room = client_rooms.get_client_room_id(new_client)
+    client_room = client_rooms.get_client_room_id(new_player)
     join_room(client_room)
 
-    if player_queue.qsize() % 2 == 0 and not player_queue.empty():
-        game = Game()
-        current_client = connected_clients.get_client_by_id(session['_id'])
+    if not player_queue.qsize() % 2 == 0 or player_queue.empty():
+        return
+    
+    game = Game()
 
-        player1_id = player_queue.get()
-        player2_id = player_queue.get()
+    player1_id = player_queue.get()
+    player2_id = player_queue.get()
 
-        client1 = connected_clients.get_client_by_id(player1_id)
-        client2 = connected_clients.get_client_by_id(player2_id)
+    player1 = connected_clients.get_client_by_id(player1_id)
+    player2 = connected_clients.get_client_by_id(player2_id)
 
-        client1.set_opponent(client2)
-        client2.set_opponent(client1)
+    player1.set_opponent(player2)
+    player2.set_opponent(player1)
 
-        # player1 = Player(client1)
-        # player2 = Player(client2)
+    emit('200', {'gravity': game.gravity, 'background': game.background}, room=client_room)
 
-        emit('200', {'gravity': game.gravity, 'background': game.background}, room=client_room)
+    emit('201', {'player1': player1.username,
+                 'player2': player2.username}, room=player1.room_sid)
 
-        emit('201', {'player1': current_client.username,
-                     'player2': current_client.opponent.username}, room=current_client.room_sid)
-
-        emit('202', {'player1': current_client.opponent.username,
-                     'player2': current_client.username}, room=current_client.opponent.room_sid)
+    emit('202', {'player1': player2.username,
+                 'player2': player1.username}, room=player2.room_sid)
 
 
 @socketio.on('disconnect', namespace='/game')

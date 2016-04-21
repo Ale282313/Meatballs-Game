@@ -1,38 +1,26 @@
-import json
 import time
-from app.game.game_models.projectile import Projectile
 
 
-class Player:
-    def __init__(self, client_obj, current_health=None, damage=None, shot_cooldown=None, has_shot_cooldown=None,
-                 shield_cooldown=None, has_shield_cooldown=None, shield_duration=None, has_shield=None,
-                 total_shots=None, hit_shots=None):
-        self.projectile = Projectile()
-        self.username = client_obj.username
-        self.current_health = current_health
-        self.damage = damage
-        self.shot_cooldown = shot_cooldown
-        self.has_shot_cooldown = has_shot_cooldown
-        self.shield_cooldown = shield_cooldown
-        self.has_shield_cooldown = has_shield_cooldown
-        self.shield_duration = shield_duration
-        self.has_shield = has_shield
-        self.total_shots = total_shots
-        self.hit_shots = hit_shots
+class Player():
+    def __init__(self, client_username, client_id, room_sid=None, **player_config):
 
-    def initialize_player(self):
-        with open('../config/player_config.json') as json_data:
-            data = json.load(json_data)
-        self.current_health = data['current_health']
-        self.damage = data['damage']
-        self.shot_cooldown = data['shot_cooldown']
-        self.has_shot_cooldown = data['has_shot_cooldown']
-        self.shield_cooldown = data['shield_cooldown']
-        self.has_shield_cooldown = data['has_shield_cooldown']
-        self.shield_duration = data['shield_duration']
-        self.has_shield = data['has_shield']
-        self.total_shots = data['total_shots']
-        self.hit_shots = data['hit_shots']
+        self.username = client_username
+        self.id = client_id
+        self.room_sid = room_sid
+        self.opponent = player_config.get('opponent_obj')
+        self.current_health = player_config.get('current_health')
+        self.damage = player_config.get('damage')
+        self.shot_cooldown = player_config.get('shot_cooldown')
+        self.has_shot_cooldown = player_config.get('has_shot_cooldown')
+        self.shield_cooldown = player_config.get('shield_cooldown')
+        self.has_shield_cooldown = player_config.get('has_shield_cooldown')
+        self.shield_duration = player_config.get('shield_duration')
+        self.has_shield = player_config.get('has_shield')
+        self.total_shots = player_config.get('total_shots')
+        self.hit_shots = player_config.get('hit_shots')
+
+    def set_opponent(self, opponent_obj):
+        self.opponent = opponent_obj
 
     def missile_hit(self):
         self.current_health -= self.damage
