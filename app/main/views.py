@@ -1,11 +1,13 @@
 from app import login_manager
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
-from models import User
-from app.game.game_repository import GameRepository
-from app.user.user_repository import UserRepository
 from werkzeug.exceptions import abort
 from .views_methods import read_file
+
+from app.game.game_repository import GameRepository
+from app.user.user_repository import UserRepository
+from models import User
+
 main = Blueprint('main', __name__)
 
 

@@ -1,16 +1,17 @@
 from flask import session, request
 from flask_socketio import emit, join_room
 from app import socketio
+
 from app.game.model.client import Client
 from app.game.model.clients import Clients
 from app.game.model.rooms import Rooms
 from app.game.model.setqueue import SetQueue
-# from .game_models.player import Player
 from .game_models.game import Game
 
 player_queue = SetQueue()
 connected_clients = Clients()
 client_rooms = Rooms()
+
 
 @socketio.on('connect', namespace='/game')
 def connect_event():
