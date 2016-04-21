@@ -11,12 +11,11 @@
     {% endblock %}
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
     {% block js_imports %}
     {% endblock %}
 
 </head>
-<body>
+<body class="no-select">
     <header>
         <h1 class="heading">meatballs</h1>
         <nav class="menu" >

@@ -2,6 +2,8 @@ function startMouseEvents() {
     game.gameBox.mousemove(function (e) {
         var angle = getAngle(e);
         currentPlayer.rotateCannon(angle);
+
+        socket.emit('210', { myAngle: angle });
     });
     game.gameBox.mousedown(function (e) {
         if (e.which == 1) {
@@ -18,18 +20,15 @@ function startMouseEvents() {
         if (e.which === 1) {
             leftClick(e);
         }
-        if (e.which === 2) {
-            //just for fun - you can shoot and activate enemy's shield with scroll button - test purposes
-            enemyPlayer.activateShield();
-        }
+
         if (e.which === 3) {
-            currentPlayer.activateShield();
+            socket.emit('230');
+            // currentPlayer.activateShield(); 
         }
     });
 }
 
-function startGame() {
-    $("#connection-messages").hide();
+function startGame(data) {
     $("#game-box").show();
     var cPlayer = {
         username : $("#my-stats > .username"),
@@ -63,7 +62,7 @@ function startGame() {
     EnemyPlayer.prototype = new Player(ePlayer);
     enemyPlayer = new EnemyPlayer();
 
-    game = new Game();
+    game = new Game(data);
     game.initializeGame();
 }
 
@@ -83,30 +82,32 @@ function leftClick(e) {
     if (currentPlayer.isShotCooldownReady()) {
         currentPlayer.totalShots++;
         currentPlayer.missile.show();
+
+        socket.emit('220', {angle: angle, power: power});
+
         $.when(currentPlayer.shot(startPosition, angle, power)).then(
             function () {
                 currentPlayer.hitShots++;
-                currentPlayer.missileHit(enemyPlayer, currentPlayer.damage);
+                socket.emit('250', {damage: currentPlayer.damage});
                 if (enemyPlayer.isDead()) {
-                    //check if life on server is 0 too
-                    showWarningMessage("Ai castigat!");
-                    //redirect to after_game page
+                    socket.emit('290', {winner: currentPlayer.username.text()});
                 }
+                // currentPlayer.missileHit(enemyPlayer, currentPlayer.damage);
+                // if (enemyPlayer.isDead()) {
+                //     //check if life on server is 0 too
+                //     socket.emit('262', {message: 'You won!'});
+                //     socket.emit('261', {message: 'You lost!'});
+                //     // showWarningMessage("Ai castigat!");
+                //     //redirect to after_game page
+                // }
             }
         );
-        currentPlayer.shotCooldownReset();
+        socket.emit('240');
+        // currentPlayer.shotCooldownReset();
     }
     else {
         showWarningMessage("Shot cooldown!");
     }
-}
-
-function showWarningMessage(textMessage) {
-    game.warningMessage.text(textMessage);
-    game.warningMessage.show();
-    setTimeout(function hideMessage() {
-        game.warningMessage.hide();
-    }, 1000)
 }
 
 function getAngle(e) {
@@ -136,6 +137,14 @@ function polishAngle(angle) {
         angle = 90;
     }
     return angle;
+}
+
+function showWarningMessage (textMessage) {
+    game.warningMessage.text(textMessage);
+    game.warningMessage.show();
+    setTimeout(function hideMessage() {
+        game.warningMessage.hide();
+    }, 1000)
 }
 
 function displayTimer(secs) {

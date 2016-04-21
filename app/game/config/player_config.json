@@ -1,0 +1,13 @@
+{
+  "username": "username",
+  "current_health": 200,
+  "damage": 30,
+  "shot_cooldown": 1,
+  "has_shot_cooldown": "False",
+  "shield_cooldown": 3,
+  "has_shield_cooldown": "False",
+  "shield_duration": 3,
+  "has_shield": "False",
+  "total_shots": 0,
+  "hit_shots": 0
+}

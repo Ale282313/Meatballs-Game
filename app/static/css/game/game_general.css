@@ -1,3 +1,10 @@
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .game-section {
     position: relative;
     top: 50%;
@@ -46,7 +53,7 @@
     border: 1px solid black;
     position: relative;
     margin:0 auto;
-    background: url("../../resources/img/moon_bg.png");
+    background: pink;
     display: none;
 }
 
@@ -58,8 +65,6 @@
     color: #fff;
     font-weight: 300;
     font-size: 40px;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
 }
 
 #message {
