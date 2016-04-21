@@ -25,7 +25,7 @@ def register():
         try:
             db.session.add(new_user)
             db.session.commit()
-        except exc.IntegrityError as e:
+        except exc.IntegrityError:
             return render_template('auth/register.html',
                                    title="Register",
                                    form=form,

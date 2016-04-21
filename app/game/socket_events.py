@@ -2,10 +2,10 @@ from flask import session, request
 from flask_socketio import emit, join_room
 from app import socketio
 
+from .game_models.player import Player
 from app.game.model.clients import Clients
 from app.game.model.rooms import Rooms
 from app.game.model.setqueue import SetQueue
-from .game_models.player import Player
 from .game_models.game import Game
 from app.game.config_loader import load_player_config
 
