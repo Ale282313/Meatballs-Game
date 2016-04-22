@@ -7,29 +7,42 @@ $(document).ready(function () {
         startMouseEvents();
     });
     
-    socket.on('201', function (msg) {
-        game.getDataFromServer(msg)
+    socket.on('201', function (data) {
+        // game.getDataFromServer(data);
+        enemyPlayer.initializePlayer(data);
     });
     
-    socket.on('202', function (msg) {
-        game.getDataFromServer(msg)
+    socket.on('202', function (data) {
+        // game.getDataFromServer(data);
+        currentPlayer.initializePlayer(data);
     });
 
-    socket.on('300', function (msg) {
+    socket.on('300', function (data) {
         $("#game-box").hide();
         $("#connection-messages").show();
         $("#player-waiting").hide();
-        $("#player-disconnect").text(msg.data);
-        $("#player-status").text(msg.message);
+        $("#player-disconnect").text(data.data);
+        $("#player-status").text(data.message);
         socket.disconnect();
     });
 
-    socket.on('210', function(msg) {
-        enemyPlayer.rotateCannon(msg.myAngle);
+    socket.on('210', function(data) {
+        enemyPlayer.rotateCannon(data.myAngle);
     });
 
-    socket.on('220', function(msg) {
-        enemyPlayer.shot(enemyPlayer.getStartPosition(msg.angle), msg.angle, msg.power);
+    socket.on('221', function(data) {
+        enemyPlayer.shot(enemyPlayer.getStartPosition(data.angle), data.angle, data.power);
+        enemyPlayer.shotCooldownReset();
+    });
+
+    socket.on('222', function(data) {
+        currentPlayer.missile.show();
+        currentPlayer.shotCooldownReset();
+        $.when(currentPlayer.shot(currentPlayer.getStartPosition(data.angle), data.angle, data.power)).then(
+            function () {
+                socket.emit('250', {damage: currentPlayer.damage});
+            }
+        );
     });
 
     socket.on('231', function() {
@@ -48,23 +61,23 @@ $(document).ready(function () {
         currentPlayer.shotCooldownReset();
     });
 
-    socket.on('251', function(msg) {
-        enemyPlayer.missileHit(currentPlayer, msg.damage);
+    socket.on('251', function(data) {
+        enemyPlayer.missileHit(currentPlayer, data.damage);
     });
 
-    socket.on('252', function(msg) {
-        currentPlayer.missileHit(enemyPlayer, msg.damage);
+    socket.on('252', function(data) {
+        currentPlayer.missileHit(enemyPlayer, data.damage);
     });
     
-    socket.on('261', function(msg) {
-        showWarningMessage(msg.message);
+    socket.on('261', function(data) {
+        showWarningMessage(data.message);
     });
     
-    socket.on('262', function(msg) {
-       showWarningMessage(msg.message);
+    socket.on('262', function(data) {
+       showWarningMessage(data.message);
     });
         
-    socket.on('290', function(msg) {
-       showWarningMessage(msg.winner + ' won!');
+    socket.on('290', function(data) {
+       showWarningMessage(data.winner + ' won!');
     });
 });

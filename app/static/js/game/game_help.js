@@ -74,40 +74,10 @@ function getVector(velocity, angle) {
 
 function leftClick(e) {
     var power = currentPlayer.getPower();
-    var positionAngle = getAngle(e);
-    var startPosition = currentPlayer.getStartPosition(positionAngle);
     var angle = getAngle(e);
     angle = polishAngle(angle);
 
-    if (currentPlayer.isShotCooldownReady()) {
-        currentPlayer.totalShots++;
-        currentPlayer.missile.show();
-
-        socket.emit('220', {angle: angle, power: power});
-
-        $.when(currentPlayer.shot(startPosition, angle, power)).then(
-            function () {
-                currentPlayer.hitShots++;
-                socket.emit('250', {damage: currentPlayer.damage});
-                if (enemyPlayer.isDead()) {
-                    socket.emit('290', {winner: currentPlayer.username.text()});
-                }
-                // currentPlayer.missileHit(enemyPlayer, currentPlayer.damage);
-                // if (enemyPlayer.isDead()) {
-                //     //check if life on server is 0 too
-                //     socket.emit('262', {message: 'You won!'});
-                //     socket.emit('261', {message: 'You lost!'});
-                //     // showWarningMessage("Ai castigat!");
-                //     //redirect to after_game page
-                // }
-            }
-        );
-        socket.emit('240');
-        // currentPlayer.shotCooldownReset();
-    }
-    else {
-        showWarningMessage("Shot cooldown!");
-    }
+    socket.emit('220', {angle: angle, power: power});
 }
 
 function getAngle(e) {
