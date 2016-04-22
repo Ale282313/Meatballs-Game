@@ -76,6 +76,10 @@
     right: 0;
 }
 
+#enemy-tank .cannon {
+    left: -1px;
+}
+
 #enemy-tank .tank-body {
     transform: scaleX(-1);
     filter: FlipH;

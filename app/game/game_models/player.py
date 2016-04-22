@@ -43,10 +43,12 @@ class Player():
             return False
 
     def activate_shield(self):
+        print(time.time() - self.last_shield_time)
         if time.time() - self.last_shield_time > self.shield_cooldown:
-            return 232
+            self.last_shield_time = time.time()
+            return True
         else:
-            return 262
+            return False
 
     # def shot(self):
     #     if not self.has_shot_cooldown:

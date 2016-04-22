@@ -23,7 +23,6 @@ function startMouseEvents() {
 
         if (e.which === 3) {
             socket.emit('230');
-            // currentPlayer.activateShield(); 
         }
     });
 }

@@ -40,12 +40,14 @@ def connect_event():
 
     player_config.update({'player1_username': player1.username})
     player_config.update({'player2_username': player2.username})
+    player_config.update({'gravity': game.gravity})
+    player_config.update({'background': game.background})
 
-    emit('200', {'gravity': game.gravity, 'background': game.background}, room=player_room)
+    emit('200', player_config, room=player_room)
 
-    emit('201', player_config, room=player1.room_sid)
+    emit('201', player_config, room=player2.room_sid)
 
-    emit('202', player_config, room=player2.room_sid)
+    emit('202', player_config, room=player1.room_sid)
 
 
 @socketio.on('disconnect', namespace='/game')
@@ -87,21 +89,16 @@ def shield():
     current_player = player_rooms.get_player_by_id(session['_id'])
     opponent_sid = current_player.opponent.room_sid
 
-    emit('231', room=opponent_sid)
-    emit('232', room=current_player.room_sid)
-
-    # if player1.activate_shield():
-    #     emit('231', room=opponent_sid)
-    #     emit('232', room=current_player.room_sid)
-    # else:
-    #     # TODO: Emit shield cooldown message
-
-    # emit('233', room=opponent_sid)
-    # emit('234', room=current_player.room_sid)
+    # verify if shield is valid
+    if current_player.activate_shield():
+        emit('231', room=opponent_sid)
+        emit('232', room=current_player.room_sid)
+    else:
+        emit('262', {'message': 'Shield cooldown!'}, room=current_player.room_sid)
 
 
 @socketio.on('240', namespace='/game')
-def cooldown_reset():
+def shield_cooldown_reset():
     current_player = player_rooms.get_player_by_id(session['_id'])
     opponent_sid = current_player.opponent.room_sid
     emit('241', room=opponent_sid)

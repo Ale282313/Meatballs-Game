@@ -5,16 +5,18 @@ $(document).ready(function () {
         $("#connection-messages").hide();
         startGame(data);
         startMouseEvents();
+        enemyPlayer.initializePlayer(data);
+        currentPlayer.initializePlayer(data);
     });
     
     socket.on('201', function (data) {
-        // game.getDataFromServer(data);
-        enemyPlayer.initializePlayer(data);
+        currentPlayer.setUsername(data.player2_username);
+        enemyPlayer.setUsername(data.player1_username);
     });
     
     socket.on('202', function (data) {
-        // game.getDataFromServer(data);
-        currentPlayer.initializePlayer(data);
+        currentPlayer.setUsername(data.player1_username);
+        enemyPlayer.setUsername(data.player2_username);
     });
 
     socket.on('300', function (data) {
@@ -51,14 +53,6 @@ $(document).ready(function () {
     
     socket.on('232', function() {
         currentPlayer.activateShield();
-    });
-    
-    socket.on('241', function() {
-        enemyPlayer.shotCooldownReset();
-    });
-    
-    socket.on('242', function() {
-        currentPlayer.shotCooldownReset();
     });
 
     socket.on('251', function(data) {

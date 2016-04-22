@@ -73,13 +73,19 @@ function Player(obj) {
     this.shotCooldown = null; //in seconds
     this.damage = null;
     
+    this.setUsername = function (username){
+        this.username.text(username);
+};
+    
     this.initializePlayer = function (data) {
-        console.log(data);
         this.damage = data.damage;
         this.shieldCooldwown = data.shield_cooldown;
         this.shotCooldown = data.shot_cooldown;
         this.shieldDuration = data.shield_duration;
-        this.initializeUsername(data);
+    };
+    
+    this.initializeUsername = function(username) {
+        this.username = username;
     };
     
     this.isDead = function () {
@@ -103,6 +109,7 @@ function Player(obj) {
     };
 
     this.shotCooldownReset = function () {
+        console.log('shotCooldownReset: this.shotCooldown ', this.shotCooldown, ' ', this.username);
         this.currentCooldown.css({width: 0 + "px"});
         var that = this;
         var shotCooldownTimer = setInterval(function () {
@@ -112,7 +119,7 @@ function Player(obj) {
             else {
                 clearInterval(shotCooldownTimer);
             }
-        }, 1000 / (200 / that.shotCooldown)); //takes 5 seconds to refresh the shot\
+        }, 1000 / (100 / this.shotCooldown));
     };
 
     this.shieldCooldownReset = function () {
@@ -125,7 +132,7 @@ function Player(obj) {
             else {
                 clearInterval(shieldCooldownTimer);
             }
-        }, 1000 / (200 / that.shieldCooldwown)); //takes 20 seconds to refresh the shield
+        }, 1000 / (100 / that.shieldCooldwown));
     };
 
     this.missileHit = function (opponent, damage) {
@@ -195,11 +202,6 @@ function CurrentPlayer(power, currentPower) {
         this.cannon.css({'transform': 'rotate(' + angle + 'deg)'});
     };
 
-    this.initializeUsername = function (data) {
-        currentPlayer.username.text(data.player2_username);
-        enemyPlayer.username.text(data.player1_username);
-    };
-
     this.getPower = function () {
         var p = this.currentPower.width() / 3;
         this.power.hide();
@@ -238,11 +240,6 @@ function CurrentPlayer(power, currentPower) {
 }
 
 function EnemyPlayer() {
-    this.initializeUsername = function (data) {
-        currentPlayer.username.text(data.player1_username);
-        enemyPlayer.username.text(data.player2_username);
-    };
-
     this.missileNotOutOfBounds = function (x, y, radius) {
         return y < game.gameBox.height() - radius && x > 0;
     };
@@ -269,9 +266,9 @@ function EnemyPlayer() {
         this.cannon.css({'transform': 'rotate(' + -angle + 'deg)'});
     };
 
-    this.getStartPosition = function (angle) {
+    this.getStartPosition = function () {
         var xPos = this.cannon.offset().left - 1 - game.gameBox.offset().left;
-        var yPos = Math.floor(this.cannon.offset().top - 1 - game.gameBox.offset().top);
+        var yPos = Math.floor(this.cannon.offset().top - 10 - game.gameBox.offset().top);
         return [xPos, yPos];
     }
 }
