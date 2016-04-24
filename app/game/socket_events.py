@@ -97,20 +97,26 @@ def shield():
         emit('262', {'message': 'Shield cooldown!'}, room=current_player.room_sid)
 
 
-@socketio.on('240', namespace='/game')
-def shield_cooldown_reset():
-    current_player = player_rooms.get_player_by_id(session['_id'])
-    opponent_sid = current_player.opponent.room_sid
-    emit('241', room=opponent_sid)
-    emit('242', room=current_player.room_sid)
+# @socketio.on('240', namespace='/game')
+# def shield_cooldown_reset():
+#     current_player = player_rooms.get_player_by_id(session['_id'])
+#     opponent_sid = current_player.opponent.room_sid
+#     emit('241', room=opponent_sid)
+#     emit('242', room=current_player.room_sid)
 
 
 @socketio.on('250', namespace='/game')
 def missile_hit(data):
     current_player = player_rooms.get_player_by_id(session['_id'])
     opponent_sid = current_player.opponent.room_sid
-    emit('251', data, room=opponent_sid)
-    emit('252', data, room=current_player.room_sid)
+    dead = current_player.missile_hit()
+    room = player_rooms.get_player_room_id(current_player)
+    if dead==True:
+        #aici putem opri jocul si adauga in baza de date - username-ul castigatorului e in data['whoShot']
+        emit('290', data['whoShot'], room=room)
+    else:
+        emit('251', data['damage'], room=opponent_sid)
+        emit('252', data['damage'], room=current_player.room_sid)
 
 
 @socketio.on('261', namespace='/game')

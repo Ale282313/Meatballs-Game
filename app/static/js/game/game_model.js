@@ -20,7 +20,7 @@ function Game(data) {
 
     this.startTimer = function (timer) {
         secs = 0;
-        setInterval(function () {
+        gameTimer = setInterval(function () {
             secs += 1;
             timer.text(displayTimer(secs));
         }, 1000);
@@ -109,12 +109,11 @@ function Player(obj) {
     };
 
     this.shotCooldownReset = function () {
-        console.log('shotCooldownReset: this.shotCooldown ', this.shotCooldown, ' ', this.username);
         this.currentCooldown.css({width: 0 + "px"});
         var that = this;
         var shotCooldownTimer = setInterval(function () {
             if (that.currentCooldown.width() <= Math.floor(that.cooldown.width())) {
-                that.currentCooldown.css({width: that.currentCooldown.width() + 1 + "px"});
+                that.currentCooldown.css({width: that.currentCooldown.width() + 2 + "px"});
             }
             else {
                 clearInterval(shotCooldownTimer);
@@ -127,7 +126,7 @@ function Player(obj) {
         var that = this;
         var shieldCooldownTimer = setInterval(function () {
             if (that.currentShield.width() <= Math.ceil(that.shield.width())) {
-                that.currentShield.css({width: that.currentShield.width() + 1 + "px"});
+                that.currentShield.css({width: that.currentShield.width() + 2 + "px"});
             }
             else {
                 clearInterval(shieldCooldownTimer);

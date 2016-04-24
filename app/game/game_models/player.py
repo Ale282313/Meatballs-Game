@@ -24,7 +24,7 @@ class Player():
 
     def missile_hit(self):
         self.current_health -= self.damage
-
+        print(self.current_health)
         if self.is_dead():
             return True
         return self.current_health
@@ -35,7 +35,6 @@ class Player():
         return False
 
     def shot(self):
-        print(time.time() - self.last_shot_time)
         if time.time() - self.last_shot_time > self.shot_cooldown:
             self.last_shot_time = time.time()
             return True
@@ -43,7 +42,6 @@ class Player():
             return False
 
     def activate_shield(self):
-        print(time.time() - self.last_shield_time)
         if time.time() - self.last_shield_time > self.shield_cooldown:
             self.last_shield_time = time.time()
             return True

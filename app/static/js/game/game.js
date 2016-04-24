@@ -42,7 +42,7 @@ $(document).ready(function () {
         currentPlayer.shotCooldownReset();
         $.when(currentPlayer.shot(currentPlayer.getStartPosition(data.angle), data.angle, data.power)).then(
             function () {
-                socket.emit('250', {damage: currentPlayer.damage});
+                socket.emit('250', {whoShot: currentPlayer.username.text(), damage: currentPlayer.damage});
             }
         );
     });
@@ -56,11 +56,13 @@ $(document).ready(function () {
     });
 
     socket.on('251', function(data) {
-        enemyPlayer.missileHit(currentPlayer, data.damage);
+        console.log(data)
+        enemyPlayer.missileHit(currentPlayer, data);
     });
 
     socket.on('252', function(data) {
-        currentPlayer.missileHit(enemyPlayer, data.damage);
+        console.log(data)
+        currentPlayer.missileHit(enemyPlayer, data);
     });
     
     socket.on('261', function(data) {
@@ -68,10 +70,21 @@ $(document).ready(function () {
     });
     
     socket.on('262', function(data) {
-       showWarningMessage(data.message);
+        showWarningMessage(data.message);
     });
         
     socket.on('290', function(data) {
-       showWarningMessage(data.winner + ' won!');
+        showWarningMessage(data + ' won!');
+        //functia care redirecteaza userii pe pagina after_game.html
+        //poate un efect cool de FADE OUT la elementele jocului
+        clearInterval(gameTimer)
+        setTimeout(function(){
+            console.log(secs);
+            //maybe make another event to send the duration of the game to the server
+            window.location.replace("game/after_game.html");
+            //and of course, close the socket
+        }, 1000);
+
+        //TODO: de colectat stats-urile de la server (totalShots, hitSHots, time)
     });
 });
