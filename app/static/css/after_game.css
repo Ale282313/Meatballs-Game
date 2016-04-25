@@ -2,6 +2,7 @@
     font-size: 18px;
     color: rgb(37, 40,57);
 }
+
 .table-wrapper {
     position: relative;
     top: 50%;
@@ -10,6 +11,7 @@
     transform: translateX(-15%);
     margin-bottom: 40px;
 }
+
 .duration {
     font-size: 25px;
     color: rgb(37, 40,57);
@@ -17,6 +19,7 @@
     transform: translateX(8%);
     margin-bottom: 20px;
 }
+
 th {
     width: 150px;
 }
