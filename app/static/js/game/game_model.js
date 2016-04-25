@@ -68,12 +68,25 @@ function Player(obj) {
     this.defense = obj.defense;
 
     this.hasDefense = false;
-    this.shieldDuration = 3; //in seconds
-    this.shieldCooldwown = 20; //in seconds
-    this.shotCooldown = 1; //in seconds
-    this.totalShots = 0;
-    this.hitShots = 0;
-    this.damage = 30;
+    this.shieldDuration = null; //in seconds
+    this.shieldCooldwown = null; //in seconds
+    this.shotCooldown = null; //in seconds
+    this.damage = null;
+    
+    this.setUsername = function (username){
+        this.username.text(username);
+};
+    
+    this.initializePlayer = function (data) {
+        this.damage = data.damage;
+        this.shieldCooldwown = data.shield_cooldown;
+        this.shotCooldown = data.shot_cooldown;
+        this.shieldDuration = data.shield_duration;
+    };
+    
+    this.initializeUsername = function(username) {
+        this.username = username;
+    };
     
     this.isDead = function () {
         return this.currentHealth.width() <= 0
@@ -91,16 +104,12 @@ function Player(obj) {
     };
 
     this.activateShield = function () {
-        if (this.isShieldCooldownReady()) {
-            this.showShield();
-            this.shieldCooldownReset();
-        }
-        else {
-            showWarningMessage("Shield cooldown!");
-        }
+        this.showShield();
+        this.shieldCooldownReset();
     };
 
     this.shotCooldownReset = function () {
+        console.log('shotCooldownReset: this.shotCooldown ', this.shotCooldown, ' ', this.username);
         this.currentCooldown.css({width: 0 + "px"});
         var that = this;
         var shotCooldownTimer = setInterval(function () {
@@ -110,7 +119,7 @@ function Player(obj) {
             else {
                 clearInterval(shotCooldownTimer);
             }
-        }, 1000 / (200 / that.shotCooldown)); //takes 5 seconds to refresh the shot\
+        }, 1000 / (100 / this.shotCooldown));
     };
 
     this.shieldCooldownReset = function () {
@@ -123,23 +132,13 @@ function Player(obj) {
             else {
                 clearInterval(shieldCooldownTimer);
             }
-        }, 1000 / (200 / that.shieldCooldwown)); //takes 20 seconds to refresh the shield
+        }, 1000 / (100 / that.shieldCooldwown));
     };
 
     this.missileHit = function (opponent, damage) {
         opponent.currentHealth.css({width: opponent.currentHealth.width() - damage + "px"});
     };
-
-    this.isShieldCooldownReady = function () {
-        //this has to come from the server
-        return (this.currentShield.width() >= Math.floor(this.shield.width()))
-    };
-
-    this.isShotCooldownReady = function () {
-        //this has to come from the server
-        return (this.currentCooldown.width() >= Math.floor(this.cooldown.width()))
-    };
-
+    
     this.computeNewYCoordinate = function (startY, vectorY, frameCount, gravity) {
         return startY - ( vectorY * frameCount - (1 / 2 * gravity * Math.pow(frameCount, 2)) )
     };
@@ -267,9 +266,9 @@ function EnemyPlayer() {
         this.cannon.css({'transform': 'rotate(' + -angle + 'deg)'});
     };
 
-    this.getStartPosition = function (angle) {
+    this.getStartPosition = function () {
         var xPos = this.cannon.offset().left - 1 - game.gameBox.offset().left;
-        var yPos = Math.floor(this.cannon.offset().top - 1 - game.gameBox.offset().top);
+        var yPos = Math.floor(this.cannon.offset().top - 10 - game.gameBox.offset().top);
         return [xPos, yPos];
     }
 }

@@ -16,8 +16,8 @@ class SetQueue(queue.Queue):
     def _get(self):
         return self.queue.pop()
 
-    def remove_item(self, client_id):
-        return self.queue.remove(client_id)
+    def remove_item(self, player_id):
+        return self.queue.remove(player_id)
 
     def get_queue(self):
         return self.queue

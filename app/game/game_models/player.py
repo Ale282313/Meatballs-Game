@@ -2,22 +2,22 @@ import time
 
 
 class Player():
-    def __init__(self, client_username, client_id, room_sid=None, **player_config):
+    def __init__(self, player_username, player_id, room_sid=None, **player_config):
 
-        self.username = client_username
-        self.id = client_id
+        self.username = player_username
+        self.id = player_id
         self.room_sid = room_sid
-        self.opponent = player_config.get('opponent_obj')
+        self.opponent = None
         self.current_health = player_config.get('current_health')
         self.damage = player_config.get('damage')
         self.shot_cooldown = player_config.get('shot_cooldown')
-        self.has_shot_cooldown = player_config.get('has_shot_cooldown')
         self.shield_cooldown = player_config.get('shield_cooldown')
-        self.has_shield_cooldown = player_config.get('has_shield_cooldown')
         self.shield_duration = player_config.get('shield_duration')
         self.has_shield = player_config.get('has_shield')
         self.total_shots = player_config.get('total_shots')
         self.hit_shots = player_config.get('hit_shots')
+        self.last_shot_time = time.time() - self.shot_cooldown
+        self.last_shield_time = time.time() - self.shield_cooldown
 
     def set_opponent(self, opponent_obj):
         self.opponent = opponent_obj
@@ -34,26 +34,32 @@ class Player():
             return True
         return False
 
-    def shot_cooldown(self):
-        self.has_shot_cooldown = True
-        time.sleep(self.shot_cooldown)
-        self.has_shot_cooldown = False
-
-    def shield_cooldown(self):
-        self.has_shield_cooldown = True
-        time.sleep(self.shield_cooldown)
-        self.has_shield_cooldown = False
-
     def shot(self):
-        if not self.has_shot_cooldown:
-            if self.projectile.compute_target():
-                return self.missile_hit()
-            # TODO: other cases
+        print(time.time() - self.last_shot_time)
+        if time.time() - self.last_shot_time > self.shot_cooldown:
+            self.last_shot_time = time.time()
+            return True
+        else:
+            return False
 
     def activate_shield(self):
-        if not self.has_shield_cooldown:
+        print(time.time() - self.last_shield_time)
+        if time.time() - self.last_shield_time > self.shield_cooldown:
+            self.last_shield_time = time.time()
             return True
-        return False
+        else:
+            return False
+
+    # def shot(self):
+    #     if not self.has_shot_cooldown:
+    #         if self.projectile.compute_target():
+    #             return self.missile_hit()
+    #         # TODO: other cases
+
+    # def activate_shield(self):
+    #     if not self.has_shield_cooldown:
+    #         return True
+    #     return False
 
     # # shot will receive additional parameters. This hard code is
     # def shot(self):
