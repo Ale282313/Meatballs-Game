@@ -2,22 +2,29 @@
     font-size: 18px;
     color: rgb(37, 40,57);
 }
-
-.player {
-    font-size: 22px;
+.table-wrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    left:50%;
+    transform: translateX(-15%);
+    margin-bottom: 40px;
+}
+.duration {
+    font-size: 25px;
     color: rgb(37, 40,57);
+    left:50px;
+    transform: translateX(8%);
+    margin-bottom: 20px;
+}
+th {
+    width: 150px;
 }
 
-.empty {
-    min-height: 20px;
-}
-
-.stats-wrapper {
-    margin-bottom: 40px;
-}
-
-.title-wrapper {
-    margin-bottom: 40px;
+td {
+    font-size: 20px;
+    text-align: left;
+    width: auto;
 }
 
 .wrapper-section {
