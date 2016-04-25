@@ -2,15 +2,14 @@ from app import socketio
 from app.game.config_loader import load_player_config
 from app.game.game_models.rooms import Rooms
 from app.game.game_models.setqueue import SetQueue
-from flask import session, request
-from flask_socketio import emit, join_room
 from .game_models.game import Game
 from .game_models.player import Player
+from flask import session, request, redirect, url_for
+from flask_socketio import emit, join_room
 
 player_queue = SetQueue()
 player_rooms = Rooms()
 player_config = load_player_config()
-
 
 @socketio.on('connect', namespace='/game')
 def connect_event():
@@ -34,6 +33,9 @@ def connect_event():
 
     player1 = player_rooms.get_player_by_id(player1_id)
     player2 = player_rooms.get_player_by_id(player2_id)
+
+    player1.set_game(game)
+    player2.set_game(game)
 
     player1.set_opponent(player2)
     player2.set_opponent(player1)
@@ -77,7 +79,7 @@ def shot(data):
     opponent_sid = current_player.opponent.room_sid
 
     # verify if shot is valid
-    if current_player.shot():
+    if current_player.is_valid_shot():
         emit('221', data, room=opponent_sid)
         emit('222', data, room=current_player.room_sid)
     else:
@@ -90,29 +92,23 @@ def shield():
     opponent_sid = current_player.opponent.room_sid
 
     # verify if shield is valid
-    if current_player.activate_shield():
+    if current_player.is_valid_shield():
         emit('231', room=opponent_sid)
         emit('232', room=current_player.room_sid)
     else:
         emit('262', {'message': 'Shield cooldown!'}, room=current_player.room_sid)
 
 
-# @socketio.on('240', namespace='/game')
-# def shield_cooldown_reset():
-#     current_player = player_rooms.get_player_by_id(session['_id'])
-#     opponent_sid = current_player.opponent.room_sid
-#     emit('241', room=opponent_sid)
-#     emit('242', room=current_player.room_sid)
-
-
 @socketio.on('250', namespace='/game')
 def missile_hit(data):
     current_player = player_rooms.get_player_by_id(session['_id'])
     opponent_sid = current_player.opponent.room_sid
-    dead = current_player.missile_hit()
+    hit_points = current_player.missile_hit()
     room = player_rooms.get_player_room_id(current_player)
-    if dead==True:
-        #aici putem opri jocul si adauga in baza de date - username-ul castigatorului e in data['whoShot']
+
+    if hit_points==0:
+        game = current_player.game
+        game.update_database(current_player.opponent.username, current_player.username)
         emit('290', data['whoShot'], room=room)
     else:
         emit('251', data['damage'], room=opponent_sid)
@@ -133,7 +129,30 @@ def message(data):
 
 
 @socketio.on('290', namespace='/game')
-def game_over(data):
-    current_player = player_rooms.get_player_by_id(session['_id'])
-    player_room_id = player_rooms.get_player_room_id(current_player)
-    emit('290', data, room=player_room_id)
+def game_over(winner_username):
+    player1 = player_rooms.get_player_by_id(session['_id'])
+    player2 = player1.opponent
+    game = player1.game
+
+    #m, s = divmod(round(game.get_game_duration()), 60)
+    #time = str(m) + " : " + str(s)
+
+    data = {
+        'winner':'winner_username',
+        'duration':game.get_game_duration(),
+        'player1_username':player1.username,
+        'player1_totalShots':player1.total_shots,
+        'player1_hitShots':player1.hit_shots,
+        'player1_shieldActivation':player1.shield_activation,
+        'player2_username':player2.username,
+        'player2_totalShots':player2.total_shots,
+        'player2_hitShots':player2.hit_shots,
+        'player2_shieldActivation':player2.shield_activation
+    }
+
+    game.update_after_game_stats(data)
+
+    emit('redirect', {'winnerUsername': winner_username,
+                      'session_id': session['_id']})
+
+
