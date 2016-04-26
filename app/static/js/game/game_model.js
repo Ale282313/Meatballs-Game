@@ -73,7 +73,6 @@ function Player(obj) {
     this.damage = null;
 
     this.gameDissapear = function () {
-        //make gamBox dissapear fade out
     }
 
     this.setUsername = function (username) {
@@ -204,14 +203,6 @@ function CurrentPlayer(power, currentPower) {
 
     this.endGame = function(winnerUsername) {
         this.gameDissapear();
-        //something like
-        //setTimeout(function(){
-            //if(winnerUsername==this.username.text())
-                //show VICTORY pic
-            //else
-                //show DEFEAT pic
-            //socket.emit('290', winnerUsername);
-        //}, 3000);
     }
 
     this.rotateCannon = function (angle) {
@@ -259,14 +250,6 @@ function EnemyPlayer() {
 
     this.endGame = function(winner) {
         this.gameDissapear();
-        //something like
-        //setTimeout(function(){
-            //if(winnerUsername==this.username.text())
-                //show VICTORY pic
-            //else
-                //show DEFEAT pic
-            //socket.emit('290', winnerUsername);
-        //}, 3000);
     }
 
     this.missileNotOutOfBounds = function (x, y, radius) {

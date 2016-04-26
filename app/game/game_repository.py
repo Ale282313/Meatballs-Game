@@ -1,6 +1,9 @@
+from app.user.user_repository import UserRepository
 from app import db
 import models
 
+
+user_repository = UserRepository()
 
 class GameRepository:
 
@@ -18,8 +21,6 @@ class GameRepository:
 
     @staticmethod
     def add_win(loser_username, winner_username):
-        from ..user.user_repository import UserRepository
-        user_repository = UserRepository()
         opponent = user_repository.get_user_by_username(loser_username)
 
         winner = user_repository.get_user_by_username(winner_username)

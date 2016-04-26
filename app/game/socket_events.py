@@ -6,10 +6,12 @@ from .game_models.game import Game
 from .game_models.player import Player
 from flask import session, request, redirect, url_for
 from flask_socketio import emit, join_room
+from app.game.game_repository import GameRepository
 
 player_queue = SetQueue()
 player_rooms = Rooms()
 player_config = load_player_config()
+game_repository = GameRepository()
 
 @socketio.on('connect', namespace='/game')
 def connect_event():
@@ -34,8 +36,8 @@ def connect_event():
     player1 = player_rooms.get_player_by_id(player1_id)
     player2 = player_rooms.get_player_by_id(player2_id)
 
-    player1.set_game(game)
-    player2.set_game(game)
+    player1.game = game
+    player2.game = game
 
     player1.set_opponent(player2)
     player2.set_opponent(player1)
@@ -111,9 +113,7 @@ def missile_hit(data):
 
     if hit_points==0:
         emit('290', data['whoShot'], room=room)
-        game = current_player.game
-        game.update_database(current_player.opponent.username, current_player.username)
-
+        game_repository.add_win(current_player.opponent.username, current_player.username)
 
 @socketio.on('261', namespace='/game')
 def message(data):

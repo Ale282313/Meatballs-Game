@@ -20,9 +20,6 @@ class Player():
         self.last_shot_time = time.time() - self.shot_cooldown
         self.last_shield_time = time.time() - self.shield_cooldown
 
-    def set_game(self, game):
-        self.game = game
-
     def set_opponent(self, opponent_obj):
         self.opponent = opponent_obj
 

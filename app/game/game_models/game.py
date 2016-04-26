@@ -1,4 +1,3 @@
-from ..game_repository import GameRepository
 from random import uniform
 import time
 
@@ -18,8 +17,4 @@ class Game:
 
     def get_game_duration(self):
         return time.time() - self.duration
-
-    def update_database(self, loser_username, winner_username):
-        game_repository = GameRepository()
-        game_repository.add_win(loser_username, winner_username)
 
