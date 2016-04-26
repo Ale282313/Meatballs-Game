@@ -14,7 +14,6 @@ class Player():
         self.shot_cooldown = player_config.get('shot_cooldown')
         self.shield_cooldown = player_config.get('shield_cooldown')
         self.shield_duration = player_config.get('shield_duration')
-        self.has_shield = player_config.get('has_shield')
         self.total_shots = player_config.get('total_shots')
         self.hit_shots = player_config.get('hit_shots')
         self.shield_activation = player_config.get('shield_activation')

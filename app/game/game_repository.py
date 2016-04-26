@@ -1,7 +1,5 @@
 from app import db
-
 import models
-
 
 
 class GameRepository:

@@ -7,10 +7,6 @@ class Game:
         self.gravity = round(uniform(1, 11), 2)
         self.background = self.get_background()
         self.duration = time.time()
-        self.after_game_stats = {}
-
-    def update_after_game_stats(self, data):
-        self.after_game_stats = data
 
     def get_background(self):
         if self.gravity < 5:
