@@ -80,7 +80,7 @@ $(document).ready(function () {
     });
 
     socket.on('291', function(data) {
-        window.location = "./statistics?winner=" + data.winner
+        window.location = "./after?winner=" + data.winner
             +"&game_duration=" + data.game_duration
             +"&player1_username=" + data.player1_username
             +"&player1_totalShots=" + data.player1_totalShots

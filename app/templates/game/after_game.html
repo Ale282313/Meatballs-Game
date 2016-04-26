@@ -6,34 +6,32 @@
     <section class="col-md-12 wrapper-section ">
         <div class="title">
             {{ winner }} won!
+             <div class="duration">
+               Duration: {{ (duration|int/60)|int }}:{{ duration|int%60 }} seconds
+            </div>
         </div>
         <div class="table-wrapper">
-            <div class="duration">
-               Duration: {{ duration }}
+            <div class="container">
+                <div class="username">
+                    {{ player1_username }}:
+                </div>
+                <div class="statistics">
+                    Total shots: {{ player1_totalShots }}<br>
+                    Hit shots: {{ player1_hitShots }}<br>
+                    Number of shield activations: {{ player1_shieldActivation}}<br>
+                </div>
             </div>
-            <table>
-                <tr>
-                   <th rowspan="3">{{ player1_username }}:</th>
-                    <td>Total shots: {{ player1_totalShots }}</td>
-                </tr>
-                <tr>
-                    <td>Hit shots: {{ player1_hitShots }}</td>
-                </tr>
-                <tr>
-                    <td>Number of shield activations: {{ player1_shieldActivation}}</td>
-                </tr>
-                <tr>
-                    <th rowspan="3">{{ player2_username }}:</th>
-                    <td>Total shots: {{ player2_totalShots }}</td>
-                </tr>
-                <tr>
-                    <td>Hit shots: {{ player2_hitShots }}</td>
-                </tr>
-                <tr>
-                    <td>Number of shield activations: {{ player2_shieldActivation}}</td>
-                </tr>
-
-            </table>
+            <br>
+             <div class="container">
+                <div class="username">
+                    {{ player2_username }}:
+                </div>
+                <div class="statistics">
+                    Total shots: {{ player2_totalShots }}<br>
+                    Hit shots: {{ player2_hitShots }}<br>
+                    Number of shield activations: {{ player2_shieldActivation}}<br>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3" >
