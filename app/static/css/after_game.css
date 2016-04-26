@@ -1,3 +1,7 @@
+.container {
+  display: table;
+}
+
 .duration {
     font-size: 25px;
     color: rgb(37, 40, 57);
@@ -32,10 +36,4 @@
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-}
-
-.container {
-
-  display: table;
-
 }
