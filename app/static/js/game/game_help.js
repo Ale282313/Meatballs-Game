@@ -73,10 +73,10 @@ function getVector(velocity, angle) {
 
 function leftClick(e) {
     var power = currentPlayer.getPower();
-    var angle = getAngle(e);
-    angle = polishAngle(angle);
+    var shotAngle = getAngle(e);
+    angle = polishAngle(shotAngle);
 
-    socket.emit('220', {angle: angle, power: power});
+    socket.emit('220', {shotAngle: shotAngle, angle: angle, power: power});
 }
 
 function getAngle(e) {

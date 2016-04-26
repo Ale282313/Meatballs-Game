@@ -40,9 +40,9 @@ $(document).ready(function () {
     socket.on('222', function(data) {
         currentPlayer.missile.show();
         currentPlayer.shotCooldownReset();
-        $.when(currentPlayer.shot(currentPlayer.getStartPosition(data.angle), data.angle, data.power)).then(
+        $.when(currentPlayer.shot(currentPlayer.getStartPosition(data.shotAngle), data.angle, data.power)).then(
             function () {
-                socket.emit('250', {damage: currentPlayer.damage});
+                socket.emit('250', {whoShot: currentPlayer.username.text(), damage: currentPlayer.damage});
             }
         );
     });
@@ -56,22 +56,39 @@ $(document).ready(function () {
     });
 
     socket.on('251', function(data) {
-        enemyPlayer.missileHit(currentPlayer, data.damage);
+        enemyPlayer.missileHit(currentPlayer, data);
     });
 
     socket.on('252', function(data) {
-        currentPlayer.missileHit(enemyPlayer, data.damage);
+        currentPlayer.missileHit(enemyPlayer, data);
     });
     
     socket.on('261', function(data) {
         showWarningMessage(data.message);
     });
-    
+
     socket.on('262', function(data) {
-       showWarningMessage(data.message);
+        showWarningMessage(data.message);
     });
         
-    socket.on('290', function(data) {
-       showWarningMessage(data.winner + ' won!');
+    socket.on('290', function(winnerUsername) {
+        clearInterval(gameTimer);
+        showWarningMessage(winnerUsername + " won!")
+        setTimeout(function(){
+            socket.emit('290', winnerUsername);
+        }, 3000);
+    });
+
+    socket.on('291', function(data) {
+        window.location = "./statistics?winner=" + data.winner
+            +"&game_duration=" + data.game_duration
+            +"&player1_username=" + data.player1_username
+            +"&player1_totalShots=" + data.player1_totalShots
+            +"&player1_hitShots=" + data.player1_hitShots
+            +"&player1_shieldActivation=" + data.player1_shieldActivation
+            +"&player2_username=" + data.player2_username
+            +"&player2_totalShots=" + data.player2_totalShots
+            +"&player2_hitShots=" + data.player2_hitShots
+            +"&player2_shieldActivation=" + data.player2_shieldActivation;
     });
 });

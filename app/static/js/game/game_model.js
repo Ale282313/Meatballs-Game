@@ -17,10 +17,9 @@ function Game(data) {
     };
 
 
-
     this.startTimer = function (timer) {
         secs = 0;
-        setInterval(function () {
+        gameTimer = setInterval(function () {
             secs += 1;
             timer.text(displayTimer(secs));
         }, 1000);
@@ -72,22 +71,25 @@ function Player(obj) {
     this.shieldCooldwown = null; //in seconds
     this.shotCooldown = null; //in seconds
     this.damage = null;
-    
-    this.setUsername = function (username){
+
+    this.gameDissapear = function () {
+    }
+
+    this.setUsername = function (username) {
         this.username.text(username);
-};
-    
+    };
+
     this.initializePlayer = function (data) {
         this.damage = data.damage;
         this.shieldCooldwown = data.shield_cooldown;
         this.shotCooldown = data.shot_cooldown;
         this.shieldDuration = data.shield_duration;
     };
-    
-    this.initializeUsername = function(username) {
+
+    this.initializeUsername = function (username) {
         this.username = username;
     };
-    
+
     this.isDead = function () {
         return this.currentHealth.width() <= 0
     };
@@ -109,12 +111,11 @@ function Player(obj) {
     };
 
     this.shotCooldownReset = function () {
-        console.log('shotCooldownReset: this.shotCooldown ', this.shotCooldown, ' ', this.username);
         this.currentCooldown.css({width: 0 + "px"});
         var that = this;
         var shotCooldownTimer = setInterval(function () {
             if (that.currentCooldown.width() <= Math.floor(that.cooldown.width())) {
-                that.currentCooldown.css({width: that.currentCooldown.width() + 1 + "px"});
+                that.currentCooldown.css({width: that.currentCooldown.width() + 2 + "px"});
             }
             else {
                 clearInterval(shotCooldownTimer);
@@ -127,7 +128,7 @@ function Player(obj) {
         var that = this;
         var shieldCooldownTimer = setInterval(function () {
             if (that.currentShield.width() <= Math.ceil(that.shield.width())) {
-                that.currentShield.css({width: that.currentShield.width() + 1 + "px"});
+                that.currentShield.css({width: that.currentShield.width() + 2 + "px"});
             }
             else {
                 clearInterval(shieldCooldownTimer);
@@ -136,9 +137,10 @@ function Player(obj) {
     };
 
     this.missileHit = function (opponent, damage) {
+        //TODO: Vlad, here you do the HIT ANIMATION
         opponent.currentHealth.css({width: opponent.currentHealth.width() - damage + "px"});
     };
-    
+
     this.computeNewYCoordinate = function (startY, vectorY, frameCount, gravity) {
         return startY - ( vectorY * frameCount - (1 / 2 * gravity * Math.pow(frameCount, 2)) )
     };
@@ -198,6 +200,11 @@ function Player(obj) {
 function CurrentPlayer(power, currentPower) {
     this.power = power;
     this.currentPower = currentPower;
+
+    this.endGame = function(winnerUsername) {
+        this.gameDissapear();
+    }
+
     this.rotateCannon = function (angle) {
         this.cannon.css({'transform': 'rotate(' + angle + 'deg)'});
     };
@@ -240,6 +247,11 @@ function CurrentPlayer(power, currentPower) {
 }
 
 function EnemyPlayer() {
+
+    this.endGame = function(winner) {
+        this.gameDissapear();
+    }
+
     this.missileNotOutOfBounds = function (x, y, radius) {
         return y < game.gameBox.height() - radius && x > 0;
     };

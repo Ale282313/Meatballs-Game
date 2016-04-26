@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, abort
 from flask_login import current_user, login_required
-from ..game.game_repository import GameRepository
-from ..user.user_repository import UserRepository
+from app.game.game_repository import GameRepository
+from app.user.user_repository import UserRepository
 
 user = Blueprint('user', __name__)
 
