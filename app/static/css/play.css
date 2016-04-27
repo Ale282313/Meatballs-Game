@@ -1,3 +1,25 @@
+.online-players {
+    background: rgb(37, 40, 57);
+    box-shadow: 1px 2px 5px 2px gray;
+    color: #fff;
+}
+
+.online-players ul {
+    position: relative;
+    padding: 0;
+    overflow-y: scroll;
+}
+
+.online-players li {
+    width: 150px;
+    margin: 0 auto;
+    list-style-type: none;
+}
+
+.online-players .games {
+    float: right;
+}
+
 #btn-play {
         width: 300px;
 
@@ -12,6 +34,10 @@
     color: rgb(37, 40, 57);
 
     margin: 20px 0 20px 0;
+}
+
+.rules-title{
+    padding: 0;
 }
 
 ul {

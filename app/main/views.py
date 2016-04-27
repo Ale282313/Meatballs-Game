@@ -1,4 +1,5 @@
 from app import login_manager
+from app.auth.views import game_users
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from werkzeug.exceptions import abort
@@ -33,21 +34,11 @@ def rules():
 @main.route('play')
 @login_required
 def play():
-    user_repository = UserRepository()
-    game_repository = GameRepository()
-
-    db_user = user_repository.get_user_by_username(current_user.username)
-    user_games = game_repository.get_games_count(db_user)
-
-    if db_user is None:
-        abort(404)
-
     game_rules = read_file()
-
     return render_template('main/play.html',
                            title='Play',
                            rules=game_rules,
-                           user_games=user_games)
+                           users=game_users.users)
 
 
 @main.app_errorhandler(403)
