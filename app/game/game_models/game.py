@@ -1,6 +1,7 @@
 import time
 from random import uniform
 
+
 class Game:
     def __init__(self):
         self.gravity = round(uniform(1, 11), 2)
@@ -17,4 +18,3 @@ class Game:
 
     def get_game_duration(self):
         return time.time() - self.start_time
-

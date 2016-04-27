@@ -6,5 +6,6 @@
   "shield_duration": 2,
   "total_shots": 0,
   "hit_shots": 0,
-  "shield_activation": 0
+  "shield_activation": 0,
+  "tank_animation": 0.8
 }

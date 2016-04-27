@@ -1,3 +1,55 @@
+.animated {
+    animation-duration: 0.8s;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+}
+
+@keyframes tank-shake {
+  from, to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%, 30%, 50% {
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  20%, 40% {
+    transform: translate3d(5px, 0, 0);
+  }
+}
+
+.tank-shake {
+  animation-name: tank-shake;
+}
+
 .no-select {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -11,7 +63,6 @@
     transform: translateY(-50%);
 }
 
-/* connection messages and animation */
 .title {
     position: relative;
     top: 20px;
@@ -44,9 +95,7 @@
     text-shadow:
       .25em 0 0 rgb(37, 40, 57),
       .5em 0 0 rgb(37, 40, 57);}}
-/*end of connection messages and animation */
 
-/* general layout and design settings */
 #game-box {
     width: 1200px;
     height: 500px;
@@ -109,7 +158,6 @@
 .on { background: rgba(217, 36, 31, 0.8); }
 .off { background: transparent; }
 
-/* power progress bar */
 #power {
     width: 300px;
     height: 10px;
@@ -142,4 +190,3 @@
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
-/* end of general layout and design settings */

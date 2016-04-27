@@ -1,5 +1,5 @@
 from app import login_manager
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, send_from_directory
 from flask_login import login_required, current_user
 from werkzeug.exceptions import abort
 from .views_methods import read_file
@@ -20,6 +20,11 @@ def load_user(user_id):
 def index():
     return render_template('main/index.html',
                            title='Home')
+
+
+@main.route('static/<path:path>')
+def send_resource(path):
+    return send_from_directory('static', path)
 
 
 @main.route('rules')

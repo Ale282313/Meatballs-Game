@@ -13,6 +13,7 @@ player_rooms = Rooms()
 player_config = load_player_config()
 game_repository = GameRepository()
 
+
 @socketio.on('connect', namespace='/game')
 def connect_event():
     global player_queue
@@ -80,7 +81,6 @@ def shot(data):
     current_player = player_rooms.get_player_by_id(session['_id'])
     opponent_sid = current_player.opponent.room_sid
 
-    # verify if shot is valid
     if current_player.is_valid_shot():
         emit('221', data, room=opponent_sid)
         emit('222', data, room=current_player.room_sid)
@@ -93,7 +93,6 @@ def shield():
     current_player = player_rooms.get_player_by_id(session['_id'])
     opponent_sid = current_player.opponent.room_sid
 
-    # verify if shield is valid
     if current_player.is_valid_shield():
         emit('231', room=opponent_sid)
         emit('232', room=current_player.room_sid)
@@ -111,9 +110,10 @@ def missile_hit(data):
     emit('251', data['damage'], room=opponent_sid)
     emit('252', data['damage'], room=current_player.room_sid)
 
-    if hit_points==0:
+    if hit_points == 0:
         emit('290', data['whoShot'], room=room)
-        game_repository.add_win(current_player.opponent.username, current_player.username)
+        game_repository.end_game(current_player.opponent.username, current_player.username)
+
 
 @socketio.on('261', namespace='/game')
 def message(data):
@@ -135,16 +135,14 @@ def game_over(winner_username):
     game = player1.game
     room = player_rooms.get_player_room_id(player1)
 
-    emit('291', {'winner':winner_username,
-                'game_duration':round(game.get_game_duration()),
-                'player1_username':player1.username,
-                'player1_totalShots':player1.total_shots,
-                'player1_hitShots':player1.hit_shots,
-                'player1_shieldActivation':player1.shield_activation,
-                'player2_username':player2.username,
-                'player2_totalShots':player2.total_shots,
-                'player2_hitShots':player2.hit_shots,
-                'player2_shieldActivation':player2.shield_activation
-    }, room=room)
-
-
+    emit('291', {'winner': winner_username,
+                 'game_duration': round(game.get_game_duration()),
+                 'player1_username': player1.username,
+                 'player1_totalShots': player1.total_shots,
+                 'player1_hitShots': player1.hit_shots,
+                 'player1_shieldActivation': player1.shield_activation,
+                 'player2_username': player2.username,
+                 'player2_totalShots': player2.total_shots,
+                 'player2_hitShots': player2.hit_shots,
+                 'player2_shieldActivation': player2.shield_activation},
+         room=room)

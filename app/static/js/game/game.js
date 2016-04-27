@@ -1,6 +1,18 @@
 $(document).ready(function () {
     socket = io.connect('http://'.concat(document.domain, ':', location.port, '/game'));
 
+    currentPlayerShotSound = new Audio('../static/resources/audio/shot.wav');
+    enemyPlayerShotSound = currentPlayerShotSound.cloneNode();
+
+    currentPlayerHitSound = new Audio('../static/resources/audio/hit2.wav');
+    enemyPlayerHitSound = currentPlayerHitSound.cloneNode();
+
+    currentPlayerShieldSound = new Audio('../static/resources/audio/shield.wav');
+    enemyPlayerShieldSound = currentPlayerShieldSound.cloneNode();
+
+    currentPlayerCooldownSound = new Audio('../static/resources/audio/cooldown.wav');
+    enemyPlayerCooldownSound = currentPlayerCooldownSound.cloneNode();
+    
     socket.on('200', function (data) {
         $("#connection-messages").hide();
         startGame(data);
@@ -23,7 +35,7 @@ $(document).ready(function () {
         $("#game-box").hide();
         $("#connection-messages").show();
         $("#player-waiting").hide();
-        $("#player-disconnect").text(data.data);
+        $("#game-warning").text(data.data);
         $("#player-status").text(data.message);
         socket.disconnect();
     });
@@ -35,6 +47,7 @@ $(document).ready(function () {
     socket.on('221', function(data) {
         enemyPlayer.shot(enemyPlayer.getStartPosition(data.angle), data.angle, data.power);
         enemyPlayer.shotCooldownReset();
+        enemyPlayerShotSound.play();
     });
 
     socket.on('222', function(data) {
@@ -45,35 +58,45 @@ $(document).ready(function () {
                 socket.emit('250', {whoShot: currentPlayer.username.text(), damage: currentPlayer.damage});
             }
         );
+        currentPlayerShotSound.play();
     });
 
     socket.on('231', function() {
         enemyPlayer.activateShield();
+        enemyPlayerShieldSound.play();
     });
     
     socket.on('232', function() {
         currentPlayer.activateShield();
+        currentPlayerShieldSound.play();
     });
 
     socket.on('251', function(data) {
         enemyPlayer.missileHit(currentPlayer, data);
+        enemyPlayerHitSound.play();
     });
 
     socket.on('252', function(data) {
         currentPlayer.missileHit(enemyPlayer, data);
+        enemyPlayerHitSound.play();
     });
     
     socket.on('261', function(data) {
         showWarningMessage(data.message);
+        enemyPlayerCooldownSound.play();
     });
 
     socket.on('262', function(data) {
         showWarningMessage(data.message);
+        currentPlayerCooldownSound.play();
     });
         
     socket.on('290', function(winnerUsername) {
         clearInterval(gameTimer);
-        showWarningMessage(winnerUsername + " won!")
+        
+        currentPlayer.endGame(winnerUsername);
+        enemyPlayer.endGame(winnerUsername);
+        
         setTimeout(function(){
             socket.emit('290', winnerUsername);
         }, 3000);

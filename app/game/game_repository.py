@@ -2,8 +2,8 @@ from app.user.user_repository import UserRepository
 from app import db
 import models
 
-
 user_repository = UserRepository()
+
 
 class GameRepository:
 
@@ -20,7 +20,7 @@ class GameRepository:
         return len([game for game in user_obj.games if game.winner_id != user_obj.id])
 
     @staticmethod
-    def add_win(loser_username, winner_username):
+    def end_game(loser_username, winner_username):
         opponent = user_repository.get_user_by_username(loser_username)
 
         winner = user_repository.get_user_by_username(winner_username)
@@ -31,4 +31,3 @@ class GameRepository:
         winner.games.append(db_game)
         opponent.games.append(db_game)
         db.session.commit()
-

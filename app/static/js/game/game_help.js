@@ -38,9 +38,11 @@ function startGame(data) {
         shield : $("#my-stats > .shield"),
         currentShield : $("#my-stats > .shield > .current-shield"),
         missile : $("#my-tank > .missile"),
-        cannon : $("#my-tank > .cannon-wrapper"),
-        body : $("#my-tank > .tank-body"),
-        defense : $("#my-tank > .defense")
+        cannon : $("#my-tank > .tank-wrapper > .cannon-wrapper"),
+        body : $("#my-tank > .tank-wrapper > .tank-body"),
+        defense : $("#my-tank > .defense"),
+        hitShadow: $("#my-tank > .hit-shadow"),
+        tank: $("#my-tank > .tank-wrapper")
     };
     CurrentPlayer.prototype = new Player(cPlayer);
     currentPlayer = new CurrentPlayer($("#power"), $("#current-power"));
@@ -54,9 +56,11 @@ function startGame(data) {
         shield : $("#enemy-stats > .shield"),
         currentShield : $("#enemy-stats > .shield > .current-shield"),
         missile : $("#enemy-tank > .missile"),
-        cannon : $("#enemy-tank > .cannon-wrapper"),
-        body : $("#enemy-tank > .tank-body"),
-        defense : $("#enemy-tank > .defense")
+        cannon : $("#enemy-tank > .tank-wrapper > .cannon-wrapper"),
+        body : $("#enemy-tank > .tank-wrapper > .tank-body"),
+        defense : $("#enemy-tank > .defense"),
+        hitShadow: $("#enemy-tank > .hit-shadow"),
+        tank: $("#enemy-tank > .tank-wrapper")
     };
     EnemyPlayer.prototype = new Player(ePlayer);
     enemyPlayer = new EnemyPlayer();
@@ -75,7 +79,7 @@ function leftClick(e) {
     var power = currentPlayer.getPower();
     var shotAngle = getAngle(e);
     angle = polishAngle(shotAngle);
-
+    
     socket.emit('220', {shotAngle: shotAngle, angle: angle, power: power});
 }
 

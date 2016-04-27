@@ -65,15 +65,38 @@ function Player(obj) {
     this.cannon = obj.cannon;
     this.body = obj.body;
     this.defense = obj.defense;
+    this.hitShadow = obj.hitShadow;
+    this.tank = obj.tank;
 
     this.hasDefense = false;
     this.shieldDuration = null; //in seconds
     this.shieldCooldwown = null; //in seconds
     this.shotCooldown = null; //in seconds
+    this.tankAnimation = null;
     this.damage = null;
 
-    this.gameDissapear = function () {
-    }
+    this.endGame = function(winnerUsername) {
+        game.gameBox.addClass('animated fadeOut');
+
+        if(winnerUsername == currentPlayer.username.text()) {
+            setTimeout(function () {
+                game.gameBox.hide();
+                $('#connection-messages').show();
+                $('#player-waiting').hide();
+                $("#game-warning").text('Victory!');
+                $('#game-warning').addClass('animated fadeIn');
+            }, 1000);
+        }
+        else {
+            setTimeout(function () {
+                game.gameBox.hide();
+                $('#connection-messages').show();
+                $('#player-waiting').hide();
+                $("#game-warning").text('Defeat!');
+                $('#game-warning').addClass('animated fadeIn');
+            }, 1000);
+        }
+    };
 
     this.setUsername = function (username) {
         this.username.text(username);
@@ -84,6 +107,7 @@ function Player(obj) {
         this.shieldCooldwown = data.shield_cooldown;
         this.shotCooldown = data.shot_cooldown;
         this.shieldDuration = data.shield_duration;
+        this.tankAnimation = data.tank_animation;
     };
 
     this.initializeUsername = function (username) {
@@ -137,8 +161,17 @@ function Player(obj) {
     };
 
     this.missileHit = function (opponent, damage) {
-        //TODO: Vlad, here you do the HIT ANIMATION
-        opponent.currentHealth.css({width: opponent.currentHealth.width() - damage + "px"});
+        var that = opponent;
+
+        that.hitShadow.show();
+        that.tank.addClass("animated tank-shake");
+
+        setTimeout(function () {
+            that.hitShadow.hide();
+            that.tank.removeClass("animated tank-shake");
+        }, that.tankAnimation * 1000);
+
+        that.currentHealth.css({width: that.currentHealth.width() - damage + "px"});
     };
 
     this.computeNewYCoordinate = function (startY, vectorY, frameCount, gravity) {
@@ -201,10 +234,6 @@ function CurrentPlayer(power, currentPower) {
     this.power = power;
     this.currentPower = currentPower;
 
-    this.endGame = function(winnerUsername) {
-        this.gameDissapear();
-    }
-
     this.rotateCannon = function (angle) {
         this.cannon.css({'transform': 'rotate(' + angle + 'deg)'});
     };
@@ -247,10 +276,6 @@ function CurrentPlayer(power, currentPower) {
 }
 
 function EnemyPlayer() {
-
-    this.endGame = function(winner) {
-        this.gameDissapear();
-    }
 
     this.missileNotOutOfBounds = function (x, y, radius) {
         return y < game.gameBox.height() - radius && x > 0;
