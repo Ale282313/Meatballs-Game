@@ -41,13 +41,13 @@ class Player():
             self.total_shots += 1
             self.last_shot_time = datetime.datetime.utcnow()
             return True
-        else:
-            return False
+
+        return False
 
     def is_valid_shield(self):
         if (datetime.datetime.utcnow() - self.last_shield_time).total_seconds() > self.shot_cooldown:
             self.shield_activation += 1
             self.last_shield_time = datetime.datetime.utcnow()
             return True
-        else:
-            return False
+
+        return False
