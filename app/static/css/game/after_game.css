@@ -1,0 +1,38 @@
+.container {
+  display: table;
+}
+
+.duration {
+    font-size: 25px;
+    color: rgb(37, 40, 57);
+}
+
+.row-table {
+    display: table;
+}
+
+.statistics {
+    font-size: 20px;
+    color: rgb(37, 40,57);
+    display: table-cell;
+    text-align: left;
+}
+
+.table-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+    margin-left: 20%;
+}
+
+.username {
+    text-align: center;
+    font-size: 20px;
+    display: table-cell;
+    width: 300px;
+}
+
+.wrapper-section {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
