@@ -16,7 +16,7 @@
 
             <div id="connection-messages">
                 <p id="player-waiting" class="title loading">Waiting for connection</p>
-                <p id="player-disconnect" class="title"></p>
+                <p id="game-warning" class="title"></p>
                 <p id="player-status" class="title"></p>
             </div>
 
@@ -46,11 +46,14 @@
                         <!--Current player's Tank-->
                         {% block tank %}
                             <div class="missile"></div>
-                            <div class="cannon-wrapper">
-                                <div class="cannon"></div>
+                            <div class="tank-wrapper">
+                                <div class="cannon-wrapper">
+                                    <div class="cannon"></div>
+                                </div>
+                                <div class="tank-body"></div>
                             </div>
-                            <div class="tank-body"></div>
                             <div class="defense"></div>
+                            <div class="hit-shadow"></div>
                         {% endblock %}
                     </div>
                 </div>

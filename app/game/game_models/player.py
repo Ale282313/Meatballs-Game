@@ -1,6 +1,7 @@
 import time
 from .game import Game
 
+
 class Player():
     def __init__(self, player_username, player_id, room_sid=None, **player_config):
 
