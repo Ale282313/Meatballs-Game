@@ -3,7 +3,7 @@ function Game(data) {
     this.warningMessage = $("#message");
     this.gravity = data.gravity;
     this.timer = $("#timer");
-
+    
     this.displayGravity = function (gravity) {
         var maxGravity = 11;
         for (i = 1; i <= maxGravity * 10; i++) {
@@ -69,18 +69,16 @@ function Player(obj) {
     this.tank = obj.tank;
 
     this.hasDefense = false;
-    this.shieldDuration = null; //in seconds
-    this.shieldCooldwown = null; //in seconds
-    this.shotCooldown = null; //in seconds
+    this.shieldDuration = null;
+    this.shieldCooldwown = null; 
+    this.shotCooldown = null;
     this.tankAnimation = null;
     this.damage = null;
 
     this.endGame = function(winnerUsername) {
-        game.gameBox.addClass('animated fadeOut');
 
         if(winnerUsername == currentPlayer.username.text()) {
             setTimeout(function () {
-                game.gameBox.hide();
                 $('#connection-messages').show();
                 $('#player-waiting').hide();
                 $("#game-warning").text('Victory!');
@@ -89,7 +87,6 @@ function Player(obj) {
         }
         else {
             setTimeout(function () {
-                game.gameBox.hide();
                 $('#connection-messages').show();
                 $('#player-waiting').hide();
                 $("#game-warning").text('Defeat!');

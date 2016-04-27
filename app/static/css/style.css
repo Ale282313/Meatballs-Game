@@ -88,16 +88,22 @@ header {
     position: relative;
 }
 
-.heading {
-    color: rgb(255,255,255);
-    font-weight: 300;
-
-
-    left: 0;
-    margin-left: 55px;
-    position: relative;
+.logo-wrapper {
+    position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    margin-left: 55px;
+}
+
+.logo {
+    position: relative;
+}
+
+.logo-text {
+    color: rgb(255,255,255);
+    font-weight: 300;
+    float: right;
+    margin-left: 10px;
 }
 
 .menu {

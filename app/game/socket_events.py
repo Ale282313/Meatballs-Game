@@ -4,7 +4,7 @@ from app.game.game_models.rooms import Rooms
 from app.game.game_models.setqueue import SetQueue
 from .game_models.game import Game
 from .game_models.player import Player
-from flask import session, request, redirect, url_for
+from flask import session, request
 from flask_socketio import emit, join_room
 from app.game.game_repository import GameRepository
 
@@ -12,6 +12,7 @@ player_queue = SetQueue()
 player_rooms = Rooms()
 player_config = load_player_config()
 game_repository = GameRepository()
+flag = True
 
 
 @socketio.on('connect', namespace='/game')
@@ -57,16 +58,30 @@ def connect_event():
 
 @socketio.on('disconnect', namespace='/game')
 def disconnect():
-    current_player = player_rooms.get_player_by_id(session['_id'])
-    player_room_id = player_rooms.get_player_room_id(current_player)
+    global flag
+    if flag:
+        current_player = player_rooms.get_player_by_id(session['_id'])
+        player_room_id = player_rooms.get_player_room_id(current_player)
 
-    if player_queue.qsize() % 2 == 1 and current_player.id in player_queue.queue:
-        player_queue.remove_item(current_player.id)
+        if player_queue.qsize() % 2 == 1 and current_player.id in player_queue.queue:
+            player_queue.remove_item(current_player.id)
 
-    emit('300', {'data': current_player.username + ' disconnected',
-                 'message': 'You should start another session.'}, room=player_room_id)
+        if player_room_id:
+            del player_rooms.rooms[player_room_id]
 
-    player_rooms.delete_player_from_room(current_player)
+        if current_player is not None:
+            emit('300', {'user_loser': current_player.username,
+                         'user_winner': current_player.opponent.username,
+                         'message': 'You should start another session.'}, room=player_room_id)
+
+        flag = False
+    else:
+        flag = True
+
+
+@socketio.on('301', namespace='/game')
+def db_disconnect(data):
+    game_repository.end_game(data['user_loser'], data['user_winner'])
 
 
 @socketio.on('210', namespace='/game')
@@ -110,8 +125,9 @@ def missile_hit(data):
     emit('251', data['damage'], room=opponent_sid)
     emit('252', data['damage'], room=current_player.room_sid)
 
-    if hit_points == 0:
+    if hit_points == 0 and not current_player.game.is_finished:
         emit('290', data['whoShot'], room=room)
+        current_player.game.is_finished = True
         game_repository.end_game(current_player.opponent.username, current_player.username)
 
 
@@ -146,3 +162,4 @@ def game_over(winner_username):
                  'player2_hitShots': player2.hit_shots,
                  'player2_shieldActivation': player2.shield_activation},
          room=room)
+
