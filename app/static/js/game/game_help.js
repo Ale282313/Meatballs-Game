@@ -147,3 +147,17 @@ function opponent(player) {
         return currentPlayer;
     }
 }
+
+function connectionString(data) {
+    return $.param({"winner": data.winner,
+                    "game_duration": data.game_duration,
+                    "player1_username": data.player1_username,
+                    "player1_totalShots": data.player1_totalShots,
+                    "player1_hitShots": data.player1_hitShots,
+                    "player1_shieldActivation": data.player1_shieldActivation,
+                    "player2_username": data.player2_username,
+                    "player2_totalShots": data.player2_totalShots,
+                    "player2_hitShots": data.player2_hitShots,
+                    "player2_shieldActivation": data.player2_shieldActivation
+    });
+}
