@@ -4,7 +4,7 @@ $(document).ready(function () {
     currentPlayerShotSound = new Audio('../static/resources/audio/shot.wav');
     enemyPlayerShotSound = currentPlayerShotSound.cloneNode();
 
-    currentPlayerHitSound = new Audio('../static/resources/audio/hit2.wav');
+    currentPlayerHitSound = new Audio('../static/resources/audio/hit.wav');
     enemyPlayerHitSound = currentPlayerHitSound.cloneNode();
 
     currentPlayerShieldSound = new Audio('../static/resources/audio/shield.wav');
