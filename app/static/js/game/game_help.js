@@ -1,5 +1,5 @@
 function startMouseEvents() {
-    game.gameBox.mousemove(function (e) {
+    $(document).mousemove(function (e) {
         var angle = getAngle(e);
         currentPlayer.rotateCannon(angle);
 
@@ -16,13 +16,17 @@ function startMouseEvents() {
             });
         }
     });
-    $(document).mouseup(function (e) {
-        if (e.which === 1) {
-            leftClick(e);
-        }
-
+    game.gameBox.mouseup(function (e) {
         if (e.which === 3) {
             socket.emit('230');
+        }
+    });
+    $(document).mouseup(function (e) {
+        if (e.which === 1) {
+            if (currentPlayer.power.css('display') == 'none' ) {
+                return;
+            }
+            leftClick(e);
         }
     });
 }

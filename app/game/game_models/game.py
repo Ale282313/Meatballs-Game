@@ -1,4 +1,4 @@
-import time
+from datetime import datetime
 from random import uniform
 
 
@@ -6,7 +6,7 @@ class Game:
     def __init__(self):
         self.gravity = round(uniform(1, 11), 2)
         self.background = self.get_background()
-        self.start_time = time.time()
+        self.start_time = datetime.utcnow()
 
     def get_background(self):
         if self.gravity < 5:
@@ -17,4 +17,4 @@ class Game:
             return 'earth'
 
     def get_game_duration(self):
-        return time.time() - self.start_time
+        return round((datetime.utcnow() - self.start_time).total_seconds())

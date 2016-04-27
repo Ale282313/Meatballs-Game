@@ -50,3 +50,7 @@
     color: rgb(37, 40, 57);
     text-decoration: none;
 }
+
+.title {
+    margin: 10px 0 10px 0;
+}

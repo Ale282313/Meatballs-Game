@@ -1,4 +1,4 @@
-import time
+import datetime
 from .game import Game
 
 
@@ -18,8 +18,8 @@ class Player():
         self.total_shots = player_config.get('total_shots')
         self.hit_shots = player_config.get('hit_shots')
         self.shield_activation = player_config.get('shield_activation')
-        self.last_shot_time = time.time() - self.shot_cooldown
-        self.last_shield_time = time.time() - self.shield_cooldown
+        self.last_shot_time = (datetime.datetime.utcnow() - datetime.timedelta(seconds=self.shot_cooldown))
+        self.last_shield_time = (datetime.datetime.utcnow() - datetime.timedelta(seconds=self.shield_cooldown))
 
     def set_opponent(self, opponent_obj):
         self.opponent = opponent_obj
@@ -37,17 +37,17 @@ class Player():
         return False
 
     def is_valid_shot(self):
-        if time.time() - self.last_shot_time > self.shot_cooldown:
+        if (datetime.datetime.utcnow() - self.last_shot_time).total_seconds() > self.shot_cooldown:
             self.total_shots += 1
-            self.last_shot_time = time.time()
+            self.last_shot_time = datetime.datetime.utcnow()
             return True
         else:
             return False
 
     def is_valid_shield(self):
-        if time.time() - self.last_shield_time > self.shield_cooldown:
+        if (datetime.datetime.utcnow() - self.last_shield_time).total_seconds() > self.shot_cooldown:
             self.shield_activation += 1
-            self.last_shield_time = time.time()
+            self.last_shield_time = datetime.datetime.utcnow()
             return True
         else:
             return False
