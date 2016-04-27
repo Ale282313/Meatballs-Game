@@ -4,41 +4,35 @@
 {% endblock %}
 {% block content %}
     <section class="col-md-12 wrapper-section ">
-        <div class="row title-wrapper">
-            <div class=" title">
-                Player X wins!
+        <div class="title">
+            {{ winner }} won!
+            <div class="duration">
+                Duration: {{ (duration|int/60)|int }}:{{ duration|int%60 }} seconds
             </div>
         </div>
-        <div class="col-md-8 col-md-offset-2 stats-wrapper">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-2"></div>
-            <div class="col-md-4 col-md-offset-1 statistics">Lorem ipsum dolor</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-3 player">PlayerX :</div>
-            <div class="col-md-4 statistics">Lorem ipsum dolor</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-2"></div>
-            <div class="col-md-4 col-md-offset-1 statistics">Lorem ipsum dolor</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-2 empty"></div>
-            <div class="col-md-4 col-md-offset-1"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-2"></div>
-            <div class="col-md-4 col-md-offset-1 statistics">Lorem ipsum dolor</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-3 player">PlayerY:</div>
-            <div class="col-md-4 statistics">Lorem ipsum dolor</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-2"></div>
-            <div class="col-md-4 col-md-offset-1 statistics">Lorem ipsum dolor</div>
-        </div>
+        <div class="table-wrapper">
+            <div class="container">
+                <div class="username">
+                    {{ player1_username }}:
+                </div>
+                <div class="statistics">
+                    Total shots: {{ player1_totalShots }}<br>
+                    Hit shots: {{ player1_hitShots }}<br>
+                    Number of shield activations: {{ player1_shieldActivation }}<br>
+                </div>
             </div>
+            <br>
+             <div class="container">
+                <div class="username">
+                    {{ player2_username }}:
+                </div>
+                <div class="statistics">
+                    Total shots: {{ player2_totalShots }}<br>
+                    Hit shots: {{ player2_hitShots }}<br>
+                    Number of shield activations: {{ player2_shieldActivation }}<br>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3" >
                 <div class="col-md-3 col-md-offset-1"><a href="{{ url_for('main.play') }}"><button class="btn-main">Play</button></a></div>
