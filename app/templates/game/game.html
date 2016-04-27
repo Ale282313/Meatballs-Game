@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/game/game.css') }}">
 {% endblock %}
 {% block js_imports %}
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/vendors/socket.io.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/socket_events.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/game/game_model.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/game/game_help.js') }}"></script>
@@ -22,19 +22,16 @@
 
             <div id ="game-box">
                 <div id="general-stuff">
-                    <!--General Stuff -->
                     <div id="timer"></div>
-                    <div id="message">Mesaj de Avertizare</div>
+                    <div id="message"></div>
                     <div id="gravity-bars">
                         <span class="gravity-text">gravity</span>
                     </div>
-                    <!-- Power Animantion -->
                     <div id="power"><div id="current-power"></div></div>
                 </div>
 
                 <div id="team-one">
                     <div id="my-stats">
-                        <!--Current player's Stats-->
                         {% block stats %}
                             <div class="username">username</div>
                             <div class="health"><div class="current-health"></div></div>
@@ -43,7 +40,6 @@
                         {% endblock %}
                     </div>
                     <div class="tank-container" id="my-tank">
-                        <!--Current player's Tank-->
                         {% block tank %}
                             <div class="missile"></div>
                             <div class="tank-wrapper">
@@ -60,11 +56,9 @@
 
                 <div id="team-two">
                     <div id="enemy-stats">
-                        <!--Enemy player's stats-->
                         {{ self.stats() }}
                     </div>
                     <div class="tank-container" id="enemy-tank">
-                        <!-- Enemy player's tank -->
                         {{ self.tank() }}
                     </div>
                 </div>
