@@ -7,6 +7,7 @@ class Game:
         self.gravity = round(uniform(1, 11), 2)
         self.background = self.get_background()
         self.start_time = time.time()
+        self.is_finished = False
 
     def get_background(self):
         if self.gravity < 5:
