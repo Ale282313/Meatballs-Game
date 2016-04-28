@@ -20,6 +20,7 @@ class Player():
         self.shield_activation = player_config.get('shield_activation')
         self.last_shot_time = (datetime.datetime.utcnow() - datetime.timedelta(seconds=self.shot_cooldown))
         self.last_shield_time = (datetime.datetime.utcnow() - datetime.timedelta(seconds=self.shield_cooldown))
+        self.disconnected = False
 
     def set_opponent(self, opponent_obj):
         self.opponent = opponent_obj

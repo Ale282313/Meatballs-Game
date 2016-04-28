@@ -5,15 +5,6 @@ class Rooms:
     def __init__(self):
         self.rooms = {}
 
-    def delete_player_from_room(self, player_object):
-        for rooms, players in self.rooms.items():
-            if len(players) > 1:
-                players.remove(player_object)
-                return
-            if len(players) == 1:
-                del self.rooms[self.get_player_room_id(player_object)]
-                return
-
     def get_player_by_id(self, player_id):
         for rooms, players in self.rooms.items():
             for player in players:

@@ -35,8 +35,9 @@ $(document).ready(function () {
         $("#game-box").hide();
         $("#connection-messages").show();
         $("#player-waiting").hide();
-        $("#game-warning").text(data.data);
+        $("#game-warning").text(data.user_loser.concat(' has been disconnected.'));
         $("#player-status").text(data.message);
+        socket.emit('301', {user_winner: data.user_winner, user_loser: data.user_loser});
         socket.disconnect();
     });
 
@@ -93,8 +94,12 @@ $(document).ready(function () {
         
     socket.on('290', function(winnerUsername) {
         clearInterval(gameTimer);
+
+        game.gameBox.addClass('animated fadeOut');
+
         currentPlayer.endGame(winnerUsername);
         enemyPlayer.endGame(winnerUsername);
+
         setTimeout(function(){
             socket.emit('290', winnerUsername);
         }, 3000);
