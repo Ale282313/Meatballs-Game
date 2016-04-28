@@ -12,13 +12,13 @@ player_queue = SetQueue()
 player_rooms = Rooms()
 player_config = load_player_config()
 game_repository = GameRepository()
-flag = True
 
 
 @socketio.on('connect', namespace='/game')
 def connect_event():
     global player_queue
 
+    # TODO: Reparat tigania de conectare cu acelasi username.
     new_player = Player(session['username'], session['_id'], request.sid, **player_config)
 
     player_queue.put(new_player.id)
@@ -58,25 +58,23 @@ def connect_event():
 
 @socketio.on('disconnect', namespace='/game')
 def disconnect():
-    global flag
-    if flag:
-        current_player = player_rooms.get_player_by_id(session['_id'])
-        player_room_id = player_rooms.get_player_room_id(current_player)
+    current_player = player_rooms.get_player_by_id(session['_id'])
+    player_room_id = player_rooms.get_player_room_id(current_player)
 
+    # TODO: Reparat tiganie. Modificam room-ul pentru a avea disponibilitate.
+    if current_player.opponent.disconnected:
         if player_queue.qsize() % 2 == 1 and current_player.id in player_queue.queue:
             player_queue.remove_item(current_player.id)
 
         if player_room_id:
             del player_rooms.rooms[player_room_id]
 
+    else:
+        current_player.disconnected = True
         if current_player is not None:
             emit('300', {'user_loser': current_player.username,
                          'user_winner': current_player.opponent.username,
                          'message': 'You should start another session.'}, room=player_room_id)
-
-        flag = False
-    else:
-        flag = True
 
 
 @socketio.on('301', namespace='/game')
@@ -162,4 +160,3 @@ def game_over(winner_username):
                  'player2_hitShots': player2.hit_shots,
                  'player2_shieldActivation': player2.shield_activation},
          room=room)
-
