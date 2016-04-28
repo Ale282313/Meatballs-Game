@@ -80,6 +80,7 @@ function Player(obj) {
         if(winnerUsername == currentPlayer.username.text()) {
             setTimeout(function () {
                 $('#connection-messages').show();
+                game.gameBox.hide();
                 $('#player-waiting').hide();
                 $("#game-warning").text('Victory!');
                 $('#game-warning').addClass('animated fadeIn');
@@ -88,6 +89,7 @@ function Player(obj) {
         else {
             setTimeout(function () {
                 $('#connection-messages').show();
+                game.gameBox.hide();
                 $('#player-waiting').hide();
                 $("#game-warning").text('Defeat!');
                 $('#game-warning').addClass('animated fadeIn');

@@ -16,12 +16,12 @@
     color: rgb(37, 40,57);
     display: table-cell;
     text-align: left;
+    width: 400px;
 }
 
 .table-wrapper {
     position: relative;
     margin-bottom: 20px;
-    margin-left: 20%;
 }
 
 .username {
