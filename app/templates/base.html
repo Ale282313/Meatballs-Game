@@ -7,18 +7,25 @@
     {% endif %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendors/css/bootstrap.min.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
     {% block imports %}
     {% endblock %}
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/vendors/jquery-2.2.2.min.js') }}"></script>
     {% block js_imports %}
     {% endblock %}
 
 </head>
-<body>
+<body class="no-select">
     <header>
-        <h1 class="heading">meatballs</h1>
+        <div class="logo-wrapper">
+            <a href="{{ url_for('main.index') }}">
+                <div class="logo">
+                    <span class="logo-ball"><img src="{{ url_for('static', filename='resources/img/logo-ball.png') }}"></span>
+                    <h1 class="logo-text">meatballs</h1>
+                 </div>
+            </a>
+        </div>
+
         <nav class="menu" >
             <ul >
 

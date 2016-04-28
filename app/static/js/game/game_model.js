@@ -1,9 +1,9 @@
-function Game() {
+function Game(data) {
     this.gameBox = $("#game-box");
     this.warningMessage = $("#message");
-    this.gravity = 4.34;
+    this.gravity = data.gravity;
     this.timer = $("#timer");
-
+    
     this.displayGravity = function (gravity) {
         var maxGravity = 11;
         for (i = 1; i <= maxGravity * 10; i++) {
@@ -16,26 +16,39 @@ function Game() {
         }
     };
 
+
     this.startTimer = function (timer) {
         secs = 0;
-        setInterval(function () {
+        gameTimer = setInterval(function () {
             secs += 1;
             timer.text(displayTimer(secs));
         }, 1000);
     };
 
-    this.getDatafromServer = function () {
-        //here we get the gravity and other general stuff from server
-        //gets called once in the begining of the game
+    this.getDataFromServer = function (msg) {
+        $('#my-stats > .username').text(msg.player1);
+        $('#enemy-stats > .username').text(msg.player2);
     };
 
     this.initializeGame = function () {
         $(document).bind("contextmenu", function (event) {
             event.preventDefault();
         });
-        this.getDatafromServer();
         this.displayGravity(this.gravity);
         this.startTimer(this.timer);
+        switch (data.background) {
+            case 'moon':
+                game.gameBox.css({'background': 'url("../../static/resources/img/moon_bg.png")'});
+                break;
+
+            case 'mars':
+                game.gameBox.css({'background': 'url("../../static/resources/img/mars_bg.png")'});
+                break;
+
+            case 'earth':
+                game.gameBox.css({'background': 'url("../../static/resources/img/earth_bg.png")'});
+                break;
+        }
     }
 }
 
@@ -52,14 +65,53 @@ function Player(obj) {
     this.cannon = obj.cannon;
     this.body = obj.body;
     this.defense = obj.defense;
+    this.hitShadow = obj.hitShadow;
+    this.tank = obj.tank;
 
     this.hasDefense = false;
-    this.shieldDuration = 3; //in seconds
-    this.shieldCooldwown = 3; //in seconds
-    this.shotCooldown = 1; //in seconds
-    this.totalShots = 0;
-    this.hitShots = 0;
-    this.damage = 30;
+    this.shieldDuration = null;
+    this.shieldCooldwown = null; 
+    this.shotCooldown = null;
+    this.tankAnimation = null;
+    this.damage = null;
+
+    this.endGame = function(winnerUsername) {
+
+        if(winnerUsername == currentPlayer.username.text()) {
+            setTimeout(function () {
+                $('#connection-messages').show();
+                game.gameBox.hide();
+                $('#player-waiting').hide();
+                $("#game-warning").text('Victory!');
+                $('#game-warning').addClass('animated fadeIn');
+            }, 1000);
+        }
+        else {
+            setTimeout(function () {
+                $('#connection-messages').show();
+                game.gameBox.hide();
+                $('#player-waiting').hide();
+                $("#game-warning").text('Defeat!');
+                $('#game-warning').addClass('animated fadeIn');
+            }, 1000);
+        }
+    };
+
+    this.setUsername = function (username) {
+        this.username.text(username);
+    };
+
+    this.initializePlayer = function (data) {
+        this.damage = data.damage;
+        this.shieldCooldwown = data.shield_cooldown;
+        this.shotCooldown = data.shot_cooldown;
+        this.shieldDuration = data.shield_duration;
+        this.tankAnimation = data.tank_animation;
+    };
+
+    this.initializeUsername = function (username) {
+        this.username = username;
+    };
 
     this.isDead = function () {
         return this.currentHealth.width() <= 0
@@ -77,13 +129,8 @@ function Player(obj) {
     };
 
     this.activateShield = function () {
-        if (this.isShieldCooldownReady()) {
-            this.showShield();
-            this.shieldCooldownReset();
-        }
-        else {
-            showWarningMessage("Shield cooldown!");
-        }
+        this.showShield();
+        this.shieldCooldownReset();
     };
 
     this.shotCooldownReset = function () {
@@ -91,12 +138,12 @@ function Player(obj) {
         var that = this;
         var shotCooldownTimer = setInterval(function () {
             if (that.currentCooldown.width() <= Math.floor(that.cooldown.width())) {
-                that.currentCooldown.css({width: that.currentCooldown.width() + 1 + "px"});
+                that.currentCooldown.css({width: that.currentCooldown.width() + 2 + "px"});
             }
             else {
                 clearInterval(shotCooldownTimer);
             }
-        }, 1000 / (200 / that.shotCooldown)); //takes 5 seconds to refresh the shot\
+        }, 1000 / (100 / this.shotCooldown));
     };
 
     this.shieldCooldownReset = function () {
@@ -104,26 +151,26 @@ function Player(obj) {
         var that = this;
         var shieldCooldownTimer = setInterval(function () {
             if (that.currentShield.width() <= Math.ceil(that.shield.width())) {
-                that.currentShield.css({width: that.currentShield.width() + 1 + "px"});
+                that.currentShield.css({width: that.currentShield.width() + 2 + "px"});
             }
             else {
                 clearInterval(shieldCooldownTimer);
             }
-        }, 1000 / (200 / that.shieldCooldwown)); //takes 20 seconds to refresh the shield
+        }, 1000 / (100 / that.shieldCooldwown));
     };
 
     this.missileHit = function (opponent, damage) {
-        opponent.currentHealth.css({width: opponent.currentHealth.width() - damage + "px"})
-    };
+        var that = opponent;
 
-    this.isShieldCooldownReady = function () {
-        //this has to come from the server
-        return (this.currentShield.width() >= Math.floor(this.shield.width()))
-    };
+        that.hitShadow.show();
+        that.tank.addClass("animated tank-shake");
 
-    this.isShotCooldownReady = function () {
-        //this has to come from the server
-        return (this.currentCooldown.width() >= Math.floor(this.cooldown.width()))
+        setTimeout(function () {
+            that.hitShadow.hide();
+            that.tank.removeClass("animated tank-shake");
+        }, that.tankAnimation * 1000);
+
+        that.currentHealth.css({width: that.currentHealth.width() - damage + "px"});
     };
 
     this.computeNewYCoordinate = function (startY, vectorY, frameCount, gravity) {
@@ -148,7 +195,6 @@ function Player(obj) {
         var timer2 = setInterval(function () {
             if (that.missileNotOutOfBounds(projectile.x, projectile.y, projectile.radius)) {
                 that.missile.show();
-                console.log(projectile.x, projectile.y);
                 if (!opponent(that).hasDefense) {
                     projectile.y = that.computeNewYCoordinate(startY, vector[1], frameCount, game.gravity);
                     projectile.x = that.computeNewXCoordinate(startX, vector[0], frameCount);
@@ -186,6 +232,7 @@ function Player(obj) {
 function CurrentPlayer(power, currentPower) {
     this.power = power;
     this.currentPower = currentPower;
+
     this.rotateCannon = function (angle) {
         this.cannon.css({'transform': 'rotate(' + angle + 'deg)'});
     };
@@ -212,7 +259,6 @@ function CurrentPlayer(power, currentPower) {
     };
 
     this.missileHitOpponent = function (x, y) {
-        console.log((game.gameBox.width() - enemyPlayer.body.width()));
         return x > (game.gameBox.width() - enemyPlayer.body.width()) && y > (game.gameBox.height() - enemyPlayer.body.height());
     };
 
@@ -229,12 +275,12 @@ function CurrentPlayer(power, currentPower) {
 }
 
 function EnemyPlayer() {
+
     this.missileNotOutOfBounds = function (x, y, radius) {
         return y < game.gameBox.height() - radius && x > 0;
     };
 
     this.missileNotHitShield = function (x, y, radius) {
-        console.log("dfsfdsfdsfs" + x, y);
         var xLimit = x > currentPlayer.defense.width();
         var yLimit = y < (game.gameBox.height() - currentPlayer.defense.height() - radius);
         return (xLimit || yLimit);
@@ -256,9 +302,9 @@ function EnemyPlayer() {
         this.cannon.css({'transform': 'rotate(' + -angle + 'deg)'});
     };
 
-    this.getStartPosition = function (angle) {
+    this.getStartPosition = function () {
         var xPos = this.cannon.offset().left - 1 - game.gameBox.offset().left;
-        var yPos = Math.floor(this.cannon.offset().top - 1 - game.gameBox.offset().top);
+        var yPos = Math.floor(this.cannon.offset().top - 10 - game.gameBox.offset().top);
         return [xPos, yPos];
     }
 }

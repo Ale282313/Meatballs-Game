@@ -49,6 +49,25 @@
     position: relative;
 }
 
+.tank-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+.hit-shadow {
+    background: transparent;
+    border-top-left-radius: 50px;
+    box-shadow: -2px -26px 29px 0 #FF0072;
+    height: 37px;
+    width: 105px;
+
+    display: none;
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    z-index: 0;
+}
+
 .defense {
     height: 120px;
     width: 200px;
@@ -57,15 +76,19 @@
     bottom: 0;
     border-top: 5px solid green;
     display: none;
-    /*defense shadow*/
     -webkit-box-shadow: 1px -51px 89px -3px rgba(0,255,51,1);
     -moz-box-shadow: 1px -51px 89px -3px rgba(0,255,51,1);
     box-shadow: 1px -51px 89px -3px rgba(0,255,51,1);
 }
-/*end of general tank (body+cannon) */
 
 #my-tank {
     left: 0;
+}
+
+#my-tank .hit-shadow {
+    width: 100px;
+
+    transform: rotateY(180deg);
 }
 
 #enemy-tank {
@@ -74,6 +97,10 @@
 
 #my-tank .cannon-wrapper {
     right: 0;
+}
+
+#enemy-tank .cannon {
+    left: -1px;
 }
 
 #enemy-tank .tank-body {

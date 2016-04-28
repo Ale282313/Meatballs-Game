@@ -1,8 +1,14 @@
+.ready {
+    display: block;
+    margin-top: 25px;
+    font-size: 135%;
+}
+
 .btn-index {
         text-decoration: none;
 }
 
-p.index {
+.index {
     text-indent: 25px;
     text-align: center;
     font-size: 135%;

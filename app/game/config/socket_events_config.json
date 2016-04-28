@@ -1,0 +1,26 @@
+{
+  "200" : "connect",
+  "201" : "init_player1",
+  "202" : "init_player2",
+
+  "210" : "rotate_cannon",
+
+  "220" : "shot",
+
+  "230" : "shield",
+  "231" : "shield_player1",
+  "232" : "shield_player2",
+
+  "250" : "missile_hit",
+  "251" : "missile_hit_player1",
+  "252" : "missile_hit_player2",
+
+  "260" : "show_message",
+  "261" : "show_message_player1",
+  "262" : "show_message_player2",
+
+  "290" : "game_over",
+  "291" : "get_statistics",
+
+  "300" : "disconnect"
+}

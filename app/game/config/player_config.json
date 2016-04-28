@@ -1,0 +1,11 @@
+{
+  "current_health": 200,
+  "damage": 30,
+  "shot_cooldown": 3,
+  "shield_cooldown": 10,
+  "shield_duration": 2,
+  "total_shots": 0,
+  "hit_shots": 0,
+  "shield_activation": 0,
+  "tank_animation": 0.8
+}

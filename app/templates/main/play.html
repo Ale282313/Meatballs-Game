@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block imports %}
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/play.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/main/play.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
         {% include "main/rules_partial.html" %}
     {% else %}
         <div class="col-md-6 col-md-offset-3">
-            <img src="static/resources/img/game_pic.jpg" alt="Game" width="600" height="255">
+            <img src="static/resources/game_preview.gif" alt="Game" width="600" height="255">
         </div>
     {% endif %}
     <div class="row">
