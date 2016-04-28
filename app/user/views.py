@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, abort
 from flask_login import current_user, login_required
-from ..game.game_repository import GameRepository
-from ..user.user_repository import UserRepository
+from app.game.game_repository import GameRepository
+from app.user.user_repository import UserRepository
 
 user = Blueprint('user', __name__)
 
@@ -23,9 +23,6 @@ def user_profile(username):
     user_email = db_user.email
     full_name = "{} {}".format(db_user.first_name, db_user.last_name)
 
-    verify_self_profile = current_user.is_authenticated and current_user.username == username
-    is_self_profile = True if verify_self_profile else False
-
     return render_template('user/profile.html',
                            user=username,
                            email=user_email,
@@ -33,5 +30,4 @@ def user_profile(username):
                            games=user_games,
                            won=user_winning_games,
                            lost=user_lost_games,
-                           is_self_profile=is_self_profile
                            )
